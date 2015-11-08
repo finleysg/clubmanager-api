@@ -1,0 +1,134 @@
+[
+  {
+    "model": "courses.coursesetup",
+    "pk": 1,
+    "fields": {
+      "name": "West League",
+      "holes": 9,
+      "slope": 133,
+      "rating": 35.6,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 2,
+    "fields": {
+      "name": "East to West - Blue",
+      "holes": 18,
+      "slope": 132,
+      "rating": 72,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 3,
+    "fields": {
+      "name": "North to East - Blue",
+      "holes": 18,
+      "slope": 133,
+      "rating": 71.5,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 4,
+    "fields": {
+      "name": "North League",
+      "holes": 9,
+      "slope": 133,
+      "rating": 34.7,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 5,
+    "fields": {
+      "name": "West to North - White",
+      "holes": 18,
+      "slope": 133,
+      "rating": 70.3,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 6,
+    "fields": {
+      "name": "West to North - Black",
+      "holes": 18,
+      "slope": 141,
+      "rating": 73.6,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 7,
+    "fields": {
+      "name": "East to West - Black",
+      "holes": 18,
+      "slope": 135,
+      "rating": 73.5,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 8,
+    "fields": {
+      "name": "East League",
+      "holes": 9,
+      "slope": 124,
+      "rating": 35,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 9,
+    "fields": {
+      "name": "East to West - White",
+      "holes": 18,
+      "slope": 129,
+      "rating": 70.6,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 10,
+    "fields": {
+      "name": "North to East - White",
+      "holes": 18,
+      "slope": 129,
+      "rating": 69.7,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 11,
+    "fields": {
+      "name": "North to East - Black",
+      "holes": 18,
+      "slope": 136,
+      "rating": 72.9,
+      "is_standard": "False"
+    }
+  },
+  {
+    "model": "courses.coursesetup",
+    "pk": 12,
+    "fields": {
+      "name": "West to North - Blue",
+      "holes": 18,
+      "slope": 138,
+      "rating": 72.1,
+      "is_standard": "False"
+    }
+  }
+]

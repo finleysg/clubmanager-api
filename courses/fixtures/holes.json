@@ -1,0 +1,1298 @@
+[
+  {
+    "model": "courses.hole",
+    "pk": 1,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 1,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 427
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 2,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 2,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 8,
+      "yardage": 368
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 3,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 3,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 164
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 4,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 4,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 486
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 5,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 5,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 4,
+      "yardage": 385
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 6,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 6,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 535
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 7,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 7,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 6,
+      "yardage": 220
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 8,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 8,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 450
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 9,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 9,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 390
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 10,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 1,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 412
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 11,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 2,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 8,
+      "yardage": 348
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 12,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 3,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 145
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 13,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 4,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 470
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 14,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 5,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 4,
+      "yardage": 365
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 15,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 6,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 515
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 16,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 7,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 6,
+      "yardage": 200
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 17,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 8,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 430
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 18,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 9,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 370
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 19,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 1,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 4,
+      "yardage": 336
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 20,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 2,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 7,
+      "yardage": 278
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 21,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 3,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 130
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 22,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 4,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 405
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 23,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 5,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 330
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 24,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 6,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 3,
+      "yardage": 475
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 25,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 7,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 6,
+      "yardage": 180
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 26,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 8,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 8,
+      "yardage": 320
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 27,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 9,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 314
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 28,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 1,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 399
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 29,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 2,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 8,
+      "yardage": 335
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 30,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 3,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 130
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 31,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 4,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 446
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 32,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 5,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 4,
+      "yardage": 350
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 33,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 6,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 500
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 34,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 7,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 6,
+      "yardage": 185
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 35,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 8,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 400
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 36,
+    "fields": {
+      "course": 2,
+      "default_hole_number": 9,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 355
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 37,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 1,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 6,
+      "yardage": 419
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 38,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 2,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 413
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 39,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 3,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 372
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 40,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 4,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 515
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 41,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 5,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 432
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 42,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 6,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 195
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 43,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 7,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 5,
+      "yardage": 380
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 44,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 8,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 185
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 45,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 9,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 4,
+      "yardage": 560
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 46,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 1,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 6,
+      "yardage": 402
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 47,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 2,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 385
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 48,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 3,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 360
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 49,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 4,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 500
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 50,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 5,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 420
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 51,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 6,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 180
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 52,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 7,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 5,
+      "yardage": 365
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 53,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 8,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 170
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 54,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 9,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 4,
+      "yardage": 535
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 55,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 1,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 6,
+      "yardage": 327
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 56,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 2,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 332
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 57,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 3,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 293
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 58,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 4,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 429
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 59,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 5,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 358
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 60,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 6,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 141
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 61,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 7,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 5,
+      "yardage": 301
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 62,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 8,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 140
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 63,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 9,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 4,
+      "yardage": 430
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 64,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 1,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 6,
+      "yardage": 391
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 65,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 2,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 337
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 66,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 3,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 350
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 67,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 4,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 7,
+      "yardage": 470
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 68,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 5,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 370
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 69,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 6,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 9,
+      "yardage": 146
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 70,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 7,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 5,
+      "yardage": 350
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 71,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 8,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 155
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 72,
+    "fields": {
+      "course": 3,
+      "default_hole_number": 9,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 4,
+      "yardage": 500
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 73,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 1,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 428
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 74,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 2,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 540
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 75,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 3,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 195
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 76,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 4,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 9,
+      "yardage": 373
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 77,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 5,
+      "tee_name": "Black",
+      "par": 5,
+      "default_handicap": 6,
+      "yardage": 560
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 78,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 6,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 440
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 79,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 7,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 400
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 80,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 8,
+      "tee_name": "Black",
+      "par": 3,
+      "default_handicap": 4,
+      "yardage": 240
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 81,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 9,
+      "tee_name": "Black",
+      "par": 4,
+      "default_handicap": 7,
+      "yardage": 390
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 82,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 1,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 413
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 83,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 2,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 530
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 84,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 3,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 175
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 85,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 4,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 9,
+      "yardage": 351
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 86,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 5,
+      "tee_name": "Blue",
+      "par": 5,
+      "default_handicap": 6,
+      "yardage": 545
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 87,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 6,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 420
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 88,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 7,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 380
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 89,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 8,
+      "tee_name": "Blue",
+      "par": 3,
+      "default_handicap": 4,
+      "yardage": 220
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 90,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 9,
+      "tee_name": "Blue",
+      "par": 4,
+      "default_handicap": 7,
+      "yardage": 370
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 91,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 1,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 333
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 92,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 2,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 430
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 93,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 3,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 140
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 94,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 4,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 9,
+      "yardage": 282
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 95,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 5,
+      "tee_name": "Gold",
+      "par": 5,
+      "default_handicap": 6,
+      "yardage": 430
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 96,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 6,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 368
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 97,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 7,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 360
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 98,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 8,
+      "tee_name": "Gold",
+      "par": 3,
+      "default_handicap": 4,
+      "yardage": 180
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 99,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 9,
+      "tee_name": "Gold",
+      "par": 4,
+      "default_handicap": 7,
+      "yardage": 294
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 100,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 1,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 2,
+      "yardage": 402
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 101,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 2,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 5,
+      "yardage": 500
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 102,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 3,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 8,
+      "yardage": 150
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 103,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 4,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 9,
+      "yardage": 338
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 104,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 5,
+      "tee_name": "White",
+      "par": 5,
+      "default_handicap": 6,
+      "yardage": 520
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 105,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 6,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 1,
+      "yardage": 405
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 106,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 7,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 3,
+      "yardage": 370
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 107,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 8,
+      "tee_name": "White",
+      "par": 3,
+      "default_handicap": 4,
+      "yardage": 200
+    }
+  },
+  {
+    "model": "courses.hole",
+    "pk": 108,
+    "fields": {
+      "course": 1,
+      "default_hole_number": 9,
+      "tee_name": "White",
+      "par": 4,
+      "default_handicap": 7,
+      "yardage": 300
+    }
+  }
+]

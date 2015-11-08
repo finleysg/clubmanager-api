@@ -1,0 +1,1892 @@
+[
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 1,
+    "fields": {
+      "course_setup": 1,
+      "hole": 100,
+      "hole_number": 1,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 2,
+    "fields": {
+      "course_setup": 1,
+      "hole": 101,
+      "hole_number": 2,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 3,
+    "fields": {
+      "course_setup": 1,
+      "hole": 102,
+      "hole_number": 3,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 4,
+    "fields": {
+      "course_setup": 1,
+      "hole": 103,
+      "hole_number": 4,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 5,
+    "fields": {
+      "course_setup": 1,
+      "hole": 104,
+      "hole_number": 5,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 6,
+    "fields": {
+      "course_setup": 1,
+      "hole": 105,
+      "hole_number": 6,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 7,
+    "fields": {
+      "course_setup": 1,
+      "hole": 106,
+      "hole_number": 7,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 8,
+    "fields": {
+      "course_setup": 1,
+      "hole": 107,
+      "hole_number": 8,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 9,
+    "fields": {
+      "course_setup": 1,
+      "hole": 108,
+      "hole_number": 9,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 10,
+    "fields": {
+      "course_setup": 2,
+      "hole": 10,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 11,
+    "fields": {
+      "course_setup": 2,
+      "hole": 11,
+      "hole_number": 2,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 12,
+    "fields": {
+      "course_setup": 2,
+      "hole": 12,
+      "hole_number": 3,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 13,
+    "fields": {
+      "course_setup": 2,
+      "hole": 13,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 14,
+    "fields": {
+      "course_setup": 2,
+      "hole": 14,
+      "hole_number": 5,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 15,
+    "fields": {
+      "course_setup": 2,
+      "hole": 15,
+      "hole_number": 6,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 16,
+    "fields": {
+      "course_setup": 2,
+      "hole": 16,
+      "hole_number": 7,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 17,
+    "fields": {
+      "course_setup": 2,
+      "hole": 17,
+      "hole_number": 8,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 18,
+    "fields": {
+      "course_setup": 2,
+      "hole": 18,
+      "hole_number": 9,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 19,
+    "fields": {
+      "course_setup": 2,
+      "hole": 82,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 20,
+    "fields": {
+      "course_setup": 2,
+      "hole": 83,
+      "hole_number": 11,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 21,
+    "fields": {
+      "course_setup": 2,
+      "hole": 84,
+      "hole_number": 12,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 22,
+    "fields": {
+      "course_setup": 2,
+      "hole": 85,
+      "hole_number": 13,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 23,
+    "fields": {
+      "course_setup": 2,
+      "hole": 86,
+      "hole_number": 14,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 24,
+    "fields": {
+      "course_setup": 2,
+      "hole": 87,
+      "hole_number": 15,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 25,
+    "fields": {
+      "course_setup": 2,
+      "hole": 88,
+      "hole_number": 16,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 26,
+    "fields": {
+      "course_setup": 2,
+      "hole": 89,
+      "hole_number": 17,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 27,
+    "fields": {
+      "course_setup": 2,
+      "hole": 90,
+      "hole_number": 18,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 28,
+    "fields": {
+      "course_setup": 3,
+      "hole": 46,
+      "hole_number": 1,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 29,
+    "fields": {
+      "course_setup": 3,
+      "hole": 47,
+      "hole_number": 2,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 30,
+    "fields": {
+      "course_setup": 3,
+      "hole": 48,
+      "hole_number": 3,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 31,
+    "fields": {
+      "course_setup": 3,
+      "hole": 49,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 32,
+    "fields": {
+      "course_setup": 3,
+      "hole": 50,
+      "hole_number": 5,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 33,
+    "fields": {
+      "course_setup": 3,
+      "hole": 51,
+      "hole_number": 6,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 34,
+    "fields": {
+      "course_setup": 3,
+      "hole": 52,
+      "hole_number": 7,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 35,
+    "fields": {
+      "course_setup": 3,
+      "hole": 53,
+      "hole_number": 8,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 36,
+    "fields": {
+      "course_setup": 3,
+      "hole": 54,
+      "hole_number": 9,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 37,
+    "fields": {
+      "course_setup": 3,
+      "hole": 10,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 38,
+    "fields": {
+      "course_setup": 3,
+      "hole": 11,
+      "hole_number": 11,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 39,
+    "fields": {
+      "course_setup": 3,
+      "hole": 12,
+      "hole_number": 12,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 40,
+    "fields": {
+      "course_setup": 3,
+      "hole": 13,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 41,
+    "fields": {
+      "course_setup": 3,
+      "hole": 14,
+      "hole_number": 14,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 42,
+    "fields": {
+      "course_setup": 3,
+      "hole": 15,
+      "hole_number": 15,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 43,
+    "fields": {
+      "course_setup": 3,
+      "hole": 16,
+      "hole_number": 16,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 44,
+    "fields": {
+      "course_setup": 3,
+      "hole": 17,
+      "hole_number": 17,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 45,
+    "fields": {
+      "course_setup": 3,
+      "hole": 18,
+      "hole_number": 18,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 46,
+    "fields": {
+      "course_setup": 4,
+      "hole": 64,
+      "hole_number": 1,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 47,
+    "fields": {
+      "course_setup": 4,
+      "hole": 65,
+      "hole_number": 2,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 48,
+    "fields": {
+      "course_setup": 4,
+      "hole": 66,
+      "hole_number": 3,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 49,
+    "fields": {
+      "course_setup": 4,
+      "hole": 67,
+      "hole_number": 4,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 50,
+    "fields": {
+      "course_setup": 4,
+      "hole": 68,
+      "hole_number": 5,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 51,
+    "fields": {
+      "course_setup": 4,
+      "hole": 69,
+      "hole_number": 6,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 52,
+    "fields": {
+      "course_setup": 4,
+      "hole": 70,
+      "hole_number": 7,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 53,
+    "fields": {
+      "course_setup": 4,
+      "hole": 71,
+      "hole_number": 8,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 54,
+    "fields": {
+      "course_setup": 4,
+      "hole": 72,
+      "hole_number": 9,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 55,
+    "fields": {
+      "course_setup": 5,
+      "hole": 100,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 56,
+    "fields": {
+      "course_setup": 5,
+      "hole": 101,
+      "hole_number": 2,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 57,
+    "fields": {
+      "course_setup": 5,
+      "hole": 102,
+      "hole_number": 3,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 58,
+    "fields": {
+      "course_setup": 5,
+      "hole": 103,
+      "hole_number": 4,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 59,
+    "fields": {
+      "course_setup": 5,
+      "hole": 104,
+      "hole_number": 5,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 60,
+    "fields": {
+      "course_setup": 5,
+      "hole": 105,
+      "hole_number": 6,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 61,
+    "fields": {
+      "course_setup": 5,
+      "hole": 106,
+      "hole_number": 7,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 62,
+    "fields": {
+      "course_setup": 5,
+      "hole": 107,
+      "hole_number": 8,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 63,
+    "fields": {
+      "course_setup": 5,
+      "hole": 108,
+      "hole_number": 9,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 64,
+    "fields": {
+      "course_setup": 5,
+      "hole": 64,
+      "hole_number": 10,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 65,
+    "fields": {
+      "course_setup": 5,
+      "hole": 65,
+      "hole_number": 11,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 66,
+    "fields": {
+      "course_setup": 5,
+      "hole": 66,
+      "hole_number": 12,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 67,
+    "fields": {
+      "course_setup": 5,
+      "hole": 67,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 68,
+    "fields": {
+      "course_setup": 5,
+      "hole": 68,
+      "hole_number": 14,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 69,
+    "fields": {
+      "course_setup": 5,
+      "hole": 69,
+      "hole_number": 15,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 70,
+    "fields": {
+      "course_setup": 5,
+      "hole": 70,
+      "hole_number": 16,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 71,
+    "fields": {
+      "course_setup": 5,
+      "hole": 71,
+      "hole_number": 17,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 72,
+    "fields": {
+      "course_setup": 5,
+      "hole": 72,
+      "hole_number": 18,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 73,
+    "fields": {
+      "course_setup": 6,
+      "hole": 73,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 74,
+    "fields": {
+      "course_setup": 6,
+      "hole": 74,
+      "hole_number": 2,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 75,
+    "fields": {
+      "course_setup": 6,
+      "hole": 75,
+      "hole_number": 3,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 76,
+    "fields": {
+      "course_setup": 6,
+      "hole": 76,
+      "hole_number": 4,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 77,
+    "fields": {
+      "course_setup": 6,
+      "hole": 77,
+      "hole_number": 5,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 78,
+    "fields": {
+      "course_setup": 6,
+      "hole": 78,
+      "hole_number": 6,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 79,
+    "fields": {
+      "course_setup": 6,
+      "hole": 79,
+      "hole_number": 7,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 80,
+    "fields": {
+      "course_setup": 6,
+      "hole": 80,
+      "hole_number": 8,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 81,
+    "fields": {
+      "course_setup": 6,
+      "hole": 81,
+      "hole_number": 9,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 82,
+    "fields": {
+      "course_setup": 6,
+      "hole": 37,
+      "hole_number": 10,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 83,
+    "fields": {
+      "course_setup": 6,
+      "hole": 38,
+      "hole_number": 11,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 84,
+    "fields": {
+      "course_setup": 6,
+      "hole": 39,
+      "hole_number": 12,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 85,
+    "fields": {
+      "course_setup": 6,
+      "hole": 40,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 86,
+    "fields": {
+      "course_setup": 6,
+      "hole": 41,
+      "hole_number": 14,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 87,
+    "fields": {
+      "course_setup": 6,
+      "hole": 42,
+      "hole_number": 15,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 88,
+    "fields": {
+      "course_setup": 6,
+      "hole": 43,
+      "hole_number": 16,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 89,
+    "fields": {
+      "course_setup": 6,
+      "hole": 44,
+      "hole_number": 17,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 90,
+    "fields": {
+      "course_setup": 6,
+      "hole": 45,
+      "hole_number": 18,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 91,
+    "fields": {
+      "course_setup": 7,
+      "hole": 1,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 92,
+    "fields": {
+      "course_setup": 7,
+      "hole": 2,
+      "hole_number": 2,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 93,
+    "fields": {
+      "course_setup": 7,
+      "hole": 3,
+      "hole_number": 3,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 94,
+    "fields": {
+      "course_setup": 7,
+      "hole": 4,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 95,
+    "fields": {
+      "course_setup": 7,
+      "hole": 5,
+      "hole_number": 5,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 96,
+    "fields": {
+      "course_setup": 7,
+      "hole": 6,
+      "hole_number": 6,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 97,
+    "fields": {
+      "course_setup": 7,
+      "hole": 7,
+      "hole_number": 7,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 98,
+    "fields": {
+      "course_setup": 7,
+      "hole": 8,
+      "hole_number": 8,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 99,
+    "fields": {
+      "course_setup": 7,
+      "hole": 9,
+      "hole_number": 9,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 100,
+    "fields": {
+      "course_setup": 7,
+      "hole": 73,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 101,
+    "fields": {
+      "course_setup": 7,
+      "hole": 74,
+      "hole_number": 11,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 102,
+    "fields": {
+      "course_setup": 7,
+      "hole": 75,
+      "hole_number": 12,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 103,
+    "fields": {
+      "course_setup": 7,
+      "hole": 76,
+      "hole_number": 13,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 104,
+    "fields": {
+      "course_setup": 7,
+      "hole": 77,
+      "hole_number": 14,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 105,
+    "fields": {
+      "course_setup": 7,
+      "hole": 78,
+      "hole_number": 15,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 106,
+    "fields": {
+      "course_setup": 7,
+      "hole": 79,
+      "hole_number": 16,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 107,
+    "fields": {
+      "course_setup": 7,
+      "hole": 80,
+      "hole_number": 17,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 108,
+    "fields": {
+      "course_setup": 7,
+      "hole": 81,
+      "hole_number": 18,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 109,
+    "fields": {
+      "course_setup": 8,
+      "hole": 28,
+      "hole_number": 1,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 110,
+    "fields": {
+      "course_setup": 8,
+      "hole": 29,
+      "hole_number": 2,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 111,
+    "fields": {
+      "course_setup": 8,
+      "hole": 30,
+      "hole_number": 3,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 112,
+    "fields": {
+      "course_setup": 8,
+      "hole": 31,
+      "hole_number": 4,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 113,
+    "fields": {
+      "course_setup": 8,
+      "hole": 32,
+      "hole_number": 5,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 114,
+    "fields": {
+      "course_setup": 8,
+      "hole": 33,
+      "hole_number": 6,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 115,
+    "fields": {
+      "course_setup": 8,
+      "hole": 34,
+      "hole_number": 7,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 116,
+    "fields": {
+      "course_setup": 8,
+      "hole": 35,
+      "hole_number": 8,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 117,
+    "fields": {
+      "course_setup": 8,
+      "hole": 36,
+      "hole_number": 9,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 118,
+    "fields": {
+      "course_setup": 9,
+      "hole": 28,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 119,
+    "fields": {
+      "course_setup": 9,
+      "hole": 29,
+      "hole_number": 2,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 120,
+    "fields": {
+      "course_setup": 9,
+      "hole": 30,
+      "hole_number": 3,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 121,
+    "fields": {
+      "course_setup": 9,
+      "hole": 31,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 122,
+    "fields": {
+      "course_setup": 9,
+      "hole": 32,
+      "hole_number": 5,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 123,
+    "fields": {
+      "course_setup": 9,
+      "hole": 33,
+      "hole_number": 6,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 124,
+    "fields": {
+      "course_setup": 9,
+      "hole": 34,
+      "hole_number": 7,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 125,
+    "fields": {
+      "course_setup": 9,
+      "hole": 35,
+      "hole_number": 8,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 126,
+    "fields": {
+      "course_setup": 9,
+      "hole": 36,
+      "hole_number": 9,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 127,
+    "fields": {
+      "course_setup": 9,
+      "hole": 100,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 128,
+    "fields": {
+      "course_setup": 9,
+      "hole": 101,
+      "hole_number": 11,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 129,
+    "fields": {
+      "course_setup": 9,
+      "hole": 102,
+      "hole_number": 12,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 130,
+    "fields": {
+      "course_setup": 9,
+      "hole": 103,
+      "hole_number": 13,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 131,
+    "fields": {
+      "course_setup": 9,
+      "hole": 104,
+      "hole_number": 14,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 132,
+    "fields": {
+      "course_setup": 9,
+      "hole": 105,
+      "hole_number": 15,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 133,
+    "fields": {
+      "course_setup": 9,
+      "hole": 106,
+      "hole_number": 16,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 134,
+    "fields": {
+      "course_setup": 9,
+      "hole": 107,
+      "hole_number": 17,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 135,
+    "fields": {
+      "course_setup": 9,
+      "hole": 108,
+      "hole_number": 18,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 136,
+    "fields": {
+      "course_setup": 10,
+      "hole": 64,
+      "hole_number": 1,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 137,
+    "fields": {
+      "course_setup": 10,
+      "hole": 65,
+      "hole_number": 2,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 138,
+    "fields": {
+      "course_setup": 10,
+      "hole": 66,
+      "hole_number": 3,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 139,
+    "fields": {
+      "course_setup": 10,
+      "hole": 67,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 140,
+    "fields": {
+      "course_setup": 10,
+      "hole": 68,
+      "hole_number": 5,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 141,
+    "fields": {
+      "course_setup": 10,
+      "hole": 69,
+      "hole_number": 6,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 142,
+    "fields": {
+      "course_setup": 10,
+      "hole": 70,
+      "hole_number": 7,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 143,
+    "fields": {
+      "course_setup": 10,
+      "hole": 71,
+      "hole_number": 8,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 144,
+    "fields": {
+      "course_setup": 10,
+      "hole": 72,
+      "hole_number": 9,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 145,
+    "fields": {
+      "course_setup": 10,
+      "hole": 28,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 146,
+    "fields": {
+      "course_setup": 10,
+      "hole": 29,
+      "hole_number": 11,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 147,
+    "fields": {
+      "course_setup": 10,
+      "hole": 30,
+      "hole_number": 12,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 148,
+    "fields": {
+      "course_setup": 10,
+      "hole": 31,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 149,
+    "fields": {
+      "course_setup": 10,
+      "hole": 32,
+      "hole_number": 14,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 150,
+    "fields": {
+      "course_setup": 10,
+      "hole": 33,
+      "hole_number": 15,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 151,
+    "fields": {
+      "course_setup": 10,
+      "hole": 34,
+      "hole_number": 16,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 152,
+    "fields": {
+      "course_setup": 10,
+      "hole": 35,
+      "hole_number": 17,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 153,
+    "fields": {
+      "course_setup": 10,
+      "hole": 36,
+      "hole_number": 18,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 154,
+    "fields": {
+      "course_setup": 11,
+      "hole": 37,
+      "hole_number": 1,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 155,
+    "fields": {
+      "course_setup": 11,
+      "hole": 38,
+      "hole_number": 2,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 156,
+    "fields": {
+      "course_setup": 11,
+      "hole": 39,
+      "hole_number": 3,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 157,
+    "fields": {
+      "course_setup": 11,
+      "hole": 40,
+      "hole_number": 4,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 158,
+    "fields": {
+      "course_setup": 11,
+      "hole": 41,
+      "hole_number": 5,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 159,
+    "fields": {
+      "course_setup": 11,
+      "hole": 42,
+      "hole_number": 6,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 160,
+    "fields": {
+      "course_setup": 11,
+      "hole": 43,
+      "hole_number": 7,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 161,
+    "fields": {
+      "course_setup": 11,
+      "hole": 44,
+      "hole_number": 8,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 162,
+    "fields": {
+      "course_setup": 11,
+      "hole": 45,
+      "hole_number": 9,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 163,
+    "fields": {
+      "course_setup": 11,
+      "hole": 1,
+      "hole_number": 10,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 164,
+    "fields": {
+      "course_setup": 11,
+      "hole": 2,
+      "hole_number": 11,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 165,
+    "fields": {
+      "course_setup": 11,
+      "hole": 3,
+      "hole_number": 12,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 166,
+    "fields": {
+      "course_setup": 11,
+      "hole": 4,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 167,
+    "fields": {
+      "course_setup": 11,
+      "hole": 5,
+      "hole_number": 14,
+      "handicap": 8
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 168,
+    "fields": {
+      "course_setup": 11,
+      "hole": 6,
+      "hole_number": 15,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 169,
+    "fields": {
+      "course_setup": 11,
+      "hole": 7,
+      "hole_number": 16,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 170,
+    "fields": {
+      "course_setup": 11,
+      "hole": 8,
+      "hole_number": 17,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 171,
+    "fields": {
+      "course_setup": 11,
+      "hole": 9,
+      "hole_number": 18,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 172,
+    "fields": {
+      "course_setup": 12,
+      "hole": 82,
+      "hole_number": 1,
+      "handicap": 3
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 173,
+    "fields": {
+      "course_setup": 12,
+      "hole": 83,
+      "hole_number": 2,
+      "handicap": 9
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 174,
+    "fields": {
+      "course_setup": 12,
+      "hole": 84,
+      "hole_number": 3,
+      "handicap": 15
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 175,
+    "fields": {
+      "course_setup": 12,
+      "hole": 85,
+      "hole_number": 4,
+      "handicap": 17
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 176,
+    "fields": {
+      "course_setup": 12,
+      "hole": 86,
+      "hole_number": 5,
+      "handicap": 11
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 177,
+    "fields": {
+      "course_setup": 12,
+      "hole": 87,
+      "hole_number": 6,
+      "handicap": 1
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 178,
+    "fields": {
+      "course_setup": 12,
+      "hole": 88,
+      "hole_number": 7,
+      "handicap": 5
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 179,
+    "fields": {
+      "course_setup": 12,
+      "hole": 89,
+      "hole_number": 8,
+      "handicap": 7
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 180,
+    "fields": {
+      "course_setup": 12,
+      "hole": 90,
+      "hole_number": 9,
+      "handicap": 13
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 181,
+    "fields": {
+      "course_setup": 12,
+      "hole": 46,
+      "hole_number": 10,
+      "handicap": 12
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 182,
+    "fields": {
+      "course_setup": 12,
+      "hole": 47,
+      "hole_number": 11,
+      "handicap": 4
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 183,
+    "fields": {
+      "course_setup": 12,
+      "hole": 48,
+      "hole_number": 12,
+      "handicap": 6
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 184,
+    "fields": {
+      "course_setup": 12,
+      "hole": 49,
+      "hole_number": 13,
+      "handicap": 14
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 185,
+    "fields": {
+      "course_setup": 12,
+      "hole": 50,
+      "hole_number": 14,
+      "handicap": 2
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 186,
+    "fields": {
+      "course_setup": 12,
+      "hole": 51,
+      "hole_number": 15,
+      "handicap": 18
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 187,
+    "fields": {
+      "course_setup": 12,
+      "hole": 52,
+      "hole_number": 16,
+      "handicap": 10
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 188,
+    "fields": {
+      "course_setup": 12,
+      "hole": 53,
+      "hole_number": 17,
+      "handicap": 16
+    }
+  },
+  {
+    "model": "courses.coursesetuphole",
+    "pk": 189,
+    "fields": {
+      "course_setup": 12,
+      "hole": 54,
+      "hole_number": 18,
+      "handicap": 8
+    }
+  }
+]

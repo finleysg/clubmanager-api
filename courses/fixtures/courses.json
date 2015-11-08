@@ -1,0 +1,26 @@
+[
+  {
+    "model": "courses.course",
+    "pk": 1,
+    "fields": {
+      "name": "Bunker Hills",
+      "description": "West"
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 2,
+    "fields": {
+      "name": "Bunker Hills",
+      "description": "East"
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 3,
+    "fields": {
+      "name": "Bunker Hills",
+      "description": "North"
+    }
+  }
+]
