@@ -50,7 +50,11 @@ coverage.xml
 *.pot
 
 # Django stuff:
+settings.py
 *.log
+*.pot
+*.pyc
+.idea/
 
 # Sphinx documentation
 docs/_build/
