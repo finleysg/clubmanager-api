@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from core import views as core_views
 from courses import views as course_views
+from events import views as event_views
 
 urlpatterns = [
     url(r'^$', core_views.api_root),
@@ -16,4 +17,8 @@ urlpatterns = [
     url(r'^holes/(?P<pk>[0-9]+)/$', course_views.HoleDetail.as_view(), name='hole-detail'),
     url(r'^course-setup-holes/$', course_views.CourseSetupHoleList.as_view(), name='coursesetuphole-list'),
     url(r'^course-setup-holes/(?P<pk>[0-9]+)/$', course_views.CourseSetupHoleDetail.as_view(), name='coursesetuphole-detail'),
+    url(r'^events/$', event_views.EventList.as_view(), name='event-list'),
+    url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
+    url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
+    url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),
 ]
