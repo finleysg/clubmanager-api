@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59dee08b-070a-4844-8954-6de472105723}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <InterpreterId>{033396ac-642e-49a2-88e2-1efd6779d33d}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="clubmanager\settings.py" />
+    <Compile Include="clubmanager\urls.py" />
+    <Compile Include="clubmanager\wsgi.py" />
+    <Compile Include="clubmanager\__init__.py" />
+    <Compile Include="core\admin.py" />
+    <Compile Include="core\migrations\0001_initial.py" />
+    <Compile Include="core\migrations\0002_auto_20151106_1953.py" />
+    <Compile Include="core\migrations\__init__.py" />
+    <Compile Include="core\models.py" />
+    <Compile Include="core\serializers.py" />
+    <Compile Include="core\tests.py" />
+    <Compile Include="core\urls.py" />
+    <Compile Include="core\views.py" />
+    <Compile Include="core\__init__.py" />
+    <Compile Include="courses\migrations\0001_initial.py" />
+    <Compile Include="courses\migrations\0002_historicalcourse_historicalcoursesetup_historicalcoursesetuphole_historicalhole.py" />
+    <Compile Include="courses\migrations\0003_auto_20151106_1953.py" />
+    <Compile Include="courses\migrations\__init__.py" />
+    <Compile Include="courses\models.py" />
+    <Compile Include="courses\serializers.py" />
+    <Compile Include="courses\tests.py" />
+    <Compile Include="courses\views.py" />
+    <Compile Include="courses\__init__.py" />
+    <Compile Include="events\admin.py" />
+    <Compile Include="events\migrations\0001_initial.py" />
+    <Compile Include="events\migrations\__init__.py" />
+    <Compile Include="events\models.py" />
+    <Compile Include="events\serializers.py" />
+    <Compile Include="events\tests.py" />
+    <Compile Include="events\views.py" />
+    <Compile Include="events\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="scoring\admin.py" />
+    <Compile Include="scoring\migrations\__init__.py" />
+    <Compile Include="scoring\models.py" />
+    <Compile Include="scoring\tests.py" />
+    <Compile Include="scoring\views.py" />
+    <Compile Include="scoring\__init__.py" />
+    <Compile Include="signup\migrations\__init__.py" />
+    <Compile Include="signup\models.py" />
+    <Compile Include="signup\serializations.py" />
+    <Compile Include="signup\tests.py" />
+    <Compile Include="signup\views.py" />
+    <Compile Include="signup\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="clubmanager" />
+    <Folder Include="core" />
+    <Folder Include="core\migrations" />
+    <Folder Include="courses" />
+    <Folder Include="courses\fixtures\" />
+    <Folder Include="courses\migrations" />
+    <Folder Include="events" />
+    <Folder Include="events\migrations" />
+    <Folder Include="scoring" />
+    <Folder Include="scoring\migrations" />
+    <Folder Include="signup" />
+    <Folder Include="signup\migrations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="..\">
+      <Id>{033396ac-642e-49a2-88e2-1efd6779d33d}</Id>
+      <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
+      <Version>3.5</Version>
+      <Description>golf (Python 64-bit 3.5)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>Amd64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="courses\fixtures\courses.json" />
+    <Content Include="courses\fixtures\course_setups.json" />
+    <Content Include="courses\fixtures\course_setup_holes.json" />
+    <Content Include="courses\fixtures\holes.json" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

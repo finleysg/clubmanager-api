@@ -1,0 +1,112 @@
+[
+  {
+    "model": "events.eventtemplate",
+    "fields": {
+      "scoring_system": "SP",
+      "rounds": 1,
+      "maximum_signup_group_size": 5,
+      "number_of_scores": 1,
+      "event_fee": "5.00",
+      "minimum_signup_group_size": 1,
+      "group_size": 5,
+      "holes_per_round": 9,
+      "name": "Low Gross, Low Net",
+      "team_scoring": "NA",
+      "skins_fee": "5.00",
+      "can_signup_group": true,
+      "description": "<p>html enabled description of the event and scoring system<p>",
+      "can_choose_hole": true,
+      "scoring": "IN",
+      "is_shotgun_start": true
+    },
+    "pk": 1
+  },
+  {
+    "model": "events.eventtemplate",
+    "fields": {
+      "scoring_system": "SP",
+      "rounds": 1,
+      "maximum_signup_group_size": 5,
+      "number_of_scores": 3,
+      "event_fee": "5.00",
+      "minimum_signup_group_size": 1,
+      "group_size": 5,
+      "holes_per_round": 9,
+      "name": "Best 3 of 5",
+      "team_scoring": "BB",
+      "skins_fee": "5.00",
+      "can_signup_group": true,
+      "description": "<p>html enabled description of the event and scoring system<p>",
+      "can_choose_hole": true,
+      "scoring": "TM",
+      "is_shotgun_start": true
+    },
+    "pk": 2
+  },
+  {
+    "model": "events.eventtemplate",
+    "fields": {
+      "scoring_system": "SF",
+      "rounds": 1,
+      "maximum_signup_group_size": 5,
+      "number_of_scores": 1,
+      "event_fee": "5.00",
+      "minimum_signup_group_size": 1,
+      "group_size": 5,
+      "holes_per_round": 9,
+      "name": "Individual Stableford",
+      "team_scoring": "NA",
+      "skins_fee": "5.00",
+      "can_signup_group": true,
+      "description": "<p>html enabled description of the event and scoring system<p>",
+      "can_choose_hole": true,
+      "scoring": "IN",
+      "is_shotgun_start": true
+    },
+    "pk": 3
+  },
+  {
+    "model": "events.eventtemplate",
+    "fields": {
+      "scoring_system": "BB",
+      "rounds": 1,
+      "maximum_signup_group_size": 2,
+      "number_of_scores": 1,
+      "event_fee": "10.00",
+      "minimum_signup_group_size": 1,
+      "group_size": 2,
+      "holes_per_round": 18,
+      "name": "2 Man Best Ball",
+      "team_scoring": "NA",
+      "skins_fee": "10.00",
+      "can_signup_group": true,
+      "description": "<p>html enabled description of the event and scoring system<p>",
+      "can_choose_hole": false,
+      "scoring": "TM",
+      "is_shotgun_start": false
+    },
+    "pk": 4
+  },
+  {
+    "model": "events.eventtemplate",
+    "fields": {
+      "scoring_system": "SP",
+      "rounds": 2,
+      "maximum_signup_group_size": 1,
+      "number_of_scores": 1,
+      "event_fee": "20.00",
+      "minimum_signup_group_size": 1,
+      "group_size": 1,
+      "holes_per_round": 18,
+      "name": "Senior Club Championship",
+      "team_scoring": "NA",
+      "skins_fee": "20.00",
+      "can_signup_group": false,
+      "description": "<p>html enabled description of the event and scoring system<p>",
+      "can_choose_hole": false,
+      "scoring": "IN",
+      "is_shotgun_start": false
+    },
+    "pk": 5
+  }
+]

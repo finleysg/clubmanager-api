@@ -24,7 +24,7 @@ class EventTemplate(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     rounds = models.IntegerField(default=1)
-    holes = models.IntegerField(default=18)
+    holes_per_round = models.IntegerField(default=18)
     event_fee = models.DecimalField(max_digits=5, decimal_places=2)
     skins_fee = models.DecimalField(max_digits=5, decimal_places=2)
     minimum_signup_group_size = models.IntegerField(default=1)
@@ -36,7 +36,7 @@ class EventTemplate(models.Model):
     scoring = models.CharField(choices=SCORING_CHOICES, max_length=2, default="IN")
     scoring_system = models.CharField(choices=SCORING_SYSTEM_CHOICES, max_length=2, default="SP")
     team_scoring = models.CharField(choices=TEAM_SCORING_CHOICES, max_length=2, default="NA")
-    number_of_scores = models.IntegerField(default=1)
+    number_of_scores = models.IntegerField(default=1, null=True, blank=True)
 
     history = HistoricalRecords()
 
@@ -50,7 +50,7 @@ class Event(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     rounds = models.IntegerField(default=1)
-    holes = models.IntegerField(default=18)
+    holes_per_round = models.IntegerField(default=18)
     signup_start = models.DateTimeField()
     signup_end = models.DateTimeField()
     start_time = models.TimeField()
@@ -65,7 +65,7 @@ class Event(models.Model):
     scoring = models.CharField(choices=SCORING_CHOICES, max_length=2, default="IN")
     scoring_system = models.CharField(choices=SCORING_SYSTEM_CHOICES, max_length=2, default="SP")
     team_scoring = models.CharField(choices=TEAM_SCORING_CHOICES, max_length=2, default="NA")
-    number_of_scores = models.IntegerField(default=1)
+    number_of_scores = models.IntegerField(default=1, null=True, blank=True)
 
     history = HistoricalRecords()
 

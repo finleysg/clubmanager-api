@@ -1,0 +1,1602 @@
+[
+  {
+    "model": "core.member",
+    "pk": 1,
+    "fields": {
+      "handicap": "4.3",
+      "ghin": "0125741",
+      "city": "Plymouth",
+      "user": 1,
+      "state": "MN",
+      "address2": "",
+      "phone_number": "6127231335",
+      "address1": "2740 Pilgrim Ln",
+      "zip": "55441",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "handicap": "9.5",
+      "ghin": "1250010",
+      "city": "Loretto",
+      "state": "MN",
+      "address1": "642 Bluejay Way",
+      "address2": "",
+      "phone_number": "7636764203",
+      "zip": "55598",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "handicap": "5.8",
+      "ghin": "1250020",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "address1": "16 Hollow Ridge Junction",
+      "address2": "",
+      "phone_number": "4126221978",
+      "zip": "15225",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "handicap": "10.8",
+      "ghin": "1250030",
+      "city": "Oakland",
+      "state": "CA",
+      "address1": "2 Waubesa Drive",
+      "address2": "",
+      "phone_number": "4158646811",
+      "zip": "94611",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 5,
+    "fields": {
+      "user": 5,
+      "handicap": "13.3",
+      "ghin": "1250040",
+      "city": "Lincoln",
+      "state": "NE",
+      "address1": "782 Cody Pass",
+      "address2": "",
+      "phone_number": "4025847923",
+      "zip": "68583",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 6,
+    "fields": {
+      "user": 6,
+      "handicap": "18.2",
+      "ghin": "1250050",
+      "city": "Miami",
+      "state": "FL",
+      "address1": "4 Dahle Trail",
+      "address2": "",
+      "phone_number": "7866117262",
+      "zip": "33111",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 7,
+    "fields": {
+      "user": 7,
+      "handicap": "10.8",
+      "ghin": "1250060",
+      "city": "New Orleans",
+      "state": "LA",
+      "address1": "10277 Waubesa Road",
+      "address2": "",
+      "phone_number": "5046649982",
+      "zip": "70174",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 8,
+    "fields": {
+      "user": 8,
+      "handicap": "11.2",
+      "ghin": "1250070",
+      "city": "Chicago",
+      "state": "IL",
+      "address1": "4396 Jay Road",
+      "address2": "",
+      "phone_number": "3126079292",
+      "zip": "60624",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 9,
+    "fields": {
+      "user": 9,
+      "handicap": "16.2",
+      "ghin": "1250080",
+      "city": "Lexington",
+      "state": "KY",
+      "address1": "5794 Loftsgordon Court",
+      "address2": "",
+      "phone_number": "8595030140",
+      "zip": "40510",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 10,
+    "fields": {
+      "user": 10,
+      "handicap": "9.7",
+      "ghin": "1250090",
+      "city": "Richmond",
+      "state": "VA",
+      "address1": "66 Raven Plaza",
+      "address2": "",
+      "phone_number": "8048572242",
+      "zip": "23285",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 11,
+    "fields": {
+      "user": 11,
+      "handicap": "18.1",
+      "ghin": "1250100",
+      "city": "Des Moines",
+      "state": "IA",
+      "address1": "687 Golden Leaf Drive",
+      "address2": "",
+      "phone_number": "5154084436",
+      "zip": "50310",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 12,
+    "fields": {
+      "user": 12,
+      "handicap": "6.2",
+      "ghin": "1250110",
+      "city": "Fairfax",
+      "state": "VA",
+      "address1": "231 Oak Junction",
+      "address2": "",
+      "phone_number": "5717289000",
+      "zip": "22036",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 13,
+    "fields": {
+      "user": 13,
+      "handicap": "6.9",
+      "ghin": "1250120",
+      "city": "Charleston",
+      "state": "WV",
+      "address1": "33 Express Hill",
+      "address2": "",
+      "phone_number": "3046755315",
+      "zip": "25356",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 14,
+    "fields": {
+      "user": 14,
+      "handicap": "13.9",
+      "ghin": "1250130",
+      "city": "Amarillo",
+      "state": "TX",
+      "address1": "592 Jackson Crossing",
+      "address2": "",
+      "phone_number": "8065613634",
+      "zip": "79171",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 15,
+    "fields": {
+      "user": 15,
+      "handicap": "15.2",
+      "ghin": "1250140",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "2 Dwight Terrace",
+      "address2": "",
+      "phone_number": "2022405166",
+      "zip": "20244",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 16,
+    "fields": {
+      "user": 16,
+      "handicap": "14.8",
+      "ghin": "1250150",
+      "city": "Irvine",
+      "state": "CA",
+      "address1": "36 Marcy Avenue",
+      "address2": "",
+      "phone_number": "7141819405",
+      "zip": "92710",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 17,
+    "fields": {
+      "user": 17,
+      "handicap": "11.8",
+      "ghin": "1250160",
+      "city": "Baton Rouge",
+      "state": "LA",
+      "address1": "16 Nelson Center",
+      "address2": "",
+      "phone_number": "2252848406",
+      "zip": "70815",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 18,
+    "fields": {
+      "user": 18,
+      "handicap": "6.0",
+      "ghin": "1250170",
+      "city": "El Paso",
+      "state": "TX",
+      "address1": "300 Cody Point",
+      "address2": "",
+      "phone_number": "9154029203",
+      "zip": "79916",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 19,
+    "fields": {
+      "user": 19,
+      "handicap": "9.4",
+      "ghin": "1250180",
+      "city": "Saint Louis",
+      "state": "MO",
+      "address1": "89704 Jana Court",
+      "address2": "",
+      "phone_number": "6369471027",
+      "zip": "63131",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 20,
+    "fields": {
+      "user": 20,
+      "handicap": "17.4",
+      "ghin": "1250190",
+      "city": "Schaumburg",
+      "state": "IL",
+      "address1": "5259 Dottie Street",
+      "address2": "",
+      "phone_number": "8474605998",
+      "zip": "60193",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 21,
+    "fields": {
+      "user": 21,
+      "handicap": "7.6",
+      "ghin": "1250200",
+      "city": "Denver",
+      "state": "CO",
+      "address1": "13104 Park Meadow Pass",
+      "address2": "",
+      "phone_number": "3039010033",
+      "zip": "80228",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 22,
+    "fields": {
+      "user": 22,
+      "handicap": "8.3",
+      "ghin": "1250210",
+      "city": "Anchorage",
+      "state": "AK",
+      "address1": "81 Forster Trail",
+      "address2": "",
+      "phone_number": "9076148095",
+      "zip": "99522",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 23,
+    "fields": {
+      "user": 23,
+      "handicap": "4.8",
+      "ghin": "1250220",
+      "city": "Birmingham",
+      "state": "AL",
+      "address1": "4 Charing Cross Trail",
+      "address2": "",
+      "phone_number": "2054128395",
+      "zip": "35236",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 24,
+    "fields": {
+      "user": 24,
+      "handicap": "7.4",
+      "ghin": "1250230",
+      "city": "Fort Wayne",
+      "state": "IN",
+      "address1": "990 Macpherson Place",
+      "address2": "",
+      "phone_number": "2608213815",
+      "zip": "46852",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 25,
+    "fields": {
+      "user": 25,
+      "handicap": "8.5",
+      "ghin": "1250240",
+      "city": "Dayton",
+      "state": "OH",
+      "address1": "225 Summerview Pass",
+      "address2": "",
+      "phone_number": "9371429998",
+      "zip": "45470",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 26,
+    "fields": {
+      "user": 26,
+      "handicap": "11.0",
+      "ghin": "1250250",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "20 Anhalt Crossing",
+      "address2": "",
+      "phone_number": "2027626855",
+      "zip": "20442",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 27,
+    "fields": {
+      "user": 27,
+      "handicap": "9.8",
+      "ghin": "1250260",
+      "city": "Atlanta",
+      "state": "GA",
+      "address1": "769 Grim Avenue",
+      "address2": "",
+      "phone_number": "4043062718",
+      "zip": "30306",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 28,
+    "fields": {
+      "user": 28,
+      "handicap": "13.7",
+      "ghin": "1250270",
+      "city": "Dearborn",
+      "state": "MI",
+      "address1": "660 Everett Park",
+      "address2": "",
+      "phone_number": "3138186326",
+      "zip": "48126",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 29,
+    "fields": {
+      "user": 29,
+      "handicap": "6.3",
+      "ghin": "1250280",
+      "city": "Corpus Christi",
+      "state": "TX",
+      "address1": "12320 Jay Pass",
+      "address2": "",
+      "phone_number": "3618343573",
+      "zip": "78465",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 30,
+    "fields": {
+      "user": 30,
+      "handicap": "14.1",
+      "ghin": "1250290",
+      "city": "Buffalo",
+      "state": "NY",
+      "address1": "6038 Jay Parkway",
+      "address2": "",
+      "phone_number": "7162186897",
+      "zip": "14276",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 31,
+    "fields": {
+      "user": 31,
+      "handicap": "15.7",
+      "ghin": "1250300",
+      "city": "Irvine",
+      "state": "CA",
+      "address1": "6 Corry Parkway",
+      "address2": "",
+      "phone_number": "7144490301",
+      "zip": "92710",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 32,
+    "fields": {
+      "user": 32,
+      "handicap": "13.4",
+      "ghin": "1250310",
+      "city": "Charlottesville",
+      "state": "VA",
+      "address1": "1561 Debs Pass",
+      "address2": "",
+      "phone_number": "4343309573",
+      "zip": "22903",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 33,
+    "fields": {
+      "user": 33,
+      "handicap": "18.2",
+      "ghin": "1250320",
+      "city": "Lincoln",
+      "state": "NE",
+      "address1": "2 Thompson Trail",
+      "address2": "",
+      "phone_number": "4023921380",
+      "zip": "68510",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 34,
+    "fields": {
+      "user": 34,
+      "handicap": "7.0",
+      "ghin": "1250330",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "23 Lawn Pass",
+      "address2": "",
+      "phone_number": "2027033900",
+      "zip": "20088",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 35,
+    "fields": {
+      "user": 35,
+      "handicap": "11.5",
+      "ghin": "1250340",
+      "city": "Fort Wayne",
+      "state": "IN",
+      "address1": "95 Rigney Way",
+      "address2": "",
+      "phone_number": "2607179475",
+      "zip": "46857",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 36,
+    "fields": {
+      "user": 36,
+      "handicap": "13.4",
+      "ghin": "1250350",
+      "city": "Phoenix",
+      "state": "AZ",
+      "address1": "61 Coolidge Terrace",
+      "address2": "",
+      "phone_number": "4804744959",
+      "zip": "85020",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 37,
+    "fields": {
+      "user": 37,
+      "handicap": "9.9",
+      "ghin": "1250360",
+      "city": "Bismarck",
+      "state": "ND",
+      "address1": "829 Stoughton Pass",
+      "address2": "",
+      "phone_number": "7014680598",
+      "zip": "58505",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 38,
+    "fields": {
+      "user": 38,
+      "handicap": "10.4",
+      "ghin": "1250370",
+      "city": "El Paso",
+      "state": "TX",
+      "address1": "8930 Scott Center",
+      "address2": "",
+      "phone_number": "9154245026",
+      "zip": "88563",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 39,
+    "fields": {
+      "user": 39,
+      "handicap": "19.9",
+      "ghin": "1250380",
+      "city": "Philadelphia",
+      "state": "PA",
+      "address1": "051 Raven Circle",
+      "address2": "",
+      "phone_number": "2157676983",
+      "zip": "19184",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 40,
+    "fields": {
+      "user": 40,
+      "handicap": "15.4",
+      "ghin": "1250390",
+      "city": "Houston",
+      "state": "TX",
+      "address1": "970 Wayridge Hill",
+      "address2": "",
+      "phone_number": "2815264069",
+      "zip": "77293",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 41,
+    "fields": {
+      "user": 41,
+      "handicap": "12.6",
+      "ghin": "1250400",
+      "city": "Honolulu",
+      "state": "HI",
+      "address1": "25174 Hagan Place",
+      "address2": "",
+      "phone_number": "8087388819",
+      "zip": "96815",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 42,
+    "fields": {
+      "user": 42,
+      "handicap": "7.6",
+      "ghin": "1250410",
+      "city": "Las Vegas",
+      "state": "NV",
+      "address1": "519 Erie Place",
+      "address2": "",
+      "phone_number": "7024378278",
+      "zip": "89178",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 43,
+    "fields": {
+      "user": 43,
+      "handicap": "6.6",
+      "ghin": "1250420",
+      "city": "Springfield",
+      "state": "IL",
+      "address1": "4 Judy Park",
+      "address2": "",
+      "phone_number": "2175091498",
+      "zip": "62756",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 44,
+    "fields": {
+      "user": 44,
+      "handicap": "13.1",
+      "ghin": "1250430",
+      "city": "Denver",
+      "state": "CO",
+      "address1": "839 Elka Circle",
+      "address2": "",
+      "phone_number": "3039089204",
+      "zip": "80270",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 45,
+    "fields": {
+      "user": 45,
+      "handicap": "15.3",
+      "ghin": "1250440",
+      "city": "Winter Haven",
+      "state": "FL",
+      "address1": "5663 Lakeland Plaza",
+      "address2": "",
+      "phone_number": "4077971057",
+      "zip": "33884",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 46,
+    "fields": {
+      "user": 46,
+      "handicap": "12.3",
+      "ghin": "1250450",
+      "city": "Anchorage",
+      "state": "AK",
+      "address1": "97 Judy Alley",
+      "address2": "",
+      "phone_number": "9077462436",
+      "zip": "99522",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 47,
+    "fields": {
+      "user": 47,
+      "handicap": "6.9",
+      "ghin": "1250460",
+      "city": "Atlanta",
+      "state": "GA",
+      "address1": "1602 Anderson Way",
+      "address2": "",
+      "phone_number": "4042586583",
+      "zip": "31165",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 48,
+    "fields": {
+      "user": 48,
+      "handicap": "11.3",
+      "ghin": "1250470",
+      "city": "Las Vegas",
+      "state": "NV",
+      "address1": "66 Glacier Hill Trail",
+      "address2": "",
+      "phone_number": "7021652301",
+      "zip": "89105",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 49,
+    "fields": {
+      "user": 49,
+      "handicap": "14.1",
+      "ghin": "1250480",
+      "city": "Oklahoma City",
+      "state": "OK",
+      "address1": "08344 Spohn Parkway",
+      "address2": "",
+      "phone_number": "4054753876",
+      "zip": "73104",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 50,
+    "fields": {
+      "user": 50,
+      "handicap": "10.2",
+      "ghin": "1250490",
+      "city": "Greenville",
+      "state": "SC",
+      "address1": "2462 Bashford Park",
+      "address2": "",
+      "phone_number": "8642739551",
+      "zip": "29605",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 51,
+    "fields": {
+      "user": 51,
+      "handicap": "5.0",
+      "ghin": "1250500",
+      "city": "Mount Vernon",
+      "state": "NY",
+      "address1": "39 Summerview Trail",
+      "address2": "",
+      "phone_number": "9149490230",
+      "zip": "10557",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 52,
+    "fields": {
+      "user": 52,
+      "handicap": "14.0",
+      "ghin": "1250510",
+      "city": "Chicago",
+      "state": "IL",
+      "address1": "027 Bunting Court",
+      "address2": "",
+      "phone_number": "3122048138",
+      "zip": "60624",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 53,
+    "fields": {
+      "user": 53,
+      "handicap": "15.9",
+      "ghin": "1250520",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "address1": "026 David Junction",
+      "address2": "",
+      "phone_number": "4123437474",
+      "zip": "15215",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 54,
+    "fields": {
+      "user": 54,
+      "handicap": "11",
+      "ghin": "1250530",
+      "city": "Decatur",
+      "state": "IL",
+      "address1": "031 Forest Road",
+      "address2": "",
+      "phone_number": "2174790323",
+      "zip": "62525",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 55,
+    "fields": {
+      "user": 55,
+      "handicap": "9.5",
+      "ghin": "1250540",
+      "city": "Hollywood",
+      "state": "FL",
+      "address1": "02 Corscot Way",
+      "address2": "",
+      "phone_number": "9544302739",
+      "zip": "33023",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 56,
+    "fields": {
+      "user": 56,
+      "handicap": "9.9",
+      "ghin": "1250550",
+      "city": "White Plains",
+      "state": "NY",
+      "address1": "0110 Village Road",
+      "address2": "",
+      "phone_number": "8455128745",
+      "zip": "10606",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 57,
+    "fields": {
+      "user": 57,
+      "handicap": "9.8",
+      "ghin": "1250560",
+      "city": "Oceanside",
+      "state": "CA",
+      "address1": "2 Del Sol Place",
+      "address2": "",
+      "phone_number": "7609308307",
+      "zip": "92056",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 58,
+    "fields": {
+      "user": 58,
+      "handicap": "11.8",
+      "ghin": "1250570",
+      "city": "Sandy",
+      "state": "UT",
+      "address1": "092 Northport Junction",
+      "address2": "",
+      "phone_number": "8018725948",
+      "zip": "84093",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 59,
+    "fields": {
+      "user": 59,
+      "handicap": "9.7",
+      "ghin": "1250580",
+      "city": "Clearwater",
+      "state": "FL",
+      "address1": "9280 Bultman Street",
+      "address2": "",
+      "phone_number": "7272572227",
+      "zip": "33763",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 60,
+    "fields": {
+      "user": 60,
+      "handicap": "13.1",
+      "ghin": "1250590",
+      "city": "Yakima",
+      "state": "WA",
+      "address1": "94 Northfield Plaza",
+      "address2": "",
+      "phone_number": "5093553801",
+      "zip": "98907",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 61,
+    "fields": {
+      "user": 61,
+      "handicap": "12.6",
+      "ghin": "1250600",
+      "city": "Chicago",
+      "state": "IL",
+      "address1": "53 Schmedeman Terrace",
+      "address2": "",
+      "phone_number": "7731407917",
+      "zip": "60609",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 62,
+    "fields": {
+      "user": 62,
+      "handicap": "6.9",
+      "ghin": "1250610",
+      "city": "Hampton",
+      "state": "VA",
+      "address1": "32454 Lukken Plaza",
+      "address2": "",
+      "phone_number": "7579327738",
+      "zip": "23663",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 63,
+    "fields": {
+      "user": 63,
+      "handicap": "14.5",
+      "ghin": "1250620",
+      "city": "Charleston",
+      "state": "SC",
+      "address1": "7 Weeping Birch Street",
+      "address2": "",
+      "phone_number": "8435891795",
+      "zip": "29411",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 64,
+    "fields": {
+      "user": 64,
+      "handicap": "21.3",
+      "ghin": "1250630",
+      "city": "New Orleans",
+      "state": "LA",
+      "address1": "54 Rutledge Court",
+      "address2": "",
+      "phone_number": "5046798196",
+      "zip": "70160",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 65,
+    "fields": {
+      "user": 65,
+      "handicap": "16.4",
+      "ghin": "1250640",
+      "city": "New Orleans",
+      "state": "LA",
+      "address1": "99492 Dottie Park",
+      "address2": "",
+      "phone_number": "5041931583",
+      "zip": "70174",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 66,
+    "fields": {
+      "user": 66,
+      "handicap": "8.4",
+      "ghin": "1250650",
+      "city": "Richmond",
+      "state": "VA",
+      "address1": "06 Delaware Park",
+      "address2": "",
+      "phone_number": "8042708540",
+      "zip": "23293",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 67,
+    "fields": {
+      "user": 67,
+      "handicap": "7.9",
+      "ghin": "1250660",
+      "city": "Kingsport",
+      "state": "TN",
+      "address1": "431 Artisan Street",
+      "address2": "",
+      "phone_number": "4239699872",
+      "zip": "37665",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 68,
+    "fields": {
+      "user": 68,
+      "handicap": "15.7",
+      "ghin": "1250670",
+      "city": "Elmira",
+      "state": "NY",
+      "address1": "6 Ronald Regan Circle",
+      "address2": "",
+      "phone_number": "6078502895",
+      "zip": "14905",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 69,
+    "fields": {
+      "user": 69,
+      "handicap": "13.1",
+      "ghin": "1250680",
+      "city": "Mesa",
+      "state": "AZ",
+      "address1": "261 Texas Drive",
+      "address2": "",
+      "phone_number": "9287480463",
+      "zip": "85210",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 70,
+    "fields": {
+      "user": 70,
+      "handicap": "10.6",
+      "ghin": "1250690",
+      "city": "Peoria",
+      "state": "IL",
+      "address1": "9123 Rieder Crossing",
+      "address2": "",
+      "phone_number": "3092310573",
+      "zip": "61605",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 71,
+    "fields": {
+      "user": 71,
+      "handicap": "16.7",
+      "ghin": "1250700",
+      "city": "Omaha",
+      "state": "NE",
+      "address1": "25 Knutson Parkway",
+      "address2": "",
+      "phone_number": "4028810557",
+      "zip": "68117",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 72,
+    "fields": {
+      "user": 72,
+      "handicap": "10.3",
+      "ghin": "1250710",
+      "city": "Dayton",
+      "state": "OH",
+      "address1": "3 Kingsford Junction",
+      "address2": "",
+      "phone_number": "9377200899",
+      "zip": "45426",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 73,
+    "fields": {
+      "user": 73,
+      "handicap": "15.1",
+      "ghin": "1250720",
+      "city": "Huntington",
+      "state": "WV",
+      "address1": "00 Armistice Lane",
+      "address2": "",
+      "phone_number": "3048029273",
+      "zip": "25721",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 74,
+    "fields": {
+      "user": 74,
+      "handicap": "8.6",
+      "ghin": "1250730",
+      "city": "Aiken",
+      "state": "SC",
+      "address1": "3232 Kingsford Drive",
+      "address2": "",
+      "phone_number": "8034523167",
+      "zip": "29805",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 75,
+    "fields": {
+      "user": 75,
+      "handicap": "19.2",
+      "ghin": "1250740",
+      "city": "Indianapolis",
+      "state": "IN",
+      "address1": "5 Portage Point",
+      "address2": "",
+      "phone_number": "3175410171",
+      "zip": "46266",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 76,
+    "fields": {
+      "user": 76,
+      "handicap": "15.1",
+      "ghin": "1250750",
+      "city": "Springfield",
+      "state": "IL",
+      "address1": "6321 Manufacturers Junction",
+      "address2": "",
+      "phone_number": "2174613878",
+      "zip": "62718",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 77,
+    "fields": {
+      "user": 77,
+      "handicap": "6.8",
+      "ghin": "1250760",
+      "city": "Hyattsville",
+      "state": "MD",
+      "address1": "9908 Atwood Trail",
+      "address2": "",
+      "phone_number": "3012137263",
+      "zip": "20784",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 78,
+    "fields": {
+      "user": 78,
+      "handicap": "15.5",
+      "ghin": "1250770",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "9005 Sundown Road",
+      "address2": "",
+      "phone_number": "2028926267",
+      "zip": "20404",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 79,
+    "fields": {
+      "user": 79,
+      "handicap": "11.9",
+      "ghin": "1250780",
+      "city": "Anchorage",
+      "state": "AK",
+      "address1": "49 Becker Circle",
+      "address2": "",
+      "phone_number": "9075594010",
+      "zip": "99517",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 80,
+    "fields": {
+      "user": 80,
+      "handicap": "8.7",
+      "ghin": "1250790",
+      "city": "Miami Beach",
+      "state": "FL",
+      "address1": "6757 Brickson Park Road",
+      "address2": "",
+      "phone_number": "3052421268",
+      "zip": "33141",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 81,
+    "fields": {
+      "user": 81,
+      "handicap": "12.7",
+      "ghin": "1250800",
+      "city": "Rockford",
+      "state": "IL",
+      "address1": "33455 Maryland Road",
+      "address2": "",
+      "phone_number": "8159084449",
+      "zip": "61105",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 82,
+    "fields": {
+      "user": 82,
+      "handicap": "12.4",
+      "ghin": "1250810",
+      "city": "Boulder",
+      "state": "CO",
+      "address1": "61769 Kedzie Parkway",
+      "address2": "",
+      "phone_number": "3034449429",
+      "zip": "80310",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 83,
+    "fields": {
+      "user": 83,
+      "handicap": "7.5",
+      "ghin": "1250820",
+      "city": "El Paso",
+      "state": "TX",
+      "address1": "1101 Clyde Gallagher Terrace",
+      "address2": "",
+      "phone_number": "9159818603",
+      "zip": "88546",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 84,
+    "fields": {
+      "user": 84,
+      "handicap": "6.4",
+      "ghin": "1250830",
+      "city": "Las Vegas",
+      "state": "NV",
+      "address1": "5 Onsgard Court",
+      "address2": "",
+      "phone_number": "7027890692",
+      "zip": "89130",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 85,
+    "fields": {
+      "user": 85,
+      "handicap": "14.2",
+      "ghin": "1250840",
+      "city": "Aurora",
+      "state": "IL",
+      "address1": "732 Sugar Way",
+      "address2": "",
+      "phone_number": "3313095671",
+      "zip": "60505",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 86,
+    "fields": {
+      "user": 86,
+      "handicap": "7.4",
+      "ghin": "1250850",
+      "city": "Jacksonville",
+      "state": "FL",
+      "address1": "9108 Hudson Road",
+      "address2": "",
+      "phone_number": "9046815722",
+      "zip": "32255",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 87,
+    "fields": {
+      "user": 87,
+      "handicap": "5.8",
+      "ghin": "1250860",
+      "city": "Portsmouth",
+      "state": "NH",
+      "address1": "97 American Ash Pass",
+      "address2": "",
+      "phone_number": "6031423219",
+      "zip": "03804",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 88,
+    "fields": {
+      "user": 88,
+      "handicap": "13.5",
+      "ghin": "1250870",
+      "city": "San Francisco",
+      "state": "CA",
+      "address1": "4 Northwestern Point",
+      "address2": "",
+      "phone_number": "4156925760",
+      "zip": "94177",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 89,
+    "fields": {
+      "user": 89,
+      "handicap": "16.6",
+      "ghin": "1250880",
+      "city": "Jefferson City",
+      "state": "MO",
+      "address1": "1405 Vera Road",
+      "address2": "",
+      "phone_number": "5735002845",
+      "zip": "65105",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 90,
+    "fields": {
+      "user": 90,
+      "handicap": "5.7",
+      "ghin": "1250890",
+      "city": "New York City",
+      "state": "NY",
+      "address1": "3 Muir Street",
+      "address2": "",
+      "phone_number": "6461352444",
+      "zip": "10029",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 91,
+    "fields": {
+      "user": 91,
+      "handicap": "17.4",
+      "ghin": "1250900",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "098 Sherman Hill",
+      "address2": "",
+      "phone_number": "2022721824",
+      "zip": "20010",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 92,
+    "fields": {
+      "user": 92,
+      "handicap": "12.2",
+      "ghin": "1250910",
+      "city": "Dallas",
+      "state": "TX",
+      "address1": "71956 Columbus Center",
+      "address2": "",
+      "phone_number": "2148780569",
+      "zip": "75353",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 93,
+    "fields": {
+      "user": 93,
+      "handicap": "14.8",
+      "ghin": "1250920",
+      "city": "Cincinnati",
+      "state": "OH",
+      "address1": "1131 Eagan Parkway",
+      "address2": "",
+      "phone_number": "5132438191",
+      "zip": "45203",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 94,
+    "fields": {
+      "user": 94,
+      "handicap": "18.1",
+      "ghin": "1250930",
+      "city": "Stockton",
+      "state": "CA",
+      "address1": "02983 Kings Hill",
+      "address2": "",
+      "phone_number": "2092594179",
+      "zip": "95210",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 95,
+    "fields": {
+      "user": 95,
+      "handicap": "10.2",
+      "ghin": "1250940",
+      "city": "Houston",
+      "state": "TX",
+      "address1": "7261 Fieldstone Circle",
+      "address2": "",
+      "phone_number": "7133140829",
+      "zip": "77281",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 96,
+    "fields": {
+      "user": 96,
+      "handicap": "9.7",
+      "ghin": "1250950",
+      "city": "Tulsa",
+      "state": "OK",
+      "address1": "563 Veith Park",
+      "address2": "",
+      "phone_number": "9183683685",
+      "zip": "74108",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 97,
+    "fields": {
+      "user": 97,
+      "handicap": "14.2",
+      "ghin": "1250960",
+      "city": "Charlotte",
+      "state": "NC",
+      "address1": "445 Lawn Street",
+      "address2": "",
+      "phone_number": "7045768242",
+      "zip": "28225",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 98,
+    "fields": {
+      "user": 98,
+      "handicap": "9.5",
+      "ghin": "1250970",
+      "city": "Washington",
+      "state": "DC",
+      "address1": "77963 Novick Trail",
+      "address2": "",
+      "phone_number": "2029850654",
+      "zip": "20067",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 99,
+    "fields": {
+      "user": 99,
+      "handicap": "8.9",
+      "ghin": "1250980",
+      "city": "Minneapolis",
+      "state": "MN",
+      "address1": "9 Porter Circle",
+      "address2": "",
+      "phone_number": "9524414168",
+      "zip": "55441",
+      "handicap_revision_date": "2015-10-31"
+    }
+  },
+  {
+    "model": "core.member",
+    "pk": 0,
+    "fields": {
+      "user": 100,
+      "handicap": "5.4",
+      "ghin": "1250990",
+      "city": "Miami",
+      "state": "FL",
+      "address1": "22802 Milwaukee Circle",
+      "address2": "",
+      "phone_number": "7868242399",
+      "zip": "33233",
+      "handicap_revision_date": "2015-10-31"
+    }
+  }
+]

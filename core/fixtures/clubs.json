@@ -1,0 +1,15 @@
+[
+  {
+    "model": "core.club",
+    "pk": 1,
+    "fields": {
+      "description": "Bunker Hills Men's Club",
+      "city": "Coon Rapids",
+      "state": "MN",
+      "phone_number": "7637554141",
+      "address1": "12800 Bunker Prairie Rd NW",
+      "zip": "55448",
+      "contact_email": "shopbh@bunkerhillsgolf.com"
+    }
+  }
+]
