@@ -1,5 +1,6 @@
 from .models import Course, Hole, CourseSetup, CourseSetupHole
-from .serializers import CourseSerializer, HoleSerializer, CourseSetupSerializer, CourseSetupHoleSerializer
+from .serializers import CourseSerializer, CourseDetailSerializer, CourseSetupSerializer, CourseSetupHoleSerializer, \
+    HoleListSerializer, HoleDetailSerializer, CourseSetupDetailSerializer
 from rest_framework import generics
 
 
@@ -14,7 +15,7 @@ class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
     """ API endpoint to edit Courses
     """
     queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+    serializer_class = CourseDetailSerializer
 
 
 class CourseSetupList(generics.ListCreateAPIView):
@@ -28,11 +29,11 @@ class CourseSetupDetail(generics.RetrieveUpdateDestroyAPIView):
     """ API endpoint to edit Course Setups
     """
     queryset = CourseSetup.objects.all()
-    serializer_class = CourseSetupSerializer
+    serializer_class = CourseSetupDetailSerializer
 
 
 class HoleList(generics.ListCreateAPIView):
-    serializer_class = HoleSerializer
+    serializer_class = HoleListSerializer
 
     def get_queryset(self):
         """
@@ -41,14 +42,17 @@ class HoleList(generics.ListCreateAPIView):
         """
         queryset = Hole.objects.all()
         course = self.request.query_params.get('course', None)
+        tees = self.request.query_params.get('tees', None)
         if course is not None:
             queryset = queryset.filter(course=course)
+        if tees is not None:
+            queryset = queryset.filter(tee_name=tees)
         return queryset
 
 
 class HoleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hole.objects.all()
-    serializer_class = HoleSerializer
+    serializer_class = HoleDetailSerializer
 
 
 class CourseSetupHoleList(generics.ListCreateAPIView):
