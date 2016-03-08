@@ -1585,7 +1585,7 @@
   },
   {
     "model": "core.member",
-    "pk": 0,
+    "pk": 100,
     "fields": {
       "user": 100,
       "handicap": "5.4",

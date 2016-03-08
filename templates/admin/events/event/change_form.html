@@ -1,0 +1,39 @@
+{% extends 'admin/change_form.html' %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+            $('#id_template').change(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/event-templates/' + $('#id_template').val() + '/',
+                    success: function(data, _status) {
+                        $('#id_name').val(data.name);
+                        $('#id_description').val(data.description);
+                        $('#id_notes').val(data.notes);
+                        $('#id_event_type').val(data.event_type);
+                        $('#id_rounds').val(data.rounds);
+                        $('#id_holes_per_round').val(data.holes_per_round);
+                        $('#id_event_fee').val(data.event_fee);
+                        $('#id_skins_fee').val(data.skins_fee);
+                        $('#id_skins_type').val(data.skins_type);
+                        $('#id_minimum_signup_group_size').val(data.minimum_signup_group_size);
+                        $('#id_maximum_signup_group_size').val(data.maximum_signup_group_size);
+                        $('#id_group_size').val(data.group_size);
+                        $('#id_start_type').val(data.start_type);
+                        $('#id_scoring').val(data.scoring);
+                        $('#id_scoring_system').val(data.scoring_system);
+                        $('#id_number_of_scores').val(data.number_of_scores);
+                        $('#id_season_points').val(data.season_points);
+                        $('#id_can_signup_group').prop('checked', data.can_signup_group);
+                        $('#id_can_choose_hole').prop('checked', data.can_choose_hole);
+                    },
+                    dataType: "json"
+                });
+            });
+        });
+    })(django.jQuery);
+</script>
+{% endblock %}
