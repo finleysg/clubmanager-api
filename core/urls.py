@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^course-setup-holes/$', course_views.CourseSetupHoleList.as_view(), name='coursesetuphole-list'),
     url(r'^course-setup-holes/(?P<pk>[0-9]+)/$', course_views.CourseSetupHoleDetail.as_view(), name='coursesetuphole-detail'),
     url(r'^events/$', event_views.EventList.as_view(), name='event-list'),
+    url(r'^upcoming-events/$', event_views.UpcomingEventList.as_view(), name='upcoming-event-list'),
     url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
     url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
     url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),

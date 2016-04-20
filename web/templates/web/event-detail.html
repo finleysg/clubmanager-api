@@ -1,0 +1,11 @@
+{% extends 'web/base.html' %}
+
+{% block body_block %}
+    <div>
+        <h1>Event detail page</h1>
+        <p>Full description of the event, including rules, notes, and other details.</p>
+        <p>If the current date in within the event's signup window, there will be a <a href="/register/">link</a> to the event registration page.</p>
+        <p>If the current date is after the signup deadline but before results are posted, there will be a link to the register page as well, but that page is read only.</p>
+        <p>If the current date is after the event has concluded, there will be a <a href="/results/">link</a> to the results page.</p>
+    </div>
+{% endblock %}

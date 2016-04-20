@@ -125,3 +125,6 @@ STATICFILES_FINDERS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'var/www/static')
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'

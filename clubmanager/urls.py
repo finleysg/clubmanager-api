@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 from core import urls as api_urls
 
 urlpatterns = [
     url(r'^', include('web.urls', namespace='web')),
+    url(r'^login/', auth_views.login, name='login'),
+    url(r'^logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^reset-password/', auth_views.login, name='login'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(api_urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
