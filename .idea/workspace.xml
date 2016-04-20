@@ -2,54 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="579cfe70-a7d8-4823-8560-e0b16a1e55ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.jshintrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/login.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/config/host.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/Calendar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/Day.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/calendarService-spec.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/calendarService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/event-calendar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/event-calendar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/event.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/eventData.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/eventService.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/upcoming-events.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/app/events/upcoming-events.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/static/web/css/calendar.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/account.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/calendar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/contact.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/dam-cup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/directory.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/event-detail.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/forum.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/league-results.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/local-rules.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/major-results.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/policies.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/profile.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/register.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/results.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/web/season-long-points.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/clubmanager.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clubmanager/settings.py" afterPath="$PROJECT_DIR$/clubmanager/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clubmanager/urls.py" afterPath="$PROJECT_DIR$/clubmanager/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/urls.py" afterPath="$PROJECT_DIR$/core/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/events/views.py" afterPath="$PROJECT_DIR$/events/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/web/base.html" afterPath="$PROJECT_DIR$/web/templates/web/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/web/index.html" afterPath="$PROJECT_DIR$/web/templates/web/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/urls.py" afterPath="$PROJECT_DIR$/web/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/views.py" afterPath="$PROJECT_DIR$/web/views.py" />
     </list>
     <ignored path="clubmanager-api.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+            <state relative-caret-position="324">
+              <caret line="19" column="82" selection-start-line="19" selection-start-column="82" selection-end-line="19" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -120,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Calendar.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Calendar.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/static/web/app/events/Calendar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -212,7 +165,6 @@
         <option value="$PROJECT_DIR$/web/templates/web/major-results.html" />
         <option value="$PROJECT_DIR$/web/templates/web/league-results.html" />
         <option value="$PROJECT_DIR$/web/views.py" />
-        <option value="$PROJECT_DIR$/web/urls.py" />
         <option value="$PROJECT_DIR$/web/static/web/app/events/upcoming-events.html" />
         <option value="$PROJECT_DIR$/web/static/web/css/calendar.css" />
         <option value="$PROJECT_DIR$/web/static/web/app/events/event-calendar.html" />
@@ -220,6 +172,7 @@
         <option value="$PROJECT_DIR$/web/templates/web/base.html" />
         <option value="$PROJECT_DIR$/web/static/web/app/events/Day.js" />
         <option value="$PROJECT_DIR$/web/static/web/app/events/Calendar.js" />
+        <option value="$PROJECT_DIR$/web/urls.py" />
       </list>
     </option>
   </component>
@@ -342,59 +295,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -421,80 +326,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="events" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clubmanager-api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="events" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1225,7 +1056,7 @@
       <workItem from="1460923198682" duration="6305000" />
       <workItem from="1460998819209" duration="4284000" />
       <workItem from="1461017026825" duration="6656000" />
-      <workItem from="1461104170642" duration="14776000" />
+      <workItem from="1461104170642" duration="15227000" />
     </task>
     <servers />
   </component>
@@ -1253,10 +1084,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41486000" />
+    <option name="totallyTimeSpent" value="41937000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1600" height="870" extended-state="6" />
+    <frame x="0" y="0" width="1600" height="870" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1264,11 +1095,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3382157" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3382157" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22143774" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2169448" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23299101" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1637,14 +1468,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/static/web/app/events/upcoming-events.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1695,8 +1518,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/static/web/app/events/Calendar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="396">
+          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="19" column="82" selection-start-line="19" selection-start-column="82" selection-end-line="19" selection-end-column="82" />
           <folding />
         </state>
       </provider>

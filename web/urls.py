@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'profile/', views.profile, name='profile'),
     url(r'register/', views.register, name='register'),
     url(r'results/', views.results, name='results'),
-    url(r'slp/', views.season_long_points, name='slp'),
+    url(r'season-long-points/', views.season_long_points, name='season-long-points'),
 ]
