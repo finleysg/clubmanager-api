@@ -71,7 +71,7 @@
     </ul>
 </header>
 
-<aside id="sidebar">
+<aside id="sidebar" ng-controller="AppController as vm">
     <!--| MAIN MENU |-->
     <ul class="side-menu">
         {% if user.is_authenticated %}
@@ -84,8 +84,8 @@
             </a>
 
             <ul>
-                <li><a href="">View Profile</a></li>
-                <li><a href="">Privacy Settings</a></li>
+                <li><a href="/profile">View Profile</a></li>
+                <li><a href="/account">Account Settings</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <!--<li><a href="/members/logout/?next=/">Logout</a></li>-->
             </ul>
@@ -95,55 +95,55 @@
         <li><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
 
-        <li class="active">
+        <li ng-class="{'active': false}">
             <a href="/">
                 <i class="zmdi zmdi-home"></i>
                 <span>Home</span>
             </a>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/calendar')}">
             <a href="/calendar">
                 <i class="zmdi zmdi-calendar"></i>
                 <span>Event Calendar<span class="label label-danger">New</span></span>
             </a>
         </li>
-        <li class="sm-sub">
+        <li class="sm-sub" ng-class="{'active': vm.isOpen(['league-results','major-results','season-long-points','dam-cup'])}">
             <a href="">
                 <i class="zmdi zmdi-format-list-numbered"></i>
                 <span>Event Results</span>
             </a>
             <ul>
-                <li><a href="/league-results">Wednesday Night League</a></li>
-                <li><a href="/major-results">Weekend Majors</a></li>
-                <li><a href="/season-long-points">Season Long Points</a></li>
-                <li><a href="/dam-cup">Dam Cup Standings</a></li>
+                <li ng-class="{'active': vm.isActive('/league-results')}"><a href="/league-results">Wednesday Night League</a></li>
+                <li ng-class="{'active': vm.isActive('/major-results')}"><a href="/major-results">Weekend Majors</a></li>
+                <li ng-class="{'active': vm.isActive('/season-long-points')}"><a href="/season-long-points">Season Long Points</a></li>
+                <li ng-class="{'active': vm.isActive('/dam-cup')}"><a href="/dam-cup">Dam Cup Standings</a></li>
             </ul>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/forum')}">
             <a href="/forum">
                 <i class="zmdi zmdi-comment-text"></i>
                 <span>News, Announcements, Forum</span>
             </a>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/policies')}">
             <a href="/policies">
                 <i class="zmdi zmdi-check-all"></i>
                 <span>Policies and Procedures</span>
             </a>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/local-rules')}">
             <a href="/local-rules">
                 <i class="zmdi zmdi-edit"></i>
                 <span>Local Rules</span>
             </a>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/directory')}">
             <a href="/directory">
                 <i class="zmdi zmdi-accounts-outline"></i>
                 <span>Member Directory</span>
             </a>
         </li>
-        <li>
+        <li ng-class="{'active': vm.isActive('/contact')}">
             <a href="/contact">
                 <i class="zmdi zmdi-help"></i>
                 <span>Contact Us</span>
@@ -230,6 +230,7 @@
 <script src="{% static 'web/app/events/event.js' %}"></script>
 <script src="{% static 'web/app/app.js' %}"></script>
 <script src="{% static 'web/app/templates.js' %}"></script>
+<script src="{% static 'web/app/AppController.js' %}"></script>
 <script src="{% static 'web/app/config/host.js' %}"></script>
 <script src="{% static 'web/app/events/eventData.js' %}"></script>
 <script src="{% static 'web/app/events/eventService.js' %}"></script>

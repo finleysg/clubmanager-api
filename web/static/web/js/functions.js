@@ -59,7 +59,7 @@ $(document).ready(function(){
         
         if (s == '240px') { //Only fire this on large/small screen.
             x.find('ul').slideToggle(200);
-            x.toggleClass('toggled');
+            //x.toggleClass('toggled');
             
         }
     });
