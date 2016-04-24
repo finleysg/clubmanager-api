@@ -17,8 +17,8 @@ coverage.xml
 *.log
 *.pot
 var/
-db.club_manager
 superflat_1.1/
+clubmanager/settings_production.py
 
 # Bower
 bower_components/
@@ -26,12 +26,6 @@ bower_components/
 # Node
 node_modules/
 
-# Pycharm
+# Intellij
 .idea/
 
-# Amazon
-*.zip
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
