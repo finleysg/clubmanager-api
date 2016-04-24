@@ -28,14 +28,7 @@ DATABASES = {
     }
 }
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mailtrap.io'
-EMAIL_HOST_USER = '56723e8f5a3d7e935'
-EMAIL_HOST_PASSWORD = '4daeee33d627a7'
-EMAIL_PORT = '2525'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

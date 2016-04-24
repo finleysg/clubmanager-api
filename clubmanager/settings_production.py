@@ -1,44 +1,43 @@
 """
 Django local settings, changed per environment
 """
-import os
 try:
     from .settings_base import *
 except ImportError:
     pass
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'gm0*hh0w@&gj6yx3coa1!mt!radzx5gceg-no#dljk$7zc74wp'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','.elasticbeanstalk.com',]
+ALLOWED_HOSTS = ['localhost','.pythonanywhere.com',]
 
-ADMINS = [('stuart', 'finleysg@gmail.com')]
+ADMINS = [('finleysg', 'finleysg@gmail.com')]
 
 # Database
 # EB instance admin = stuart
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+        'NAME': 'finleysg$bhmc',
+        'USER': 'finleysg',
+        'PASSWORD': 'Fl0werP0t',
+        'HOST': 'finleysg.mysql.pythonanywhere-services.com',
+        'PORT': 3306,
     }
 }
 
 # ses-smtp-user.20160131-205034 settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mailtrap.io'  # email-smtp.us-west-2.amazonaws.com
-EMAIL_HOST_USER = '56723e8f5a3d7e935'  # AKIAIXBHV5CFMZJLAL2Q
-EMAIL_HOST_PASSWORD = '4daeee33d627a7'  # AlzVDhmK4XSncrGehb61x3yeYtmWRFmSaLiPjyMVysKu
-EMAIL_PORT = '2525'  # 25
-EMAIL_USE_TLS = False # True
-EMAIL_USE_SSL = False # True
+EMAIL_HOST = 'mailtrap.io'
+EMAIL_HOST_USER = '56723e8f5a3d7e935'
+EMAIL_HOST_PASSWORD = '4daeee33d627a7'
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
 
 
 # Amazon S3 config courtesy of
