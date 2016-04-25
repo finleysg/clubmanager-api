@@ -3,14 +3,12 @@ var gulp          = require('gulp');
 var minifyHtml    = require('gulp-minify-html');
 var templateCache = require('gulp-angular-templatecache');
 var jshint        = require('gulp-jshint');
-//var concat        = require('gulp-concat');
-//var uglify        = require('gulp-uglify');
-//var rename        = require('gulp-rename');
-//var sh            = require('shelljs');
-//var replace       = require('gulp-replace');
-//var fs            = require('fs');
-//var inject        = require('gulp-inject');
-//var seq           = require('run-sequence');
+var concat        = require('gulp-concat');
+var header        = require('gulp-header');
+var uglify        = require('gulp-uglify');
+var rename        = require('gulp-rename');
+var inject        = require('gulp-inject');
+var print         = require('gulp-print');
 
 
 gulp.task('html', function () {
@@ -65,28 +63,31 @@ gulp.task('stage-fonts', function () {
 
 gulp.task('stage', ['stage-fonts', 'stage-css', 'stage-js-lib']);
 
-// gulp.task('bundle', function() {
-//     return gulp.src(['www/src/**/*.js','!www/src/app.js'])
-//         .pipe(concat('statracker.js'))
-//         .pipe(header('\'use strict\';\n'))
-//         .pipe(gulp.dest('www/dist'))
-//         .pipe(rename({ extname: '.min.js' }))
-//         .pipe(uglify())
-//         .pipe(gulp.dest('www/dist'));
-// });
-//
-// gulp.task('inject-src', function () {
-//     var target = gulp.src('./www/index.html');
-//     var sources = gulp.src([
-//         './www/src/account/**/*.js',
-//         './www/src/clubs/**/*.js',
-//         './www/src/components/**/*.js',
-//         './www/src/courses/**/*.js',
-//         './www/src/data/**/*.js',
-//         './www/src/config/**/*.js',
-//         './www/src/rounds/**/*.js',
-//         './www/src/stats/**/*.js'], {read: false, cwd: __dirname});
-//     //sources.pipe(print());
-//     return target.pipe(inject(sources, {relative: true, addRootSlash: false})).pipe(gulp.dest('./www'));
-// });
+gulp.task('bundle', function() {
+  return gulp.src(['web/static/web/app/**/*.js','!web/static/web/app.js'])
+      .pipe(concat('club-manager.js'))
+      .pipe(header('\'use strict\';\n'))
+      .pipe(gulp.dest('web/static/web/dist'));
+});
+
+gulp.task('mangle', function() {
+  return gulp.src(['web/static/web/dist/club-manager.js'])
+      .pipe(rename({ extname: '.min.js' }))
+      .pipe(uglify())
+      .pipe(gulp.dest('web/static/web/dist'));
+});
+
+gulp.task('inject-src', function () {
+    var target = gulp.src('web/static/templates/web/base.html');
+    var sources = gulp.src(['web/static/web/dist/club-manager.js'], {read: false, cwd: __dirname});
+    //sources.pipe(print());
+    return target.pipe(inject(sources, {relative: true, addRootSlash: false})).pipe(gulp.dest('web/static/templates/web'));
+});
+
+gulp.task('inject-dist', function () {
+    var target = gulp.src('web/static/templates/web/base.html');
+    var sources = gulp.src(['web/static/web/dist/club-manager.min.js'], {read: false, cwd: __dirname});
+    //sources.pipe(print());
+    return target.pipe(inject(sources, {relative: true, addRootSlash: false})).pipe(gulp.dest('web/static/templates/web'));
+});
 /* jshint ignore:end */
