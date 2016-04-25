@@ -27,7 +27,14 @@
         }
         
         function getUpcomingEvents() {
-            return eventData.upcoming();
+            var year = new Date().getFullYear();
+            return eventData.events(year).then( function(data) {
+                var filtered = data.filter(function (event) {
+                    return moment(event.start_date).year() === year &&
+                        (event.event_state === 'registration' || event.event_state === 'pending');
+                });
+                return filtered;
+            });
         }
     }
 })();

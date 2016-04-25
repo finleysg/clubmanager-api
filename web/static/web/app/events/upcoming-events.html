@@ -6,8 +6,11 @@
         <div class="dropdown-header bg-blue m-b-15">
             UPCOMING EVENTS
         </div>
-        <div ng-repeat="e in vm.events" class="list-group lg-alt">
-            <a class="list-group-item media" href="/register/">
+        <div ng-show="vm.events.length === 0" class="list-group lg-alt">
+            No events are available for registration at this time.
+        </div>
+        <div ng-show="vm.events.length > 0" ng-repeat="e in vm.events" class="list-group lg-alt">
+            <a class="list-group-item media" href="/event/{{ e.id }}/register/">
                 <div class="pull-left">
                     <div class="event-time bg-green">
                         <h2>{{ e.start_date }}</h2>
