@@ -46,6 +46,7 @@ gulp.task('stage-js-lib', function () {
     var sources = [
         'bower_components/jquery/dist/jquery.js',
         'bower_components/angular/angular.js',
+        'bower_components/angular-cookies/angular-cookies.js',
         'bower_components/lodash/dist/lodash.js',
         'bower_components/moment/moment.js',
         'bower_components/bootstrap/dist/js/bootstrap.js',

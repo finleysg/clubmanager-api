@@ -18,5 +18,5 @@ if (!String.prototype.includes) {
 (function() {
     'use strict';
 
-    angular.module('club-manager', ['cm.event']);
+    angular.module('club-manager', ['ngCookies','cm.event']);
 })();
