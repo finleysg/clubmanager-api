@@ -8545,16 +8545,15 @@ fieldset[disabled] .btn-inverse.active {
 -----------------------------------------------------------*/
 .top-title {
   position: relative;
-  background: #fff;
   height: 62px;
   margin-left: 15px;
+  margin-top: 10px;
 }
 /* --------------------------------------------------------
     Top Search
 -----------------------------------------------------------*/
 /*.top-search {
   position: relative;
-  background: #fff;
   height: 62px;
 }
 .top-search:not(.toggled) {

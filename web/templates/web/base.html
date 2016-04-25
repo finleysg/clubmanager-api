@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'web/css/animate.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'web/lib/jquery.mCustomScrollbar.js' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'web/css/app.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'web/css/clubmanager.css' %}"/>
     {% block style_block %}{% endblock %}
 
     <!-- HTML5 Shim and Respond.bower_components IE8 support of HTML5 elements and media queries -->
@@ -39,7 +40,8 @@
 
         <!-- Search -->
         <li class="top-title">
-            <h3>Bunker Hills Men's Club</h3>
+            <span>Bunker Hills Men's Club</span>
+            <!-- <h3>Bunker Hills Men's Club</h3> -->
         </li>
 
         <!-- Events -->
@@ -104,9 +106,11 @@
         <li ng-class="{'active': vm.isActive('/calendar')}">
             <a href="/calendar">
                 <i class="zmdi zmdi-calendar"></i>
-                <span>Event Calendar<span class="label label-danger">New</span></span>
+                <span>Event Calendar</span>
+                <!--<span>Event Calendar<span class="label label-danger">New</span></span>-->
             </a>
         </li>
+        {% if user.is_authenticated %}
         <li class="sm-sub" ng-class="{'active': vm.isOpen(['league-results','major-results','season-long-points','dam-cup'])}">
             <a href="">
                 <i class="zmdi zmdi-format-list-numbered"></i>
@@ -115,16 +119,20 @@
             <ul>
                 <li ng-class="{'active': vm.isActive('/league-results')}"><a href="/league-results">Wednesday Night League</a></li>
                 <li ng-class="{'active': vm.isActive('/major-results')}"><a href="/major-results">Weekend Majors</a></li>
+                <li ng-class="{'active': vm.isActive('/match-play')}"><a href="/match-play">Match Play Brackets</a></li>
                 <li ng-class="{'active': vm.isActive('/season-long-points')}"><a href="/season-long-points">Season Long Points</a></li>
                 <li ng-class="{'active': vm.isActive('/dam-cup')}"><a href="/dam-cup">Dam Cup Standings</a></li>
             </ul>
         </li>
+        {%  endif %}
+        {% if user.is_authenticated %}
         <li ng-class="{'active': vm.isActive('/forum')}">
             <a href="/forum">
                 <i class="zmdi zmdi-comment-text"></i>
-                <span>News, Announcements, Forum</span>
+                <span>Forum</span>
             </a>
         </li>
+        {% endif %}
         <li ng-class="{'active': vm.isActive('/policies')}">
             <a href="/policies">
                 <i class="zmdi zmdi-check-all"></i>
@@ -137,19 +145,21 @@
                 <span>Local Rules</span>
             </a>
         </li>
+        {% if user.is_authenticated %}
         <li ng-class="{'active': vm.isActive('/directory')}">
             <a href="/directory">
                 <i class="zmdi zmdi-accounts-outline"></i>
                 <span>Member Directory</span>
             </a>
         </li>
+        {% endif %}
         <li ng-class="{'active': vm.isActive('/contact')}">
             <a href="/contact">
                 <i class="zmdi zmdi-help"></i>
                 <span>Contact Us</span>
             </a>
         </li>
-        {% if user.is_authenticated %}
+        {% if user.is_staff %}
         <li>
             <a href="/admin">
                 <i class="zmdi zmdi-wrench"></i>
@@ -222,6 +232,7 @@
 <!-- Javascript Libraries -->
 <script src="{% static 'web/lib/jquery.js' %}"></script>
 <script src="{% static 'web/lib/angular.js' %}"></script>
+<script src="{% static 'web/lib/angular-cookies.js' %}"></script>
 <script src="{% static 'web/lib/lodash.js' %}"></script>
 <script src="{% static 'web/lib/moment.js' %}"></script>
 <script src="{% static 'web/lib/bootstrap.js' %}"></script>
@@ -232,8 +243,12 @@
 <script src="{% static 'web/app/templates.js' %}"></script>
 <script src="{% static 'web/app/AppController.js' %}"></script>
 <script src="{% static 'web/app/config/host.js' %}"></script>
+<script src="{% static 'web/app/events/Day.js' %}"></script>
+<script src="{% static 'web/app/events/Calendar.js' %}"></script>
+<script src="{% static 'web/app/events/calendarCache.js' %}"></script>
 <script src="{% static 'web/app/events/eventData.js' %}"></script>
 <script src="{% static 'web/app/events/eventService.js' %}"></script>
+<script src="{% static 'web/app/events/event-calendar.js' %}"></script>
 <script src="{% static 'web/app/events/upcoming-events.js' %}"></script>
 {% block script_block %}{% endblock %}
 </body>

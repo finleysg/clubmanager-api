@@ -1,7 +1,8 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
-
-from courses.models import CourseSetup
+from django.utils import timezone
+from datetime import datetime
+import pytz
 
 EVENT_TYPE_CHOICES = (
     ("L", "League"),
@@ -91,6 +92,20 @@ class Event(models.Model):
     end_time = models.TimeField(verbose_name="Ending time (non-shotgun starts)", blank=True, null=True)
 
     history = HistoricalRecords()
+
+    def event_state(self):
+        right_now = timezone.now()
+        aware_start = pytz.utc.localize(datetime.combine(self.start_date, time=datetime.min.time()))
+        state = "past"
+
+        if self.signup_start < right_now and self.signup_end > right_now:
+            state = "registration"
+        if self.signup_start > right_now:
+            state = "future"
+        if state == "past" and aware_start > right_now:
+            state = "pending"
+
+        return state
 
     def __str__(self):
         return self.name
