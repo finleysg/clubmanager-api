@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/clubmanager-api.iml" filepath="$PROJECT_DIR$/.idea/clubmanager-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clubmanager-api.iml" filepath="$PROJECT_DIR$/clubmanager-api.iml" />
     </modules>
   </component>
 </project>
