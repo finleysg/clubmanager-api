@@ -32,6 +32,7 @@ class UpcomingEventList(generics.ListAPIView):
         today = dt.date.today()
         queryset = Event.objects.all()
         queryset = queryset.filter(signup_start__lt=today, signup_end__gt=today)
+        # print(queryset.query)
         return queryset
 
 

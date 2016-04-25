@@ -45,7 +45,9 @@
         </li>
 
         <!-- Events -->
+        {% if user.is_authenticated %}
         <upcoming-events></upcoming-events>
+        {% endif %}
 
         <!-- Settings -->
         <li class="pull-right dropdown hidden-xs">
