@@ -29,4 +29,5 @@ node_modules/
 
 # Intellij
 .idea/
+clubmanager-api.iml
 
