@@ -22208,3 +22208,22 @@ a .register {
 .form-inline .bootstrap-filestyle input {
     width:30em;
 }
+
+.member-menu {
+    cursor: pointer;
+}
+.member-menu:hover {
+    color: #0a6ebd;
+    font-weight: bold;
+}
+p.member-menu {
+    margin: 2px;
+}
+
+/*p.member-list {*/
+    /*margin: 2px;*/
+/*}*/
+
+.member-list a {
+    margin-right: 30px;
+}

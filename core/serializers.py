@@ -20,9 +20,11 @@ class MemberSerializer(serializers.HyperlinkedModelSerializer):
     first_name = serializers.CharField(source="user.first_name")
     last_name = serializers.CharField(source="user.last_name")
     email = serializers.CharField(source="user.email")
+    user_id = serializers.CharField(source="user.id")
 
     class Meta:
         model = Member
         fields = ("url", "first_name", "last_name", "email",
                   "address1", "address2", "city", "state", "zip",
-                  "ghin", "phone_number", "handicap", "handicap_revision_date")
+                  "ghin", "phone_number", "handicap", "handicap_revision_date",
+                  "user_id", "show_phone", "show_email")
