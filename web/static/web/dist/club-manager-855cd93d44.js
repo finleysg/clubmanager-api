@@ -34,7 +34,8 @@ function AppController($location) {
     }
 }
 
-angular.module("club-manager").run(["$templateCache", function($templateCache) {$templateCache.put("events/event-calendar.html","<div id=calendar-wrap><header><div class=month-title><span ng-click=vm.changeMonth(-1)>&lt;</span>{{vm.monthName}} {{vm.year}}<span ng-click=vm.changeMonth(1)>&gt;</span></div></header><div id=calendar><ul class=weekdays><li>Sunday</li><li>Monday</li><li>Tuesday</li><li>Wednesday</li><li>Thursday</li><li>Friday</li><li>Saturday</li></ul><ul ng-repeat=\"week in vm.calendar.weeks\" class=days><li ng-repeat=\"d in week.days\" class=day ng-class=\"{\'other-month\': !d.isCurrentMonth}\"><div class=date>{{d.day}}</div><div ng-repeat=\"e in d.events\" class=event><div class=event-desc><a href=\"/event/{{ e.id }}/\">{{e.name}}</a></div></div></li></ul></div></div>");
+angular.module("club-manager").run(["$templateCache", function($templateCache) {$templateCache.put("directory/member-directory.html","<div class=row><div class=col-xs-1><p ng-click=vm.loadMembers(letter) class=member-menu ng-repeat=\"letter in vm.alphabet\">{{ letter }}</p></div><div class=col-xs-11><p class=member-list ng-repeat=\"member in vm.members\"><a href=\"/profile/{{ member.user_id }}/\">{{ member.first_name }} {{ member.last_name }}</a> <a href=\"mailto:{{ member.email }}\" ng-show=member.show_email>{{ member.email }}</a> <span ng-show=member.show_phone>{{ member.phone_number }}</span></p></div></div>");
+$templateCache.put("events/event-calendar.html","<div id=calendar-wrap><header><div class=month-title><span ng-click=vm.changeMonth(-1)>&lt;</span>{{vm.monthName}} {{vm.year}}<span ng-click=vm.changeMonth(1)>&gt;</span></div></header><div id=calendar><ul class=weekdays><li>Sunday</li><li>Monday</li><li>Tuesday</li><li>Wednesday</li><li>Thursday</li><li>Friday</li><li>Saturday</li></ul><ul ng-repeat=\"week in vm.calendar.weeks\" class=days><li ng-repeat=\"d in week.days\" class=day ng-class=\"{\'other-month\': !d.isCurrentMonth}\"><div class=date>{{d.day}}</div><div ng-repeat=\"e in d.events\" class=event><div class=event-desc><a href=\"/event/{{ e.id }}/\">{{e.name}}</a></div></div></li></ul></div></div>");
 $templateCache.put("events/upcoming-events.html","<li class=\"dropdown hidden-xs\"><a href data-toggle=dropdown class=hi-events><i class=\"zmdi zmdi-calendar\"></i></a><div class=\"dropdown-menu hi-dropdown\"><div class=\"dropdown-header bg-blue m-b-15\">UPCOMING EVENTS</div><div ng-show=\"vm.events.length === 0\" class=\"list-group lg-alt\">No events are available for registration at this time.</div><div ng-show=\"vm.events.length > 0\" ng-repeat=\"e in vm.events\" class=\"list-group lg-alt\"><a class=\"list-group-item media\" href=\"/event/{{ e.id }}/register/\"><div class=pull-left><div class=\"event-time bg-green\"><h2>{{ e.start_date }}</h2><small>{{ e.start_time }}</small></div></div><div class=media-body><div class=list-group-item-heading>{{ e.name }}</div><small class=\"list-group-item-text c-gray f-11\">{{ e.time_left }}</small></div></a></div><a class=view-more href=\"/calendar/\">View all</a></div></li>");}]);
 angular
     .module('club-manager')
@@ -352,6 +353,99 @@ function UpcomingEventsController(eventService) {
             return hours + ' hours left to sign up';
         }
         return 'Signup window closed at ' + end_date.format('h:mm A');
+    }
+}
+
+angular
+    .module('club-manager')
+    .directive('memberDirectory', memberDirectory);
+
+function memberDirectory() {
+    var directive = {
+        restrict: 'AE',
+        templateUrl: 'directory/member-directory.html',
+        replace: true,
+        controller: MemberDirectoryController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+MemberDirectoryController.$inject = ['memberService'];
+
+function MemberDirectoryController(memberService) {
+
+    var vm = this;
+
+    //data
+    vm.alphabet = memberService.alphabet();
+    vm.members = [];
+
+    //methods
+    vm.loadMembers = loadMembers;
+
+    function loadMembers(letter) {
+        memberService.members(letter).then(function (members) {
+            vm.members = members
+        });
+    }
+}
+angular
+    .module('club-manager')
+    .factory('memberData', memberData);
+
+memberData.$inject = ['$http', 'host'];
+
+function memberData($http, host) {
+
+    var service = {
+        members: getMembers
+    };
+
+    return service;
+
+    function getMembers() {
+        var url = host.api + 'members/';
+        return $http.get(url, { cache: true })
+            .then(getMembersComplete);
+    }
+
+    function getMembersComplete(response) {
+        return response.data;
+    }
+}
+
+angular
+    .module('club-manager')
+    .factory('memberService', memberService);
+
+memberService.$inject = ['memberData'];
+
+function memberService(memberData) {
+
+    var service = {
+        members: getMembers,
+        alphabet: getAlphabet
+    };
+
+    return service;
+
+    function getAlphabet() {
+        return ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]; 
+    }
+    
+    function getMembers(initial) {
+        return memberData.members().then( function(data) {
+            var members = [];
+            data.forEach(function (member) {
+                if (member.last_name[0].toLowerCase() === initial.toLowerCase()) {
+                    members.push(member);
+                }
+            });
+            return members;
+        });
     }
 }
 })();
