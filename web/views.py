@@ -134,6 +134,16 @@ def profile(request, user_id):
 
 
 @login_required
+def profile_default(request):
+    this_profile = request.user
+    context = {
+        "profile": this_profile,
+        "member_image": this_profile.member.profile_image
+    }
+    return render(request, "web/profile.html", context)
+
+
+@login_required
 def register(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     context = {
