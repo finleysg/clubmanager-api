@@ -45,13 +45,13 @@ gulp.task('stage-css', function () {
 
 gulp.task('stage-js-lib', function () {
     var sources = [
-        'bower_components/jquery/dist/jquery.js',
-        'bower_components/angular/angular.js',
-        'bower_components/angular-cookies/angular-cookies.js',
-        'bower_components/lodash/dist/lodash.js',
-        'bower_components/moment/moment.js',
-        'bower_components/bootstrap/dist/js/bootstrap.js',
-        'bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js',
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/angular/angular.min.js',
+        'bower_components/angular-cookies/angular-cookies.min.js',
+        'bower_components/lodash/dist/lodash.min.js',
+        'bower_components/moment/min/moment.min.js',
+        'bower_components/bootstrap/dist/js/bootstrap.min.js',
+        'bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
         'bower_components/bootstrap-filestyle/src/bootstrap-filestyle.min.js'
     ];
     return gulp.src(sources).pipe(gulp.dest('web/static/web/lib'));
