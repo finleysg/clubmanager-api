@@ -4,11 +4,14 @@ var minifyHtml    = require('gulp-minify-html');
 var templateCache = require('gulp-angular-templatecache');
 var jshint        = require('gulp-jshint');
 var concat        = require('gulp-concat');
-var header        = require('gulp-header');
+var wrapper       = require('gulp-wrapper');
 var uglify        = require('gulp-uglify');
 var rename        = require('gulp-rename');
 var inject        = require('gulp-inject');
-var print         = require('gulp-print');
+var seq           = require('gulp-sequence');
+var rev           = require('gulp-rev');
+var revReplace    = require('gulp-rev-replace');
+var revDel        = require('rev-del');
 
 
 gulp.task('html', function () {
@@ -48,7 +51,8 @@ gulp.task('stage-js-lib', function () {
         'bower_components/lodash/dist/lodash.js',
         'bower_components/moment/moment.js',
         'bower_components/bootstrap/dist/js/bootstrap.js',
-        'bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js'
+        'bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js',
+        'bower_components/bootstrap-filestyle/src/bootstrap-filestyle.min.js'
     ];
     return gulp.src(sources).pipe(gulp.dest('web/static/web/lib'));
 });
@@ -63,11 +67,38 @@ gulp.task('stage-fonts', function () {
 
 gulp.task('stage', ['stage-fonts', 'stage-css', 'stage-js-lib']);
 
-gulp.task('bundle', function() {
-  return gulp.src(['web/static/web/app/**/*.js','!web/static/web/app.js'])
+gulp.task('bundle-js', function() {
+  return gulp.src(['web/static/web/app/app.js', 'web/static/web/app/**/*.js'])
       .pipe(concat('club-manager.js'))
-      .pipe(header('\'use strict\';\n'))
+      .pipe(wrapper({
+          header: '(function() { \n"use strict";\nvar ClubManager = ClubManager || {};\n',
+          footer: '})();\n'
+      }))
+      .pipe(gulp.dest('web/static/web/dist'))
+      .pipe(rev())
+      .pipe(gulp.dest('web/static/web/dist'))
+      .pipe(rev.manifest('js-manifest.json'))
+      .pipe(revDel({ dest: 'web/static/web/dist' }))
       .pipe(gulp.dest('web/static/web/dist'));
+});
+
+gulp.task('bundle-css', function() {
+    return gulp.src(
+        [
+            'web/static/web/css/animate.css',
+            'web/static/web/css/jquery.mCustomScrollbar.css',
+            'web/static/web/css/material-design-iconic-font.css',
+            'web/static/web/css/app.css',
+            'web/static/web/css/calendar.css',
+            'web/static/web/css/overrides.css'
+        ])
+        .pipe(concat('club-manager.css'))
+        .pipe(gulp.dest('web/static/web/dist'))
+        .pipe(rev())
+        .pipe(gulp.dest('web/static/web/dist'))
+        .pipe(rev.manifest('css-manifest.json'))
+        .pipe(revDel({ dest: 'web/static/web/dist' }))
+        .pipe(gulp.dest('web/static/web/dist'));
 });
 
 gulp.task('mangle', function() {
@@ -77,17 +108,58 @@ gulp.task('mangle', function() {
       .pipe(gulp.dest('web/static/web/dist'));
 });
 
-gulp.task('inject-src', function () {
-    var target = gulp.src('web/static/templates/web/base.html');
+gulp.task('inject-js', function () {
+    var options = {
+        transform: function (filepath) {
+            // remove /web/static/
+            return '<script src="{% static \'' + filepath.substring(12) + '\' %}"></script>';
+        }
+    };
     var sources = gulp.src(['web/static/web/dist/club-manager.js'], {read: false, cwd: __dirname});
-    //sources.pipe(print());
-    return target.pipe(inject(sources, {relative: true, addRootSlash: false})).pipe(gulp.dest('web/static/templates/web'));
+    return gulp
+        .src('web/templates/web/base.html')
+        .pipe(inject(sources, options))
+        .pipe(gulp.dest('web/templates/web'));
 });
 
-gulp.task('inject-dist', function () {
-    var target = gulp.src('web/static/templates/web/base.html');
-    var sources = gulp.src(['web/static/web/dist/club-manager.min.js'], {read: false, cwd: __dirname});
-    //sources.pipe(print());
-    return target.pipe(inject(sources, {relative: true, addRootSlash: false})).pipe(gulp.dest('web/static/templates/web'));
+gulp.task('inject-css', function () {
+    var options = {
+        transform: function (filepath) {
+            // remove /web/static/
+            return '<link rel="stylesheet" type="text/css" href="{% static \'' + filepath.substring(12) + '\' %}"/>';
+        }
+    };
+    var sources = gulp.src(['web/static/web/dist/club-manager.css'], {read: false, cwd: __dirname});
+    return gulp
+        .src('web/templates/web/base.html')
+        .pipe(inject(sources, options))
+        .pipe(gulp.dest('web/templates/web'));
 });
+
+gulp.task('update-base', ['inject-js', 'inject-css'], function(){
+    var css_manifest = gulp.src('web/static/web/dist/css-manifest.json');
+    var js_manifest = gulp.src('web/static/web/dist/js-manifest.json');
+    return gulp.src('web/templates/web/base.html')
+        .pipe(revReplace({manifest: css_manifest}))
+        .pipe(revReplace({manifest: js_manifest}))
+        .pipe(gulp.dest('web/templates/web'));
+});
+
+gulp.task('run', seq('html', 'bundle-js', 'bundle-css', 'update-base'));
+
+gulp.task('inject-dist', function () {
+    var options = {
+        transform: function (filepath) {
+            // remove /web/static/
+            return '<script src="{% static \'' + filepath.substring(12) + '\' %}"></script>';
+        }
+    };
+    var sources = gulp.src(['web/static/web/dist/club-manager.min.js'], {read: false, cwd: __dirname});
+    return gulp
+        .src('web/templates/web/base.html')
+        .pipe(inject(sources, options))
+        .pipe(gulp.dest('web/templates/web'));
+});
+
+gulp.task('prod', seq('html', 'bundle', 'mangle', 'inject-dist'));
 /* jshint ignore:end */

@@ -14,6 +14,8 @@ INSTALLED_APPS = (
     'rest_framework',
     'markdownify',
     'storages',
+    'imagekit',
+    'crispy_forms',
     'core',
     'courses',
     'events',
@@ -62,6 +64,10 @@ REST_FRAMEWORK = {
 }
 
 WSGI_APPLICATION = 'clubmanager.wsgi.application'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGIN_URL = "/login/"
 
 MARKDOWNIFY_WHITELIST_TAGS = [
     'a',

@@ -12,22 +12,14 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% load static from staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'web/css/material-design-iconic-font.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'web/css/animate.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'web/lib/jquery.mCustomScrollbar.js' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'web/css/app.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'web/css/clubmanager.css' %}"/>
+    <!-- inject:css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'web/dist/club-manager-4d74516e4d.css' %}"/>
+    <!-- endinject -->
     {% block style_block %}{% endblock %}
-
-    <!-- HTML5 Shim and Respond.bower_components IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.bower_components doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body ng-app="club-manager">
+{% load static from staticfiles %}
 <header id="header" class="clearfix" data-spy="affix" data-offset-top="65">
     <ul class="header-inner">
 
@@ -81,14 +73,18 @@
         {% if user.is_authenticated %}
         <li class="sm-sub sms-profile">
             <a class="clearfix" href="">
-                <img src="img/profile-pic.jpg" alt="">
-                <span class="f-11">
+                {% if user.member.raw_image %}
+                <img src="{{user.member.profile_image.url}}" alt="Profile Image">
+                {% else %}
+                <img src="{% static 'web/img/member-default.png' %}" alt="">
+                {% endif %}
+                <span class="f-14">
                     <span class="d-block">{{ user.first_name }} {{ user.last_name }}</span>
                 </span>
             </a>
 
             <ul>
-                <li><a href="/profile">View Profile</a></li>
+                <li><a href="/profile/0/">View Profile</a></li>
                 <li><a href="/account">Account Settings</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <!--<li><a href="/members/logout/?next=/">Logout</a></li>-->
@@ -174,11 +170,6 @@
 
 <section id="content">
     <div class="container">
-        <!--
-                        <header class="page-header">
-                            <h3>Dashboard <small>Statistics for this month</small></h3>
-                        </header>
-        -->
         {% block body_block %}{% endblock %}
     </div>
 </section>
@@ -186,50 +177,6 @@
 <footer id="footer">
     Copyright © 2016 ZoomdoggyDesign
 </footer>
-
-<!-- Older IE Warning Message -->
-<!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1 class="c-white">Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
-        to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="img/browsers/chrome.png" alt="">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="img/browsers/firefox.png" alt="">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="img/browsers/opera.png" alt="">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="img/browsers/safari.png" alt="">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="img/browsers/ie.png" alt="">
-                    <div>IE (New)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
 
 <!-- Javascript Libraries -->
 <script src="{% static 'web/lib/jquery.js' %}"></script>
@@ -239,8 +186,10 @@
 <script src="{% static 'web/lib/moment.js' %}"></script>
 <script src="{% static 'web/lib/bootstrap.js' %}"></script>
 <script src="{% static 'web/lib/jquery.mCustomScrollbar.js' %}"></script>
+<script src="{% static 'web/lib/bootstrap-filestyle.min.js' %}"></script>
 <script src="{% static 'web/js/functions.js' %}"></script>
 <!-- inject:js -->
+<script src="{% static 'web/dist/club-manager-e7ce03ef24.js' %}"></script>
 <!-- endinject -->
 {% block script_block %}{% endblock %}
 </body>
