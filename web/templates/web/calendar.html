@@ -1,10 +1,5 @@
 {% extends 'web/base.html' %}
 
-{% block style_block %}
-    {% load static from staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'web/css/calendar.css' %}"/>
-{% endblock %}
-
 {% block body_block %}
     <event-calendar></event-calendar>
 {% endblock %}

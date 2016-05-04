@@ -1,29 +1,25 @@
-(function () {
-    'use strict';
+angular
+    .module('club-manager')
+    .factory('calendarCache', calendarCache);
 
-    angular
-        .module('club-manager')
-        .factory('calendarCache', calendarCache);
+calendarCache.$inject = ['$cookies'];
 
-    calendarCache.$inject = ['$cookies'];
+function calendarCache($cookies) {
 
-    function calendarCache($cookies) {
+    console.log('calendarCache');
 
-        console.log('calendarCache');
-
-        var service = {
-            get currentDay() { 
-                var today = $cookies.get('currentDay');
-                if (!today) {
-                    today = moment();
-                }
-                return moment(today);
-            },
-            set currentDay(value) {
-                $cookies.put('currentDay', value.toString());
+    var service = {
+        get currentDay() { 
+            var today = $cookies.get('currentDay');
+            if (!today) {
+                today = moment();
             }
-        };
+            return moment(today);
+        },
+        set currentDay(value) {
+            $cookies.put('currentDay', value.toString());
+        }
+    };
 
-        return service;
-    }
-})();
+    return service;
+}

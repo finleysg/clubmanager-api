@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
+
 from . import views
 
 urlpatterns = [
@@ -18,6 +21,7 @@ urlpatterns = [
     url(r'major-results/', views.major_results, name='major-results'),
     url(r'match-play/', views.match_play, name='match-play'),
     url(r'policies/', views.policies, name='policies'),
-    url(r'profile/', views.profile, name='profile'),
+    url(r'profile/(?P<user_id>[0-9]+)/$', views.profile, name='profile'),
     url(r'season-long-points/', views.season_long_points, name='season-long-points'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

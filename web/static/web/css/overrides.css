@@ -1,0 +1,34 @@
+a .register {
+    float: right;
+}
+
+.top-title span {
+    font-size: 2em;
+}
+@media (max-width: 330px) {
+    .top-title span {
+        font-size: 1.6em;
+    }
+}
+@media (min-width: 768px) {
+    .profile-image {
+        margin-top: -150px;
+    }
+}
+
+.bg-orange a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.bg-blue a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.bg-green a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.form-inline .bootstrap-filestyle input {
+    width:30em;
+}

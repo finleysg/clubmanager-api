@@ -2,7 +2,18 @@
 
 {% block body_block %}
     <div>
-        <h1>Private account settings</h1>
-        <p>Where you can set preferences and edit details about yourself.</p>
+        <h2>Account Settings</h2>
+        {% if context.changed == True %}
+        <p class="text-success">Your changes have been saved.</p>
+        {% endif %}
+        <div class="row">
+            <form action="/account/" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {% load crispy_forms_tags %}
+                {% crispy form2 %}
+                {% crispy form1 %}
+                <a href = "/password_change/" class="btn btn-link">Change Password</a>
+                <input type="submit" value="Save Changes" class="btn btn-link" />
+            </form>
+        </div>
     </div>
 {% endblock %}

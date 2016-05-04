@@ -1,6 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 
+from core.forms import Member2Form, User2Form
+from core.models import Member
 from events.models import Event
 
 
@@ -14,9 +18,22 @@ def index(request):
 @login_required
 def account(request):
     context = {
-        # TODO: any data here?
+        "changed": False
     }
-    return render(request, "web/account.html", context)
+    if request.method == 'POST':
+        existing_user = User.objects.get(pk=request.user.id)
+        existing_member = Member.objects.get(user_id=request.user.id)
+        form1 = Member2Form(instance=existing_member, data=request.POST, files=request.FILES)
+        form2 = User2Form(instance=existing_user, data=request.POST)
+        if form1.is_valid() and form2.is_valid():
+            form2.save()
+            form1.save()
+            context["changed"] = True
+    else:
+        form1 = Member2Form(instance=request.user.member)
+        form2 = User2Form(instance=request.user)
+
+    return render(request, "web/account.html", {"form1": form1, "form2": form2, "context": context})
 
 
 def calendar(request):
@@ -104,9 +121,14 @@ def policies(request):
 
 
 @login_required
-def profile(request):
+def profile(request, user_id):
+    this_profile = request.user
+    if user_id != "0":
+        this_profile = get_object_or_404(User, id=user_id)
+
     context = {
-        # TODO: any data here?
+        "profile": this_profile,
+        "member_image": this_profile.member.profile_image
     }
     return render(request, "web/profile.html", context)
 
