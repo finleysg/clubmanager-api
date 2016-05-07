@@ -28,6 +28,6 @@ bower_components/
 node_modules/
 
 # Intellij
-.idea/
+.idea/workspace.xml
 clubmanager-api.iml
 
