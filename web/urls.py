@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'match-play/', views.match_play, name='match-play'),
     url(r'policies/', views.policies, name='policies'),
     url(r'profile/(?P<user_id>[0-9]+)/$', views.profile, name='profile'),
+    url(r'profile_default/', views.profile_default, name='profile_default'),
     url(r'season-long-points/', views.season_long_points, name='season-long-points'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
