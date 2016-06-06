@@ -51,3 +51,12 @@ p.member-menu {
 .member-list a {
     margin-right: 30px;
 }
+
+.profile-menu > a {
+    display: block;
+    height: 129px;
+    margin-bottom: 5px;
+    width: 100%;
+    background: url(../img/six_east.jpg) no-repeat left top;
+    background-size: 100%;
+}

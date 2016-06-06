@@ -4,6 +4,7 @@ from simple_history.models import HistoricalRecords
 from django.contrib.auth.models import User
 from imagekit import ImageSpec, register
 from imagekit.processors import ResizeToFit
+from datetime import datetime
 
 
 class ThumbnailSpec(ImageSpec):
@@ -50,17 +51,33 @@ class Member(models.Model):
     ghin = models.CharField(verbose_name="GHIN", max_length=7, blank=True, null=True)
     handicap = models.DecimalField(verbose_name="Handicap index", max_digits=3, decimal_places=1, blank=True, null=True)
     handicap_revision_date = models.DateField(verbose_name="Handicap revision date", blank=True, null=True)
+    birth_date = models.DateField(verbose_name="Birth date", blank=True, null=True)
+    summary = models.TextField(verbose_name="Summary", blank=True, null=True)
+    status = models.CharField(verbose_name="Status", max_length=140, blank=True, null=True)
     show_email = models.BooleanField(verbose_name="Allow members to see my email address", default=True)
-    show_phone = models.BooleanField(verbose_name="Allow members to see my phone number", default=True)
     raw_image = models.ImageField(verbose_name="Profile picture", upload_to="member_images", blank=True, null=True)
     thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
     profile_image = ImageSpecField(source="raw_image", id="member:image:profile_image")
 
     history = HistoricalRecords()
 
-    def formatted_phone_number(self):
-        phone = "%s%s%s-%s%s%s-%s%s%s%s" % tuple(self.phone_number)
-        return phone
+    def member_email(self):
+        email = "xxxxxxxxx@xxxxx.xxx"
+        if self.show_email:
+            email = self.user.email
+        return email
+
+    def age(self):
+        my_age = 0
+        if self.birth_date:
+            my_age = (datetime.utcnow() - self.birth_date).total_years()
+        return my_age
+
+    def thumbnail_url(self):
+        return self.thumbnail_image.url
+
+    def profile_url(self):
+        return self.profile_image.url
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)

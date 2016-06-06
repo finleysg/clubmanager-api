@@ -12,7 +12,8 @@ var seq           = require('gulp-sequence');
 var rev           = require('gulp-rev');
 var revReplace    = require('gulp-rev-replace');
 var revDel        = require('rev-del');
-
+var less          = require('gulp-less');
+var path          = require('path');
 
 gulp.task('html', function () {
     return gulp.src('web/static/web/app/**/*.html')
@@ -28,10 +29,13 @@ gulp.task('lint', function () {
     ]).pipe(jshint()).pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('update-styles', function () {
-    return gulp.src('bower_components/bootstrap/less/bootstrap.less')
+gulp.task('less', function () {
+    return gulp.src('web/static/web/less/app.less')
+        // .pipe(less({
+        //     paths: [ path.join(__dirname, 'less', 'includes') ]
+        // }))
         .pipe(less())
-        .pipe(gulp.dest('bower_components/bootstrap/dist/css/'));
+        .pipe(gulp.dest('web/static/web/css'));
 });
 
 gulp.task('stage-css', function () {
@@ -47,6 +51,12 @@ gulp.task('stage-js-lib', function () {
     var sources = [
         'bower_components/jquery/dist/jquery.min.js',
         'bower_components/angular/angular.min.js',
+        'bower_components/angular/angular.js',
+        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+        'bower_components/angular-animate/angular-animate.min.js',
+        'bower_components/angular-bootstrap/ui-bootstrap.min.js',
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'bower_components/angular-loading-bar/build/loading-bar.min.js',
         'bower_components/angular-cookies/angular-cookies.min.js',
         'bower_components/lodash/dist/lodash.min.js',
         'bower_components/moment/min/moment.min.js',
@@ -145,7 +155,7 @@ gulp.task('update-base', ['inject-js', 'inject-css'], function(){
         .pipe(gulp.dest('web/templates/web'));
 });
 
-gulp.task('run', seq('html', 'bundle-js', 'bundle-css', 'update-base'));
+gulp.task('build', seq('html', 'bundle-js', 'bundle-css', 'update-base'));
 
 gulp.task('inject-dist', function () {
     var options = {
@@ -161,5 +171,5 @@ gulp.task('inject-dist', function () {
         .pipe(gulp.dest('web/templates/web'));
 });
 
-gulp.task('prod', seq('html', 'bundle', 'mangle', 'inject-dist'));
+gulp.task('release', seq('html', 'bundle', 'mangle', 'inject-dist'));
 /* jshint ignore:end */

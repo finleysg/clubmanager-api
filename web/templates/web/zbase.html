@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9"><![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Club Club Manager and Tournament System">
+    <meta name="keywords" content="Golf Club Management Leagues Tournaments Registration">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static from staticfiles %}
+    <!-- inject:css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'web/dist/club-manager.css' %}"/>
+    <!-- endinject -->
+    {% block style_block %}{% endblock %}
+</head>
+
+<body ng-app="club-manager">
+{% load static from staticfiles %}
+<header id="header" class="clearfix" data-spy="affix" data-offset-top="65">
+    <ul class="header-inner">
+
+        <!-- Logo -->
+        <li class="logo">
+            <!--<a href=""><img src="img/logo.png" alt=""></a>-->
+            <a href="/"><h4>Logo Here</h4></a>
+            <div id="menu-trigger"><i class="zmdi zmdi-menu"></i></div>
+        </li>
+
+        <!-- Search -->
+        <li class="top-title">
+            <span>Bunker Hills Men's Club</span>
+            <!-- <h3>Bunker Hills Men's Club</h3> -->
+        </li>
+
+        <!-- Events -->
+        {% if user.is_authenticated %}
+        <upcoming-events></upcoming-events>
+        {% endif %}
+
+        <!-- Settings -->
+        <li class="pull-right dropdown hidden-xs">
+            <a href="" data-toggle="dropdown">
+                <i class="zmdi zmdi-more-vert"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a data-toggle="fullscreen" href="">Toggle Fullscreen</a></li>
+                <li><a data-toggle="localStorage" href="">Clear Local Storage</a></li>
+                <li><a href="">Account Settings</a></li>
+                <li><a href="">Other Settings</a></li>
+            </ul>
+        </li>
+
+        <!-- Time -->
+<!--
+        <li class="pull-right hidden-xs">
+            <div id="time">
+                <span id="t-hours"></span>
+                <span id="t-min"></span>
+                <span id="t-sec"></span>
+            </div>
+        </li>
+-->
+    </ul>
+</header>
+
+<aside id="sidebar" ng-controller="AppController as vm">
+    <!--| MAIN MENU |-->
+    <ul class="side-menu">
+        {% if user.is_authenticated %}
+        <li class="sm-sub sms-profile">
+            <a class="clearfix" href="">
+                {% if user.member.raw_image %}
+                <img src="{{user.member.profile_image.url}}" alt="Profile Image">
+                {% else %}
+                <img src="{% static 'web/img/member-default.png' %}" alt="">
+                {% endif %}
+                <span class="f-14">
+                    <span class="d-block">{{ user.first_name }} {{ user.last_name }}</span>
+                </span>
+            </a>
+
+            <ul>
+                <li><a href="/profile/0/">View Profile</a></li>
+                <li><a href="/account">Account Settings</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <!--<li><a href="/members/logout/?next=/">Logout</a></li>-->
+            </ul>
+        </li>
+        {% else %}
+        <li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+
+        <li ng-class="{'active': false}">
+            <a href="/">
+                <i class="zmdi zmdi-home"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li ng-class="{'active': vm.isActive('/calendar')}">
+            <a href="/calendar">
+                <i class="zmdi zmdi-calendar"></i>
+                <span>Event Calendar</span>
+                <!--<span>Event Calendar<span class="label label-danger">New</span></span>-->
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="sm-sub" ng-class="{'active': vm.isOpen(['league-results','major-results','season-long-points','dam-cup'])}">
+            <a href="">
+                <i class="zmdi zmdi-format-list-numbered"></i>
+                <span>Event Results</span>
+            </a>
+            <ul>
+                <li ng-class="{'active': vm.isActive('/league-results')}"><a href="/league-results">Wednesday Night League</a></li>
+                <li ng-class="{'active': vm.isActive('/major-results')}"><a href="/major-results">Weekend Majors</a></li>
+                <li ng-class="{'active': vm.isActive('/match-play')}"><a href="/match-play">Match Play Brackets</a></li>
+                <li ng-class="{'active': vm.isActive('/season-long-points')}"><a href="/season-long-points">Season Long Points</a></li>
+                <li ng-class="{'active': vm.isActive('/dam-cup')}"><a href="/dam-cup">Dam Cup Standings</a></li>
+            </ul>
+        </li>
+        {%  endif %}
+        {% if user.is_authenticated %}
+        <li ng-class="{'active': vm.isActive('/forum')}">
+            <a href="/forum">
+                <i class="zmdi zmdi-comment-text"></i>
+                <span>Forum</span>
+            </a>
+        </li>
+        {% endif %}
+        <li ng-class="{'active': vm.isActive('/policies')}">
+            <a href="/policies">
+                <i class="zmdi zmdi-check-all"></i>
+                <span>Policies and Procedures</span>
+            </a>
+        </li>
+        <li ng-class="{'active': vm.isActive('/local-rules')}">
+            <a href="/local-rules">
+                <i class="zmdi zmdi-edit"></i>
+                <span>Local Rules</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li ng-class="{'active': vm.isActive('/directory')}">
+            <a href="/directory">
+                <i class="zmdi zmdi-accounts-outline"></i>
+                <span>Member Directory</span>
+            </a>
+        </li>
+        {% endif %}
+        <li ng-class="{'active': vm.isActive('/contact')}">
+            <a href="/contact">
+                <i class="zmdi zmdi-help"></i>
+                <span>Contact Us</span>
+            </a>
+        </li>
+        {% if user.is_staff %}
+        <li>
+            <a href="/admin">
+                <i class="zmdi zmdi-wrench"></i>
+                <span>Administration</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</aside>
+
+<section id="content">
+    <div class="container">
+        {% block body_block %}{% endblock %}
+    </div>
+</section>
+
+<footer id="footer">
+    Copyright © 2016 ZoomdoggyDesign
+</footer>
+
+<!-- Javascript Libraries -->
+<script src="{% static 'web/lib/jquery.min.js' %}"></script>
+<script src="{% static 'web/lib/angular.min.js' %}"></script>
+<script src="{% static 'web/lib/angular-cookies.min.js' %}"></script>
+<script src="{% static 'web/lib/lodash.min.js' %}"></script>
+<script src="{% static 'web/lib/moment.min.js' %}"></script>
+<script src="{% static 'web/lib/bootstrap.min.js' %}"></script>
+<script src="{% static 'web/lib/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'web/lib/bootstrap-filestyle.min.js' %}"></script>
+<script src="{% static 'web/js/functions.js' %}"></script>
+<!-- inject:js -->
+<script src="{% static 'web/dist/club-manager.js' %}"></script>
+<!-- endinject -->
+{% block script_block %}{% endblock %}
+</body>
+</html>y>
+</html>
