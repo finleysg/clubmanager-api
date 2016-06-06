@@ -51,7 +51,6 @@ class Member2Form(ModelForm):
                     "phone_number",
                     "city",
                     "show_email",
-                    "show_phone",
                     Field("ghin", readonly=True),
                     css_class="col-sm-4",
                 ),
@@ -65,7 +64,7 @@ class Member2Form(ModelForm):
 
     class Meta:
         model = Member
-        fields = ("ghin", "show_email", "phone_number", "show_phone", "city", "raw_image")
+        fields = ("ghin", "show_email", "phone_number", "city", "raw_image")
         widgets = {"raw_image": ImageThumbnailFileInput}
 
     # def save(self, *args, **kwargs):

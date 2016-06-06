@@ -15,7 +15,9 @@ function host($window) {
     var service = {
         get root() { return root; },
         get api() { return root + 'api/'; },
-        get admin() { return root + 'admin/'; }
+        get rest_auth() { return root + 'rest-auth'; },
+        get admin() { return root + 'admin/'; },
+        get use_session() { return false; }
     };
 
     return service;

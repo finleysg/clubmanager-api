@@ -1,196 +1,216 @@
 <!DOCTYPE html>
-<!--[if IE 9 ]>
-<html class="ie9"><![endif]-->
+<html>
 <head>
+    <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
     <meta charset="UTF-8">
 
     <meta name="description" content="Club Club Manager and Tournament System">
     <meta name="keywords" content="Golf Club Management Leagues Tournaments Registration">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>Bunker Hills Men's Club</title>
 
     {% load static from staticfiles %}
     <!-- inject:css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'web/dist/club-manager-0ce44579b1.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'web/dist/club-manager-609ca45f23.css' %}"/>
     <!-- endinject -->
-    {% block style_block %}{% endblock %}
 </head>
 
-<body ng-app="club-manager">
-{% load static from staticfiles %}
-<header id="header" class="clearfix" data-spy="affix" data-offset-top="65">
-    <ul class="header-inner">
+<body ng-app="club-manager" ng-controller="AppController as vm" ng-class="{ 'sw-toggled': vm.layoutType === '1'}">
+    {% verbatim %}
+    <header id="header" data-current-skin={{vm.currentSkin}}>
+        <ul class="header-inner clearfix">
+            <li id="menu-trigger" data-target="mainmenu" toggle-sidebar data-model-left="vm.sidebarToggle.left" ng-class="{ 'open': vm.sidebarToggle.left === true }">
+                <div class="line-wrap">
+                    <div class="line top"></div>
+                    <div class="line center"></div>
+                    <div class="line bottom"></div>
+                </div>
+            </li>
 
-        <!-- Logo -->
-        <li class="logo">
-            <!--<a href=""><img src="img/logo.png" alt=""></a>-->
-            <a href="/"><h4>Logo Here</h4></a>
-            <div id="menu-trigger"><i class="zmdi zmdi-menu"></i></div>
-        </li>
+            <li class="logo hidden-xs">
+                <a ui-sref="home" ng-click="vm.sidebarStat($event)">Bunker Hills Men's Club</a>
+            </li>
 
-        <!-- Search -->
-        <li class="top-title">
-            <span>Bunker Hills Men's Club</span>
-            <!-- <h3>Bunker Hills Men's Club</h3> -->
-        </li>
+            <li class="pull-right">
+                <ul class="top-menu">
 
-        <!-- Events -->
-        {% if user.is_authenticated %}
-        <upcoming-events></upcoming-events>
-        {% endif %}
+                    <li id="toggle-width">
+                        <div class="toggle-switch">
+                            <input id="tw-switch" type="checkbox" hidden="hidden" data-change-layout="vm.layoutType">
+                            <label for="tw-switch" class="ts-helper"></label>
+                        </div>
+                    </li>
+                    <li class="dropdown" uib-dropdown>
+                        <a uib-dropdown-toggle href="">
+                            <i class="tm-icon zmdi zmdi-notifications"></i>
+                            <i class="tmn-counts">9</i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg stop-propagate pull-right">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header">
+                                    Notification
 
-        <!-- Settings -->
-        <li class="pull-right dropdown hidden-xs">
-            <a href="" data-toggle="dropdown">
-                <i class="zmdi zmdi-more-vert"></i>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a data-toggle="fullscreen" href="">Toggle Fullscreen</a></li>
-                <li><a data-toggle="localStorage" href="">Clear Local Storage</a></li>
-                <li><a href="">Account Settings</a></li>
-                <li><a href="">Other Settings</a></li>
-            </ul>
-        </li>
+                                    <ul class="actions">
+                                        <li>
+                                            <a href="" ng-click="vm.clearNotification($event)">
+                                                <i class="zmdi zmdi-check-all"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="lv-body">
+                                    <a class="lv-item" ng-href="" ng-repeat="w in vm.messageResult.list">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="lv-img-sm" ng-src="img/profile-pics/{{ w.img }}" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="lv-title">{{ w.user }}</div>
+                                                <small class="lv-small">{{ w.text }}</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
 
-        <!-- Time -->
-<!--
-        <li class="pull-right hidden-xs">
-            <div id="time">
-                <span id="t-hours"></span>
-                <span id="t-min"></span>
-                <span id="t-sec"></span>
+                                <div class="clearfix"></div>
+
+                                <a class="lv-footer" href="">View Previous</a>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="dropdown" uib-dropdown>
+                        <a uib-dropdown-toggle href="">
+                            <i class="tm-icon zmdi zmdi-more-vert"></i>
+                        </a>
+                        <ul class="dropdown-menu dm-icon pull-right">
+                            <li class="skin-switch hidden-xs">
+                                <span ng-repeat="w in vm.skinList | limitTo : 6" class="ss-skin bgm-{{ w }}" ng-click="vm.skinSwitch(w)"></span>
+                            </li>
+                            <li class="divider hidden-xs"></li>
+                            <li class="hidden-xs">
+                                <a ng-click="vm.fullScreen()" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle Fullscreen</a>
+                            </li>
+                            <li>
+                                <a ng-click="vm.clearLocalStorage()" href=""><i class="zmdi zmdi-delete"></i> Clear Local Storage</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="zmdi zmdi-face"></i> Privacy Settings</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="zmdi zmdi-settings"></i> Other Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    {% endverbatim %}
+
+    <section id="main">
+        <aside id="sidebar" ng-class="{ 'toggled': vm.sidebarToggle.left === true }">
+            <div ng-show="vm.user.is_authenticated" class="profile-menu">
+                <a href="" toggle-submenu>
+                    <div class="profile-pic">
+                        <img src="{% static 'web/img/logo.png' %}" alt="">
+                    </div>
+
+                    <div class="profile-info">
+                        {{ vm.user.first_name }} {{ vm.user.last_name }}
+
+                        <i class="zmdi zmdi-caret-down"></i>
+                    </div>
+                </a>
+
+                <ul class="main-menu">
+                    <li>
+                        <a ui-sref="my.profile" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-account"></i> View Profile</a>
+                    </li>
+                    <li>
+                        <a ui-sref="my.account"><i class="zmdi zmdi-settings"></i> Account Settings</a>
+                    </li>
+                    <li>
+                        <a href="/logout"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                    </li>
+                </ul>
             </div>
-        </li>
--->
-    </ul>
-</header>
+            <div ng-hide="vm.user.is_authenticated" class="profile-menu">
+                <a href="" toggle-submenu>
+                    <div class="profile-pic">
+                        <img src="{% static 'web/img/logo.png' %}" alt="">
+                    </div>
 
-<aside id="sidebar" ng-controller="AppController as vm">
-    <!--| MAIN MENU |-->
-    <ul class="side-menu">
-        {% if user.is_authenticated %}
-        <li class="sm-sub sms-profile">
-            <a class="clearfix" href="">
-                {% if user.member.raw_image %}
-                <img src="{{user.member.profile_image.url}}" alt="Profile Image">
-                {% else %}
-                <img src="{% static 'web/img/member-default.png' %}" alt="">
-                {% endif %}
-                <span class="f-14">
-                    <span class="d-block">{{ user.first_name }} {{ user.last_name }}</span>
-                </span>
-            </a>
-
-            <ul>
-                <li><a href="/profile/0/">View Profile</a></li>
-                <li><a href="/account">Account Settings</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
-                <!--<li><a href="/members/logout/?next=/">Logout</a></li>-->
-            </ul>
-        </li>
-        {% else %}
-        <li>
-        <li><a href="{% url 'login' %}">Login</a></li>
-        {% endif %}
-
-        <li ng-class="{'active': false}">
-            <a href="/">
-                <i class="zmdi zmdi-home"></i>
-                <span>Home</span>
-            </a>
-        </li>
-        <li ng-class="{'active': vm.isActive('/calendar')}">
-            <a href="/calendar">
-                <i class="zmdi zmdi-calendar"></i>
-                <span>Event Calendar</span>
-                <!--<span>Event Calendar<span class="label label-danger">New</span></span>-->
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="sm-sub" ng-class="{'active': vm.isOpen(['league-results','major-results','season-long-points','dam-cup'])}">
-            <a href="">
-                <i class="zmdi zmdi-format-list-numbered"></i>
-                <span>Event Results</span>
-            </a>
-            <ul>
-                <li ng-class="{'active': vm.isActive('/league-results')}"><a href="/league-results">Wednesday Night League</a></li>
-                <li ng-class="{'active': vm.isActive('/major-results')}"><a href="/major-results">Weekend Majors</a></li>
-                <li ng-class="{'active': vm.isActive('/match-play')}"><a href="/match-play">Match Play Brackets</a></li>
-                <li ng-class="{'active': vm.isActive('/season-long-points')}"><a href="/season-long-points">Season Long Points</a></li>
-                <li ng-class="{'active': vm.isActive('/dam-cup')}"><a href="/dam-cup">Dam Cup Standings</a></li>
-            </ul>
-        </li>
-        {%  endif %}
-        {% if user.is_authenticated %}
-        <li ng-class="{'active': vm.isActive('/forum')}">
-            <a href="/forum">
-                <i class="zmdi zmdi-comment-text"></i>
-                <span>Forum</span>
-            </a>
-        </li>
-        {% endif %}
-        <li ng-class="{'active': vm.isActive('/policies')}">
-            <a href="/policies">
-                <i class="zmdi zmdi-check-all"></i>
-                <span>Policies and Procedures</span>
-            </a>
-        </li>
-        <li ng-class="{'active': vm.isActive('/local-rules')}">
-            <a href="/local-rules">
-                <i class="zmdi zmdi-edit"></i>
-                <span>Local Rules</span>
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-        <li ng-class="{'active': vm.isActive('/directory')}">
-            <a href="/directory">
-                <i class="zmdi zmdi-accounts-outline"></i>
-                <span>Member Directory</span>
-            </a>
-        </li>
-        {% endif %}
-        <li ng-class="{'active': vm.isActive('/contact')}">
-            <a href="/contact">
-                <i class="zmdi zmdi-help"></i>
-                <span>Contact Us</span>
-            </a>
-        </li>
-        {% if user.is_staff %}
-        <li>
-            <a href="/admin">
-                <i class="zmdi zmdi-wrench"></i>
-                <span>Administration</span>
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-</aside>
-
-<section id="content">
-    <div class="container">
+                    <div class="profile-info">
+                        <a ui-sref="login">Login</a>
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-inner c-overflow">
+                <ul class="main-menu">
+                    <li ui-sref-active="active">
+                        <a ui-sref="home" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-home"></i> Home</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="calendar" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-calendar"></i> Event Calendar</a>
+                    </li>
+                    <li class="sub-menu" ng-show="vm.user.is_authenticated" ng-class="{ 'active toggled': vm.$state.includes('results') }">
+                        <a href="" toggle-submenu><i class="zmdi zmdi-format-list-numbered"></i> Event Results</a>
+                        <ul>
+                            <li><a ui-sref-active="active" ui-sref="results.league" ng-click="vm.sidebarStat($event)">Wednesday Night League</a></li>
+                            <li><a ui-sref-active="active" ui-sref="results.major" ng-click="vm.sidebarStat($event)">Weekend Major</a></li>
+                            <li><a ui-sref-active="active" ui-sref="results.match-play" ng-click="vm.sidebarStat($event)">Match Play Brackets</a></li>
+                            <li><a ui-sref-active="active" ui-sref="results.season-long-points" ng-click="vm.sidebarStat($event)">Season Long Points</a></li>
+                            <li><a ui-sref-active="active" ui-sref="results.dam-cup" ng-click="vm.sidebarStat($event)">Dam Cup Standings</a></li>
+                        </ul>
+                    </li>
+                    <li ui-sref-active="active" ng-show="vm.user.is_authenticated">
+                        <a ui-sref="forum" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-comment-text"></i> Forum</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="policies" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-check-all"></i> Policies and Procedures</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="local-rules" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-edit"></i> Local Rules</a>
+                    </li>
+                    <li ui-sref-active="active" ng-show="vm.user.is_authenticated">
+                        <a ui-sref="directory" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-accounts-outline"></i> Member Directory</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="contact" ng-click="vm.sidebarStat($event)"><i class="zmdi zmdi-help"></i> Contact Us</a>
+                    </li>
+                    <li ui-sref-active="active" ng-show="vm.user.is_staff">
+                        <a href="/admin"><i class="zmdi zmdi-wrench"></i> Administration</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
         {% block body_block %}{% endblock %}
-    </div>
-</section>
+    </section>
 
-<footer id="footer">
-    Copyright © 2016 ZoomdoggyDesign
-</footer>
+    <footer id="footer">
+        Copyright © 2016 ZoomdoggyDesign
+    </footer>
 
-<!-- Javascript Libraries -->
-<script src="{% static 'web/lib/jquery.min.js' %}"></script>
-<script src="{% static 'web/lib/angular.min.js' %}"></script>
-<script src="{% static 'web/lib/angular-cookies.min.js' %}"></script>
-<script src="{% static 'web/lib/lodash.min.js' %}"></script>
-<script src="{% static 'web/lib/moment.min.js' %}"></script>
-<script src="{% static 'web/lib/bootstrap.min.js' %}"></script>
-<script src="{% static 'web/lib/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-<script src="{% static 'web/lib/bootstrap-filestyle.min.js' %}"></script>
-<script src="{% static 'web/js/functions.js' %}"></script>
-<!-- inject:js -->
-<script src="{% static 'web/dist/club-manager-855cd93d44.js' %}"></script>
-<!-- endinject -->
-{% block script_block %}{% endblock %}
+    <!-- Javascript Libraries -->
+    <script src="{% static 'web/lib/jquery.min.js' %}"></script>
+    <script src="{% static 'web/lib/angular.js' %}"></script>
+    <script src="{% static 'web/lib/angular-ui-router.min.js' %}"></script>
+    <script src="{% static 'web/lib/angular-animate.min.js' %}"></script>
+    <script src="{% static 'web/lib/loading-bar.min.js' %}"></script>
+    <script src="{% static 'web/lib/ui-bootstrap.min.js' %}"></script>
+    <script src="{% static 'web/lib/ui-bootstrap-tpls.min.js' %}"></script>
+    <script src="{% static 'web/lib/angular-cookies.min.js' %}"></script>
+    <script src="{% static 'web/lib/lodash.min.js' %}"></script>
+    <script src="{% static 'web/lib/moment.min.js' %}"></script>
+    <script src="{% static 'web/lib/bootstrap.min.js' %}"></script>
+    <script src="{% static 'web/lib/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'web/lib/bootstrap-filestyle.min.js' %}"></script>
+    <!-- inject:js -->
+    <script src="{% static 'web/dist/club-manager-37f8dc5813.js' %}"></script>
+    <!-- endinject -->
 </body>
 </html>
