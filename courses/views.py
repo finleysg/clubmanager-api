@@ -1,7 +1,9 @@
 from .models import Course, Hole, CourseSetup, CourseSetupHole
+from events.models import Event
 from .serializers import CourseSerializer, CourseDetailSerializer, CourseSetupSerializer, CourseSetupHoleSerializer, \
     HoleListSerializer, HoleDetailSerializer, CourseSetupDetailSerializer
 from rest_framework import generics
+from django.shortcuts import get_object_or_404
 
 
 class CourseList(generics.ListCreateAPIView):
@@ -21,8 +23,19 @@ class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
 class CourseSetupList(generics.ListCreateAPIView):
     """ API endpoint to view Course Setups
     """
-    queryset = CourseSetup.objects.all()
+    # queryset = CourseSetup.objects.all()
     serializer_class = CourseSetupSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the list of course setups for a given event.
+        """
+        queryset = CourseSetup.objects.all()
+        event_id = self.request.query_params.get('event', None)
+        if event_id is not None:
+            event = get_object_or_404(Event, pk=event_id)
+            queryset = queryset.filter(pk__in=event.course_setups.all())
+        return queryset
 
 
 class CourseSetupDetail(generics.RetrieveUpdateDestroyAPIView):

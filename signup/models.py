@@ -1,7 +1,10 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
+
 from events.models import Event
 from courses.models import CourseSetup, CourseSetupHole
 from core.models import Member
+from signup.manager import SignupSlotManager
 
 STATUS_CHOICES = (
     ("A", "Available"),
@@ -11,31 +14,40 @@ STATUS_CHOICES = (
 )
 
 
-class SignupReservation(models.Model):
-    event = models.ForeignKey(Event)
-    course_setup = models.ForeignKey(CourseSetup)
-    starting_hole = models.IntegerField()
-    starting_order = models.IntegerField(default=0)
-    # start_time = models.TimeField(null=True)
+class RegistrationGroup(models.Model):
+    event = models.ForeignKey(verbose_name="Event", to=Event)
+    course_setup = models.ForeignKey(verbose_name="Course", to=CourseSetup, null=True)
+    signed_up_by = models.ForeignKey(verbose_name="Signed up by", to=Member)
+    starting_hole = models.IntegerField(verbose_name="Starting hole", blank=True)
+    starting_order = models.IntegerField(verbose_name="Starting order", default=0)
+    notes = models.TextField(verbose_name="Registration notes", blank=True)
+    payment_confirmation_code = models.CharField(verbose_name="Payment confirmation code", max_length=120, blank=True)
+    payment_confirmation_timestamp = models.DateTimeField(verbose_name="Payment confirmation timestamp", blank=True, null=True)
+    payment_amount = models.DecimalField(verbose_name="Payment amount", max_digits=5, decimal_places=2, blank=True, null=True)
 
-
-class Signup(models.Model):
-    signup_reservation = models.ForeignKey(SignupReservation)
-    member = models.ForeignKey(Member)
-    is_event_fee_paid = models.BooleanField(default=False)
-    is_greens_fee_paid = models.BooleanField(default=False)
-    is_gross_skins_paid = models.BooleanField(default=False)
-    is_net_skins_paid = models.BooleanField(default=False)
-    signed_up_by = models.CharField(max_length=60)
-    payment_confirmation_code = models.CharField(max_length=120, null=True, blank=True)
+    history = HistoricalRecords()
 
 
 class SignupSlot(models.Model):
-    event = models.ForeignKey(Event)
-    course_setup_hole_id = models.ForeignKey(CourseSetupHole)
-    signup_reservation = models.ForeignKey(SignupReservation, null=True)
-    member = models.ForeignKey(Member, null=True)
-    starting_order = models.IntegerField(default=0)
-    slot = models.IntegerField()
-    status = models.CharField(choices=STATUS_CHOICES, max_length=1, default="A")
-    expires = models.DateTimeField(null=True)
+    event = models.ForeignKey(verbose_name="Event", to=Event)
+    course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True)
+    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, null=True)
+    member = models.ForeignKey(verbose_name="Member", to=Member, null=True)
+    starting_order = models.IntegerField(verbose_name="Starting order", default=0)
+    slot = models.IntegerField(verbose_name="Slot number", )
+    status = models.CharField(verbose_name="Status", choices=STATUS_CHOICES, max_length=1, default="A")
+    expires = models.DateTimeField(verbose_name="Expiration", null=True, blank=True)
+
+    objects = SignupSlotManager()
+    history = HistoricalRecords()
+
+
+class Registration(models.Model):
+    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup)
+    member = models.ForeignKey(verbose_name="Member", to=Member)
+    is_event_fee_paid = models.BooleanField(verbose_name="Event fee is paid", default=False)
+    is_greens_fee_paid = models.BooleanField(verbose_name="Greens fee is paid", default=False)
+    is_gross_skins_paid = models.BooleanField(verbose_name="Gross skins are paid", default=False)
+    is_net_skins_paid = models.BooleanField(verbose_name="Net skins are paid", default=False)
+
+    history = HistoricalRecords()

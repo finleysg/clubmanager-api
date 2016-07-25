@@ -22,6 +22,9 @@ INSTALLED_APPS = (
     'core',
     'courses',
     'events',
+    'signup',
+    'policies',
+    'roles',
     'web',
 )
 
@@ -68,7 +71,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'core.serializers.UserDetailsSerializer'
+    'USER_DETAILS_SERIALIZER': 'core.serializers.UserDetailSerializer'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

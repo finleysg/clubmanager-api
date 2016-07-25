@@ -4,6 +4,8 @@ from django.utils import timezone
 from datetime import datetime
 import pytz
 
+from courses.models import CourseSetup
+
 EVENT_TYPE_CHOICES = (
     ("L", "League"),
     ("M", "Weekend Major"),
@@ -33,6 +35,7 @@ SKIN_TYPE_CHOICES = (
     ("T", "Team"),
     ("N", "No Skins"),
 )
+
 
 class EventTemplate(models.Model):
     event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="M")
@@ -88,8 +91,10 @@ class Event(models.Model):
     end_date = models.DateField(verbose_name="End date (multi-day events)", blank=True, null=True)
     signup_start = models.DateTimeField(verbose_name="Signup start")
     signup_end = models.DateTimeField(verbose_name="Signup end")
-    start_time = models.TimeField(verbose_name="Starting time")
+    start_time = models.CharField(verbose_name="Starting time", max_length=40)
     end_time = models.TimeField(verbose_name="Ending time (non-shotgun starts)", blank=True, null=True)
+    registration_maximum = models.IntegerField(verbose_name="Registration max (non-league events)", default=0)
+    course_setups = models.ManyToManyField(verbose_name="Course(s)", to=CourseSetup, blank=True)
 
     history = HistoricalRecords()
 
