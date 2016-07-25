@@ -47,9 +47,12 @@ class CourseSetupHoleSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CourseSetupSerializer(serializers.HyperlinkedModelSerializer):
+
+    holes = CourseSetupHoleSerializer(many=True, read_only=True)
+
     class Meta:
         model = CourseSetup
-        fields = ("url", "id", "name", "number_of_holes", "slope", "rating", "yardage")
+        fields = ("url", "id", "name", "number_of_holes", "slope", "rating", "yardage", "holes")
 
 
 class CourseSetupDetailSerializer(serializers.HyperlinkedModelSerializer):

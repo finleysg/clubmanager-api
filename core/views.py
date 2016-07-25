@@ -17,7 +17,8 @@ def api_root(request):
         'holes': reverse('hole-list', request=request),
         'course-setup-holes': reverse('coursesetuphole-list', request=request),
         'events': reverse('event-list', request=request),
-        'event-templates': reverse('eventtemplate-list', request=request)
+        'event-templates': reverse('eventtemplate-list', request=request),
+        'policies': reverse('policy-list', request=request),
     })
 
 

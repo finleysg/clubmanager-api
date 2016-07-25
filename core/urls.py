@@ -2,6 +2,8 @@ from django.conf.urls import url
 from core import views as core_views
 from courses import views as course_views
 from events import views as event_views
+from policies import views as policy_views
+from signup import views as signup_views
 
 urlpatterns = [
     url(r'^$', core_views.api_root),
@@ -22,4 +24,9 @@ urlpatterns = [
     url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
     url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
     url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),
+    url(r'^policies/$', policy_views.PolicyList.as_view(), name='policy-list'),
+    url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
+    url(r'^registration/slots/(?P<event_id>[0-9]+)/$', signup_views.registration_slots, name='registration-slots'),
+    url(r'^registration/reserve/$', signup_views.reserve_slots, name='reserve-slots'),
+    url(r'^registration/cancel/$', signup_views.cancel_reserved_slots, name='cancel-reserved-slots'),
 ]

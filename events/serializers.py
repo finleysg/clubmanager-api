@@ -9,7 +9,8 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
                   "can_signup_group", "can_choose_hole", "scoring", "scoring_system", "event_state",
                   "number_of_scores", "notes", "event_type", "skins_type", "season_points", "template",
-                  "start_date", "start_time", "end_date", "end_time", "signup_start", "signup_end")
+                  "start_date", "start_time", "end_date", "end_time", "signup_start", "signup_end",
+                  "registration_maximum", "course_setups")
 
 
 class EventTemplateSerializer(serializers.HyperlinkedModelSerializer):

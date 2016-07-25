@@ -58,6 +58,7 @@ class Member(models.Model):
     raw_image = models.ImageField(verbose_name="Profile picture", upload_to="member_images", blank=True, null=True)
     thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
     profile_image = ImageSpecField(source="raw_image", id="member:image:profile_image")
+    favorites = models.ManyToManyField("self", blank=True)
 
     history = HistoricalRecords()
 
@@ -74,10 +75,14 @@ class Member(models.Model):
         return my_age
 
     def thumbnail_url(self):
-        return self.thumbnail_image.url
+        if self.raw_image:
+            return self.thumbnail_image.url
+        return None
 
     def profile_url(self):
-        return self.profile_image.url
+        if self.raw_image:
+            return self.profile_image.url
+        return None
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)

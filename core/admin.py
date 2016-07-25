@@ -3,7 +3,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
 from core.models import Member, Club
-from events.models import Event, EventTemplate
 
 
 # Define an inline admin descriptor for Employee model
