@@ -2,6 +2,7 @@ from rest_framework import permissions, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from django.shortcuts import get_object_or_404
 
 from .models import Club, Member
 from .serializers import ClubSerializer, MemberSerializer
@@ -48,3 +49,13 @@ class MemberDetail(generics.RetrieveAPIView):
     """
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
+
+
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def friends(request):
+    """ API endpoint to view the current member's favorites
+    """
+    member = get_object_or_404(Member, pk=request.user.id)
+    serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
+    return Response(serializer.data)

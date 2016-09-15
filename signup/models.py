@@ -31,7 +31,7 @@ class RegistrationGroup(models.Model):
 class SignupSlot(models.Model):
     event = models.ForeignKey(verbose_name="Event", to=Event)
     course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True)
-    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, null=True)
+    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, null=True, related_name="slots")
     member = models.ForeignKey(verbose_name="Member", to=Member, null=True)
     starting_order = models.IntegerField(verbose_name="Starting order", default=0)
     slot = models.IntegerField(verbose_name="Slot number", )
