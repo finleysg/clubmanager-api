@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
     url(r'^registration/slots/(?P<event_id>[0-9]+)/$', signup_views.registration_slots, name='registration-slots'),
     url(r'^registration/reserve/$', signup_views.reserve_slots, name='reserve-slots'),
+    url(r'^registration/register/$', signup_views.register, name='register'),
     url(r'^registration/cancel/$', signup_views.cancel_reserved_slots, name='cancel-reserved-slots'),
+    url(r'^friends/$', core_views.friends, name='friends'),
 ]

@@ -67,4 +67,4 @@ class MemberSerializer(serializers.HyperlinkedModelSerializer):
                   "address1", "address2", "city", "state", "zip",
                   "phone_number", "handicap", "handicap_revision_date",
                   "user_id", "birth_date", "status", "summary",
-                  "thumbnail_url", "profile_url", "favorites")
+                  "thumbnail_url", "profile_url")

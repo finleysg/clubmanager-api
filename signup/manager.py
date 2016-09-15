@@ -14,12 +14,12 @@ class SignupSlotManager(models.Manager):
                 # for each hole in course setup, create an A and B group
                 holes = CourseSetupHole.objects.filter(course_setup=course_setup)
                 for hole in holes:
-                    for s in range(0, event.maximum_signup_group_size):
+                    for s in range(0, event.group_size):
                         slot = self.create(event=event, course_setup_hole=hole, starting_order=0, slot=s)
                         slots.append(slot)
                     # Only add 2nd group on par 4s and 5s
                     if hole.hole.par != 3:
-                        for s in range(0, event.maximum_signup_group_size):
+                        for s in range(0, event.group_size):
                             slot = self.create(event=event, course_setup_hole=hole, starting_order=1, slot=s)
                             slots.append(slot)
         else:

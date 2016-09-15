@@ -5,10 +5,12 @@ from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+
+from core.models import Member
 from events.models import Event
 from courses.models import CourseSetupHole
-from signup.models import SignupSlot, RegistrationGroup
-from signup.serializers import SignupSlotSerializer
+from signup.models import SignupSlot, RegistrationGroup, Registration
+from signup.serializers import SignupSlotSerializer, RegistrationGroupSerializer
 
 
 @api_view(['GET', ])
@@ -16,6 +18,10 @@ from signup.serializers import SignupSlotSerializer
 def registration_slots(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     slots = SignupSlot.objects.filter(event=event)
+    # TODO: how to guarantee single entry (i.e. run exactly once)
+    if len(slots) == 0:
+        slots = SignupSlot.objects.create_slots(event)
+
     serializer = SignupSlotSerializer(slots, context={'request': request}, many=True)
     return Response(serializer.data)
 
@@ -30,6 +36,7 @@ def reserve_slots(request):
     starting_order = request.data["starting_order"]
     event_id = request.data["event_id"]
 
+    member = get_object_or_404(Member, pk=request.user.id)
     event = get_object_or_404(Event, pk=event_id)
     hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
     slots = SignupSlot.objects.filter(pk__in=slot_ids)
@@ -46,10 +53,40 @@ def reserve_slots(request):
         slot.registration_group = group
         slot.course_setup_hole = hole
         slot.expires = datetime.now() + timedelta(minutes=10)
+        if slot.slot == 0:
+            slot.member = member
         slot.save()
 
-    # TODO: how can we return the new group id, too? or will it be on the slot records?
-    serializer = SignupSlotSerializer(slots, context={'request': request}, many=True)
+    # TODO: Do I need to do this?
+    # group = get_object_or_404(RegistrationGroup, pk=group.id)
+
+    serializer = RegistrationGroupSerializer(group, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
+def register(request):
+    group_tmp = request.data["group"]
+
+    group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=request.user.member)
+    group.payment_amount = group_tmp["payment_amount"];
+    group.save()
+
+    for slot_tmp in group_tmp["slots"]:
+        slot = SignupSlot.objects.get(pk=slot_tmp["id"])
+        member = Member.objects.get(pk=slot_tmp["member"])
+        slot.status = "R"
+        slot.member = member
+        slot.save()
+        registration = Registration(registration_group=group, member=member,
+                                    is_event_fee_paid=slot_tmp["include_event_fee"],
+                                    is_gross_skins_paid=slot_tmp["include_gross_skins"],
+                                    is_net_skins_paid=slot_tmp["include_skins"])
+        registration.save()
+
+    serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
 
 
