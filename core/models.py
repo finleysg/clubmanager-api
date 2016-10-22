@@ -7,6 +7,12 @@ from imagekit.processors import ResizeToFit
 from datetime import datetime
 
 
+PAYMENT_TYPE_CHOICES = (
+    ("S", "Stripe"),
+    ("P", "PayPal"),
+)
+
+
 class ThumbnailSpec(ImageSpec):
     format = "JPEG"
     options = {"quality": 75}
@@ -54,6 +60,9 @@ class Member(models.Model):
     birth_date = models.DateField(verbose_name="Birth date", blank=True, null=True)
     summary = models.TextField(verbose_name="Summary", blank=True, null=True)
     status = models.CharField(verbose_name="Status", max_length=140, blank=True, null=True)
+    payment_method = models.CharField(verbose_name="Preferred payment method", max_length=1, default="S", choices=PAYMENT_TYPE_CHOICES)
+    stripe_customer_id = models.CharField(verbose_name="Stripe ID", max_length=255, blank=True, null=True)
+    stripe_save_card = models.BooleanField(verbose_name="Save credit card?", default=False)
     show_email = models.BooleanField(verbose_name="Allow members to see my email address", default=True)
     raw_image = models.ImageField(verbose_name="Profile picture", upload_to="member_images", blank=True, null=True)
     thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
@@ -61,6 +70,9 @@ class Member(models.Model):
     favorites = models.ManyToManyField("self", blank=True)
 
     history = HistoricalRecords()
+
+    def member_name(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
 
     def member_email(self):
         email = "xxxxxxxxx@xxxxx.xxx"
