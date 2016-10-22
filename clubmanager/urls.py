@@ -15,15 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-
 from core import urls as api_urls
 
 urlpatterns = [
     url(r"^", include("web.urls", namespace="web")),
-    # url("^", include("django.contrib.auth.urls")),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^api/", include(api_urls)),
     url(r'^rest-auth/', include('rest_auth.urls'))
-    # url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework"))
 ]

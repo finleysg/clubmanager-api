@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     'signup',
     'policies',
     'roles',
+    'payments',
     'web',
 )
 

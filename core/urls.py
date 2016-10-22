@@ -4,6 +4,8 @@ from courses import views as course_views
 from events import views as event_views
 from policies import views as policy_views
 from signup import views as signup_views
+from payments import views as payment_views
+
 
 urlpatterns = [
     url(r'^$', core_views.api_root),
@@ -30,5 +32,6 @@ urlpatterns = [
     url(r'^registration/reserve/$', signup_views.reserve_slots, name='reserve-slots'),
     url(r'^registration/register/$', signup_views.register, name='register'),
     url(r'^registration/cancel/$', signup_views.cancel_reserved_slots, name='cancel-reserved-slots'),
+    url(r'^registration/pay/$', payment_views.pay, name='pay'),
     url(r'^friends/$', core_views.friends, name='friends'),
 ]
