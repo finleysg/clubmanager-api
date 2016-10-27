@@ -6,7 +6,7 @@ from signup.models import SignupSlot
 class EventTemplateAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
+            'fields': ('name', ('event_type', 'requires_registration', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
         }),
         ('Format, Rules, and Notes', {
             'classes': ('wide',),
@@ -17,6 +17,9 @@ class EventTemplateAdmin(admin.ModelAdmin):
         }),
         ('Scoring', {
             'fields': ('season_points', ('scoring', 'scoring_system', 'number_of_scores'),)
+        }),
+        ('Other', {
+            'fields': ('external_url',)
         })
     )
 
@@ -34,7 +37,7 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('template',)
         }),
         ('Basic Settings and Fees', {
-            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
+            'fields': ('name', ('event_type', 'requires_registration', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
         }),
         ('Format, Rules, and Notes', {
             'classes': ('wide',),
@@ -51,6 +54,9 @@ class EventAdmin(admin.ModelAdmin):
         }),
         ('Courses', {
             'fields': ('course_setups',)
+        }),
+        ('Other', {
+            'fields': ('external_url',)
         })
     )
 

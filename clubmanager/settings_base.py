@@ -18,7 +18,6 @@ INSTALLED_APPS = (
     'markdownify',
     'storages',
     'imagekit',
-    'crispy_forms',
     'core',
     'courses',
     'events',
@@ -69,6 +68,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+    'EXCEPTION_HANDLER': 'core.exception_handler.custom_exception_handler'
 }
 
 REST_AUTH_SERIALIZERS = {
@@ -78,8 +78,6 @@ REST_AUTH_SERIALIZERS = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'clubmanager.wsgi.application'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOGIN_URL = "/login/"
 
@@ -104,8 +102,7 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'h6',
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
+LOGGING_CONFIG = None
 
 LANGUAGE_CODE = 'en-us'
 

@@ -14,20 +14,20 @@ nosetests.xml
 coverage.xml
 
 # Django stuff:
+logs/
 *.log
 *.pot
 var/
 superflat_1.1/
 clubmanager/settings_production.py
+clubmanager/settings_development.py
 clubmanager/settings.py
-
-# Bower
 bower_components/
 
 # Node
 node_modules/
 
 # Intellij
-.idea/workspace.xml
+.idea/
 clubmanager-api.iml
 

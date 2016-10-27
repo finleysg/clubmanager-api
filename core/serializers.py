@@ -17,7 +17,7 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         fields = ("id", "address1", "address2", "city", "state", "zip",
                   "phone_number", "handicap", "handicap_revision_date",
                   "birth_date", "status", "summary", "payment_method",
-                  "stripe_customer_id", "stripe_save_card")
+                  "stripe_customer_id", "stripe_save_card", "dues_paid",)
 
 
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,8 +26,8 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "last_name", "email", "member",
-                  "is_authenticated", "is_staff", "is_active")
-        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active")
+                  "is_authenticated", "is_staff", "is_active",)
+        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active", "dues_paid",)
 
     def update(self, instance, validated_data):
         member_data = validated_data.pop('member')

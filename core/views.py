@@ -3,9 +3,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from .models import Club, Member
 from .serializers import ClubSerializer, MemberSerializer
+
 
 @api_view(('GET',))
 @permission_classes((permissions.AllowAny,))
@@ -20,6 +22,17 @@ def api_root(request):
         'events': reverse('event-list', request=request),
         'event-templates': reverse('eventtemplate-list', request=request),
         'policies': reverse('policy-list', request=request),
+    })
+
+
+@api_view(('GET',))
+@permission_classes((permissions.AllowAny,))
+def global_settings(request):
+    my_settings = settings
+    return Response({
+        'stripe_public_key': my_settings.STRIPE_PUBLIC_KEY,
+        'admin_url': my_settings.ADMIN_URL,
+        'bogus': my_settings.BOGUS
     })
 
 
