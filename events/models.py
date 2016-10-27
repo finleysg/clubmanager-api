@@ -8,8 +8,10 @@ from courses.models import CourseSetup
 
 EVENT_TYPE_CHOICES = (
     ("L", "League"),
-    ("M", "Weekend Major"),
+    ("W", "Weekend Major"),
     ("H", "Holiday Pro-shop Event"),
+    ("M", "Member Meeting"),
+    ("B", "Board Meeting"),
     ("O", "Other"),
 )
 SCORING_CHOICES = (
@@ -19,16 +21,19 @@ SCORING_CHOICES = (
     ("TS", "Team: Scramble"),
     ("TA", "Team: Alternate Shot"),
     ("TC", "Team: Combination"),
+    ("NA", "Not Applicable"),
 )
 SCORING_SYSTEM_CHOICES = (
     ("SP", "Stroke Play"),
     ("SF", "Stableford"),
     ("CH", "Chicago"),
+    ("NA", "Not Applicable"),
 )
 START_TYPE_CHOICES = (
     ("TT", "Tee Times"),
     ("FB", "Front and Back"),
     ("SG", "Shotgun"),
+    ("NA", "Not Applicable"),
 )
 SKIN_TYPE_CHOICES = (
     ("I", "Individual"),
@@ -38,7 +43,7 @@ SKIN_TYPE_CHOICES = (
 
 
 class EventTemplate(models.Model):
-    event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="M")
+    event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="L")
     name = models.CharField(verbose_name="Event title", max_length=100)
     description = models.TextField(verbose_name="Format and rules")
     notes = models.TextField(verbose_name="Additional notes")
@@ -50,13 +55,15 @@ class EventTemplate(models.Model):
     minimum_signup_group_size = models.IntegerField(verbose_name="Minimum sign-up group size", default=1)
     maximum_signup_group_size = models.IntegerField(verbose_name="Maximum sign-up group size", default=1)
     group_size = models.IntegerField(verbose_name="Group size", default=4)
-    start_type = models.CharField(verbose_name="Start type", choices=START_TYPE_CHOICES, max_length=2, default="TT")
+    start_type = models.CharField(verbose_name="Start type", choices=START_TYPE_CHOICES, max_length=2, default="NA")
     can_signup_group = models.BooleanField(verbose_name="Member can sign up group", default=False)
     can_choose_hole = models.BooleanField(verbose_name="Member can choose starting hole", default=False)
-    scoring = models.CharField(verbose_name="Scoring type", choices=SCORING_CHOICES, max_length=3, default="IN")
-    scoring_system = models.CharField(verbose_name="Scoring system", choices=SCORING_SYSTEM_CHOICES, max_length=2, default="SP")
+    scoring = models.CharField(verbose_name="Scoring type", choices=SCORING_CHOICES, max_length=3, default="NA")
+    scoring_system = models.CharField(verbose_name="Scoring system", choices=SCORING_SYSTEM_CHOICES, max_length=2, default="NA")
     number_of_scores = models.CharField(verbose_name="Number of scores", max_length=12, default="1", blank=True)
     season_points = models.IntegerField(verbose_name="Season long points available", default=0)
+    requires_registration = models.BooleanField(verbose_name="Requires registration", default=True)
+    external_url = models.CharField(verbose_name="External url", max_length=255, blank=True, null=True)
 
     history = HistoricalRecords()
 
@@ -67,7 +74,7 @@ class EventTemplate(models.Model):
 class Event(models.Model):
     # From the template
     template = models.ForeignKey(to=EventTemplate)
-    event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="M")
+    event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="L")
     name = models.CharField(verbose_name="Event title", max_length=100)
     description = models.TextField(verbose_name="Format and rules")
     rounds = models.IntegerField(verbose_name="Number of rounds", default=1)
@@ -78,13 +85,15 @@ class Event(models.Model):
     minimum_signup_group_size = models.IntegerField(verbose_name="Minimum sign-up group size", default=1)
     maximum_signup_group_size = models.IntegerField(verbose_name="Maximum sign-up group size", default=1)
     group_size = models.IntegerField(verbose_name="Group size", default=4)
-    start_type = models.CharField(verbose_name="Start type", choices=START_TYPE_CHOICES, max_length=2, default="TT")
+    start_type = models.CharField(verbose_name="Start type", choices=START_TYPE_CHOICES, max_length=2, default="NA")
     can_signup_group = models.BooleanField(verbose_name="Member can sign up group", default=False)
     can_choose_hole = models.BooleanField(verbose_name="Member can choose starting hole", default=False)
-    scoring = models.CharField(verbose_name="Scoring type", choices=SCORING_CHOICES, max_length=3, default="IN")
-    scoring_system = models.CharField(verbose_name="Scoring system", choices=SCORING_SYSTEM_CHOICES, max_length=2, default="SP")
+    scoring = models.CharField(verbose_name="Scoring type", choices=SCORING_CHOICES, max_length=3, default="NA")
+    scoring_system = models.CharField(verbose_name="Scoring system", choices=SCORING_SYSTEM_CHOICES, max_length=2, default="NA")
     number_of_scores = models.CharField(verbose_name="Number of scores", max_length=12, default="1", blank=True)
     season_points = models.IntegerField(verbose_name="Season long points available", default=0)
+    requires_registration = models.BooleanField(verbose_name="Requires registration", default=True)
+    external_url = models.CharField(verbose_name="External url", max_length=255, blank=True, null=True)
     # Event instance specific
     notes = models.TextField(verbose_name="Additional notes")
     start_date = models.DateField(verbose_name="Start date")

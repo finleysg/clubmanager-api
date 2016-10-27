@@ -57,9 +57,6 @@ def reserve_slots(request):
             slot.member = member
         slot.save()
 
-    # TODO: Do I need to do this?
-    # group = get_object_or_404(RegistrationGroup, pk=group.id)
-
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
 
@@ -77,7 +74,6 @@ def register(request):
     for slot_tmp in group_tmp["slots"]:
         slot = SignupSlot.objects.get(pk=slot_tmp["id"])
         member = Member.objects.get(pk=slot_tmp["member"])
-        slot.status = "R"
         slot.member = member
         slot.save()
         registration = Registration(registration_group=group, member=member,

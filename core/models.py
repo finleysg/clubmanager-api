@@ -68,6 +68,7 @@ class Member(models.Model):
     thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
     profile_image = ImageSpecField(source="raw_image", id="member:image:profile_image")
     favorites = models.ManyToManyField("self", blank=True)
+    dues_paid = models.BooleanField(verbose_name="Season dues paid", default=False)
 
     history = HistoricalRecords()
 

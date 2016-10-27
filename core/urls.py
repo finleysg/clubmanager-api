@@ -9,6 +9,7 @@ from payments import views as payment_views
 
 urlpatterns = [
     url(r'^$', core_views.api_root),
+    url(r'^settings/$', core_views.global_settings, name='settings'),
     url(r'^clubs/$', core_views.ClubList.as_view(), name='club-list'),
     url(r'^clubs/(?P<pk>[0-9]+)/$', core_views.ClubDetail.as_view(), name='club-detail'),
     url(r'^members/$', core_views.MemberList.as_view(), name='member-list'),
