@@ -21,7 +21,7 @@ var/
 superflat_1.1/
 clubmanager/settings_production.py
 clubmanager/settings_development.py
-clubmanager/settings.py
+clubmanager/wsgi.py
 bower_components/
 
 # Node
