@@ -65,7 +65,7 @@ def create_stripe_charge(amount_due, email, event, member, token):
                 customer=member.stripe_customer_id,
                 receipt_email=email,
                 description=description,
-                metadata={"event": event.name, "member": member.member_name, "email": email}
+                metadata={"event": event.name, "member": member.member_name(), "email": email}
             )
         else:
             return stripe.Charge.create(
@@ -74,7 +74,7 @@ def create_stripe_charge(amount_due, email, event, member, token):
                 source=token,
                 receipt_email=email,
                 description=description,
-                metadata={"event": event.name, "member": member.member_name, "email": email}
+                metadata={"event": event.name, "member": member.member_name(), "email": email}
             )
     except stripe.error.CardError as e:
         raise StripeCardError(e)

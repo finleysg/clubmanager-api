@@ -22,6 +22,8 @@ def api_root(request):
         'events': reverse('event-list', request=request),
         'event-templates': reverse('eventtemplate-list', request=request),
         'policies': reverse('policy-list', request=request),
+        'announcements': reverse('announcement-list', request=request),
+        'documents': reverse('document-list', request=request),
     })
 
 

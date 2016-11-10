@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from django.db import transaction
 from django.http import HttpResponseBadRequest
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from core.models import Member
 from events.models import Event
 from courses.models import CourseSetupHole
 from signup.models import SignupSlot, RegistrationGroup, Registration
-from signup.serializers import SignupSlotSerializer, RegistrationGroupSerializer
+from signup.serializers import SignupSlotSerializer, RegistrationGroupSerializer, RegistrationSerializer
 
 
 @api_view(['GET', ])
@@ -23,6 +23,14 @@ def registration_slots(request, event_id):
         slots = SignupSlot.objects.create_slots(event)
 
     serializer = SignupSlotSerializer(slots, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def registrations(request, event_id):
+    result = get_list_or_404(Registration, registration_group__event_id=event_id)
+    serializer = RegistrationSerializer(result, context={'request': request}, many=True)
     return Response(serializer.data)
 
 
@@ -68,7 +76,7 @@ def register(request):
     group_tmp = request.data["group"]
 
     group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=request.user.member)
-    group.payment_amount = group_tmp["payment_amount"];
+    group.payment_amount = group_tmp["payment_amount"]
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
