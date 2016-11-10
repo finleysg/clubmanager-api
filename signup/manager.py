@@ -35,8 +35,13 @@ class SignupSlotManager(models.Manager):
 
     def add_slots(self, event, hole):
         slots = []
-        # TODO: get max starting order and increment 1
+        start = 0
+        # get max starting order and increment 1
+        previous = self.filter(event=event, course_setup_hole=hole)
+        if previous is not None:
+            start = previous.starting_order + 1
+
         for s in range(0, event.maximum_signup_group_size):
-            slot = self.create(event=event, course_setup_hole=hole, starting_order=0, slot=s)
+            slot = self.create(event=event, course_setup_hole=hole, starting_order=start, slot=s)
             slots.append(slot)
         return slots

@@ -5,6 +5,8 @@ from events import views as event_views
 from policies import views as policy_views
 from signup import views as signup_views
 from payments import views as payment_views
+from messaging import views as messaging_views
+from documents import views as document_views
 
 
 urlpatterns = [
@@ -27,8 +29,13 @@ urlpatterns = [
     url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
     url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
     url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),
+    url(r'^documents/$', document_views.DocumentList.as_view(), name='document-list'),
+    url(r'^documents/(?P<pk>[0-9]+)/$', document_views.DocumentDetail.as_view(), name='document-detail'),
+    url(r'^announcements/$', messaging_views.AnnouncementList.as_view(), name='announcement-list'),
+    url(r'^announcements/(?P<pk>[0-9]+)/$', messaging_views.AnnouncementDetail.as_view(), name='announcement-detail'),
     url(r'^policies/$', policy_views.PolicyList.as_view(), name='policy-list'),
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
+    url(r'^registrations/(?P<event_id>[0-9]+)/$', signup_views.registrations, name='registrations'),
     url(r'^registration/slots/(?P<event_id>[0-9]+)/$', signup_views.registration_slots, name='registration-slots'),
     url(r'^registration/reserve/$', signup_views.reserve_slots, name='reserve-slots'),
     url(r'^registration/register/$', signup_views.register, name='register'),
