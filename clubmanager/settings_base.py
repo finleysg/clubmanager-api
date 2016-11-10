@@ -104,8 +104,6 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'h6',
 ]
 
-LOGGING_CONFIG = None
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Chicago'
