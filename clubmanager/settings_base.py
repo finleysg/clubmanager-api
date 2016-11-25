@@ -21,11 +21,10 @@ INSTALLED_APPS = (
     'core',
     'courses',
     'events',
-    'signup',
+    'register',
     'policies',
     'documents',
     'roles',
-    'payments',
     'messaging',
     'web',
 )

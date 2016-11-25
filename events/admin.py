@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Event, EventTemplate
-from signup.models import SignupSlot
+from register.models import SignupSlot
 
 
 class EventTemplateAdmin(admin.ModelAdmin):
