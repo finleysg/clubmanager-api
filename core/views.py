@@ -27,15 +27,14 @@ def api_root(request):
     })
 
 
-@api_view(('GET',))
-@permission_classes((permissions.AllowAny,))
-def global_settings(request):
-    my_settings = settings
-    return Response({
-        'stripe_public_key': my_settings.STRIPE_PUBLIC_KEY,
-        'admin_url': my_settings.ADMIN_URL,
-        'bogus': my_settings.BOGUS
-    })
+# @api_view(('GET',))
+# @permission_classes((permissions.AllowAny,))
+# def global_settings(request):
+#     my_settings = settings
+#     return Response({
+#         'stripe_public_key': my_settings.STRIPE_PUBLIC_KEY,
+#         'admin_url': my_settings.ADMIN_URL
+#     })
 
 
 class ClubList(generics.ListAPIView):
@@ -72,5 +71,27 @@ def friends(request):
     """ API endpoint to view the current member's favorites
     """
     member = get_object_or_404(Member, pk=request.user.id)
+    serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+def add_friend(request, member_id):
+    member = get_object_or_404(Member, pk=request.user.id)
+    friend = get_object_or_404(Member, pk=member_id)
+    member.favorites.add(friend)
+    member.save()
+    serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+def remove_friend(request, member_id):
+    member = get_object_or_404(Member, pk=request.user.id)
+    friend = get_object_or_404(Member, pk=member_id)
+    member.favorites.remove(friend)
+    member.save()
     serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
     return Response(serializer.data)

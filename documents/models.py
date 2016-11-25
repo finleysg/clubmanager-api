@@ -4,10 +4,11 @@ from events.models import Event
 
 DOCUMENT_TYPE_CHOICES = (
     ("R", "Event Results"),
+    ("T", "Event Tee Times"),
     ("S", "Season Long Points"),
-    ("S", "Dam Cup"),
+    ("D", "Dam Cup"),
     ("M", "Match Play"),
-    ("F", "Dinancial Statements")
+    ("F", "Financial Statements")
 )
 
 
@@ -16,7 +17,7 @@ class Document(models.Model):
     title = models.CharField(verbose_name="Title", max_length=120)
     file = models.FileField(verbose_name="File", upload_to="documents/%Y")
     last_update = models.DateTimeField(auto_now=True)
-    event = models.ForeignKey(verbose_name="Event", to=Event, blank=True, null=True)
+    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="documents", blank=True, null=True)
 
     history = HistoricalRecords()
 

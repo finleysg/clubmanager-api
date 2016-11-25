@@ -3,15 +3,14 @@ from core import views as core_views
 from courses import views as course_views
 from events import views as event_views
 from policies import views as policy_views
-from signup import views as signup_views
-from payments import views as payment_views
+from register import views as register_views
 from messaging import views as messaging_views
 from documents import views as document_views
 
 
 urlpatterns = [
     url(r'^$', core_views.api_root),
-    url(r'^settings/$', core_views.global_settings, name='settings'),
+    # url(r'^settings/$', core_views.global_settings, name='settings'),
     url(r'^clubs/$', core_views.ClubList.as_view(), name='club-list'),
     url(r'^clubs/(?P<pk>[0-9]+)/$', core_views.ClubDetail.as_view(), name='club-detail'),
     url(r'^members/$', core_views.MemberList.as_view(), name='member-list'),
@@ -35,11 +34,14 @@ urlpatterns = [
     url(r'^announcements/(?P<pk>[0-9]+)/$', messaging_views.AnnouncementDetail.as_view(), name='announcement-detail'),
     url(r'^policies/$', policy_views.PolicyList.as_view(), name='policy-list'),
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
-    url(r'^registrations/(?P<event_id>[0-9]+)/$', signup_views.registrations, name='registrations'),
-    url(r'^registration/slots/(?P<event_id>[0-9]+)/$', signup_views.registration_slots, name='registration-slots'),
-    url(r'^registration/reserve/$', signup_views.reserve_slots, name='reserve-slots'),
-    url(r'^registration/register/$', signup_views.register, name='register'),
-    url(r'^registration/cancel/$', signup_views.cancel_reserved_slots, name='cancel-reserved-slots'),
-    url(r'^registration/pay/$', payment_views.pay, name='pay'),
+    url(r'^registrations/(?P<event_id>[0-9]+)/$', register_views.registrations, name='registrations'),
+    url(r'^registration/slots/(?P<event_id>[0-9]+)/$', register_views.registration_slots, name='registration-slots'),
+    url(r'^registration/reserve/$', register_views.reserve_slots, name='reserve-slots'),
+    url(r'^registration/expired/$', register_views.cancel_expired_slots, name='cancel-expired-slots'),
+    url(r'^registration/register/$', register_views.register, name='register'),
+    url(r'^registration/cancel/$', register_views.cancel_reserved_slots, name='cancel-reserved-slots'),
+    url(r'^registration/pay/$', register_views.process_payment, name='process_payment'),
     url(r'^friends/$', core_views.friends, name='friends'),
+    url(r'^friends/add/(?P<member_id>[0-9]+)/$', core_views.add_friend, name='add_friend'),
+    url(r'^friends/remove/(?P<member_id>[0-9]+)/$', core_views.remove_friend, name='remove_friend'),
 ]

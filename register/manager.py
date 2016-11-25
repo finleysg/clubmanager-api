@@ -1,10 +1,35 @@
+from datetime import datetime
 from django.db import models
 from courses.models import CourseSetupHole
 
 
+class ChargeManager(models.Manager):
+
+    def during(self, year, month):
+        return self.filter(
+            charge_created__year=year,
+            charge_created__month=month
+        )
+
+    def paid_totals_for(self, year, month):
+        return self.during(year, month).filter(
+            paid=True
+        ).aggregate(
+            total_amount=models.Sum("amount"),
+            total_refunded=models.Sum("amount_refunded")
+        )
+
+
 class SignupSlotManager(models.Manager):
+
     def clear_slots(self, event):
         self.filter(event=event).delete()
+
+    def cancel_group(self, group):
+        self.filter(registration_group=group).update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+
+    def cancel_expired(self):
+        self.filter(status="P").filter(expires__lt=datetime.now()).update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
 
     def create_slots(self, event):
         slots = []
@@ -44,4 +69,5 @@ class SignupSlotManager(models.Manager):
         for s in range(0, event.maximum_signup_group_size):
             slot = self.create(event=event, course_setup_hole=hole, starting_order=start, slot=s)
             slots.append(slot)
+
         return slots
