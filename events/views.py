@@ -2,7 +2,7 @@ import datetime as dt
 from rest_framework import generics
 
 from .models import Event, EventTemplate
-from .serializers import EventSerializer, EventTemplateSerializer
+from .serializers import EventSerializer, EventTemplateSerializer, EventDetailSerializer
 
 
 class EventList(generics.ListAPIView):
@@ -40,7 +40,7 @@ class EventDetail(generics.RetrieveDestroyAPIView):
     """ API endpoint to edit Clubs
     """
     queryset = Event.objects.all()
-    serializer_class = EventSerializer
+    serializer_class = EventDetailSerializer
 
 
 class EventTemplateList(generics.ListCreateAPIView):

@@ -4,7 +4,7 @@ from rest_framework.exceptions import APIException
 
 from courses.models import CourseSetupHole
 from .exceptions import SlotConflictError, EventFullError
-from .models import SignupSlot, RegistrationGroup, Registration
+from .models import RegistrationSlot, RegistrationGroup
 
 
 def create_event(event):
@@ -28,7 +28,7 @@ class LeagueEvent:
     def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
-        slots = SignupSlot.objects.filter(pk__in=slot_ids)
+        slots = RegistrationSlot.objects.filter(pk__in=slot_ids)
 
         for slot in slots:
             if slot.status != "A":
@@ -58,7 +58,7 @@ class WeekendGroupEvent:
     def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         if self.event.registration_maximum != 0:
-            registrations = Registration.objects.filter(registration_group__event=self.event).count()
+            registrations = RegistrationSlot.objects.filter(event=self.event).count()
             if registrations >= self.event.registration_maximum:
                 raise EventFullError()
 
@@ -67,7 +67,7 @@ class WeekendGroupEvent:
         group.save()
 
         for s in range(0, self.event.maximum_signup_group_size):
-            slot = SignupSlot(event=self.event, starting_order=starting_order, slot=s)
+            slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=s)
             slot.status = "P"
             slot.registration_group = group
             slot.expires = datetime.now() + timedelta(minutes=10)
@@ -86,7 +86,7 @@ class IndividualEvent:
     def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         if self.event.registration_maximum != 0:
-            registrations = Registration.objects.filter(registration_group__event=self.event).count()
+            registrations = RegistrationSlot.objects.filter(event=self.event).count()
             if registrations >= self.event.registration_maximum:
                 raise EventFullError()
 
@@ -94,7 +94,7 @@ class IndividualEvent:
                                   starting_hole=1, starting_order=starting_order)
         group.save()
 
-        slot = SignupSlot(event=self.event, starting_order=starting_order, slot=0)
+        slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=0)
         slot.status = "P"
         slot.registration_group = group
         slot.expires = datetime.now() + timedelta(minutes=10)
