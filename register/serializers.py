@@ -27,7 +27,10 @@ class RegistrationGroupSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    member_first_name = serializers.CharField(source="member.user.first_name")
+    member_last_name = serializers.CharField(source="member.user.last_name")
+
     class Meta:
         model = Registration
-        fields = ("id", "registration_group", "member", "is_event_fee_paid", "is_greens_fee_paid",
-                  "is_gross_skins_paid", "is_net_skins_paid", )
+        fields = ("id", "registration_group", "member", "member_first_name", "member_last_name",
+                  "is_event_fee_paid", "is_greens_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", )

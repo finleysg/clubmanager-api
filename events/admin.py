@@ -60,7 +60,7 @@ class EventAdmin(admin.ModelAdmin):
         super(EventAdmin, self).save_model(request, obj, form, change)
 
         if obj.registration_window() == "future" and obj.group_size > 1 and obj.can_signup_group:
-            SignupSlot.objects.clear_slots(obj)
+            SignupSlot.objects.remove_slots(obj)
             SignupSlot.objects.create_slots(obj)
 
     def event_type_display(self, obj):

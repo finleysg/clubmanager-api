@@ -22,14 +22,26 @@ class ChargeManager(models.Manager):
 
 class SignupSlotManager(models.Manager):
 
-    def clear_slots(self, event):
+    def remove_slots(self, event):
         self.filter(event=event).delete()
 
-    def cancel_group(self, group):
-        self.filter(registration_group=group).update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+    def cancel_group(self, event, group):
+        if event.event_type == "L":
+            self.filter(registration_group=group)\
+                .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+        else:
+            self.filter(registration_group=group).delete()
 
     def cancel_expired(self):
-        self.filter(status="P").filter(expires__lt=datetime.now()).update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+        self.filter(status="P")\
+            .filter(expires__lt=datetime.now())\
+            .filter(event__event_type="L")\
+            .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+
+        self.filter(status="P")\
+            .filter(expires__lt=datetime.now())\
+            .exclude(event__event_type="L")\
+            .delete()
 
     def create_slots(self, event):
         slots = []
@@ -47,14 +59,6 @@ class SignupSlotManager(models.Manager):
                         for s in range(0, event.group_size):
                             slot = self.create(event=event, course_setup_hole=hole, starting_order=1, slot=s)
                             slots.append(slot)
-        else:
-            registrations = event.registration_maximum / event.maximum_signup_group_size
-            if registrations == 0:
-                registrations = 120 * event.maximum_signup_group_size
-            for r in range(0, int(registrations)):
-                for s in range(0, event.maximum_signup_group_size):
-                    slot = self.create(event=event, starting_order=r, slot=s)
-                    slots.append(slot)
 
         return slots
 
