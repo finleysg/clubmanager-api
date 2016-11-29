@@ -1,9 +1,11 @@
+import stripe
+
 from rest_framework import permissions, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 
 from .models import Club, Member
 from .serializers import ClubSerializer, MemberSerializer
@@ -25,16 +27,6 @@ def api_root(request):
         'announcements': reverse('announcement-list', request=request),
         'documents': reverse('document-list', request=request),
     })
-
-
-# @api_view(('GET',))
-# @permission_classes((permissions.AllowAny,))
-# def global_settings(request):
-#     my_settings = settings
-#     return Response({
-#         'stripe_public_key': my_settings.STRIPE_PUBLIC_KEY,
-#         'admin_url': my_settings.ADMIN_URL
-#     })
 
 
 class ClubList(generics.ListAPIView):
@@ -65,6 +57,7 @@ class MemberDetail(generics.RetrieveAPIView):
     serializer_class = MemberSerializer
 
 
+# TODO: friends should be made restful (child of member?)
 @api_view(['GET', ])
 @permission_classes((permissions.IsAuthenticated,))
 def friends(request):
@@ -95,3 +88,25 @@ def remove_friend(request, member_id):
     member.save()
     serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def stripe_details(request):
+    """ API endpoint to view the current member's stripe account details
+    """
+    member = get_object_or_404(Member, pk=request.user.id)
+    if member.stripe_customer_id != "":
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
+        default_source = customer.sources.data[0]
+        card = "{} ending in {}".format(default_source.brand, default_source.last4)
+        return Response({
+            "stripe_id": customer.id,
+            "card": card
+        })
+
+    return Response({
+        "stripe_id": "",
+        "card": ""
+    })
