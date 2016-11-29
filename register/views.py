@@ -4,35 +4,27 @@ import logging
 from datetime import datetime, timezone
 from django.conf import settings
 from django.db import transaction
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from .exceptions import StripeCardError, StripePaymentError
-from .models import SignupSlot, RegistrationGroup, Registration
-from .serializers import SignupSlotSerializer, RegistrationGroupSerializer, RegistrationSerializer
+from .models import RegistrationSlot, RegistrationGroup
+from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
 
 from core.models import Member
 from events.models import Event
 
 
-@api_view(['GET', ])
-@permission_classes((permissions.AllowAny,))
-def registrations(request, event_id):
-    result = get_list_or_404(Registration, registration_group__event_id=event_id)
-    serializer = RegistrationSerializer(result, context={'request': request}, many=True)
-    return Response(serializer.data)
-
-
-@api_view(['GET', ])
-@permission_classes((permissions.IsAuthenticated,))
-def slots(request, event_id):
-    event = get_object_or_404(Event, pk=event_id)
-    results = SignupSlot.objects.filter(event=event)
-    serializer = SignupSlotSerializer(results, context={'request': request}, many=True)
-    return Response(serializer.data)
+# @api_view(['GET', ])
+# @permission_classes((permissions.IsAuthenticated,))
+# def slots(request, event_id):
+#     event = get_object_or_404(Event, pk=event_id)
+#     results = RegistrationSlot.objects.filter(event=event)
+#     serializer = RegistrationSlotSerializer(results, context={'request': request}, many=True)
+#     return Response(serializer.data)
 
 
 @api_view(['POST', ])
@@ -79,17 +71,15 @@ def register(request):
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
-        slot = SignupSlot.objects.get(pk=slot_tmp["id"])
+        slot = RegistrationSlot.objects.get(pk=slot_tmp["id"])
         member = Member.objects.get(pk=slot_tmp["member"])
         slot.member = member
         slot.expires = None
         slot.status = "R"
+        slot.is_event_fee_paid = slot_tmp.get("include_event_fee", True)
+        slot.is_gross_skins_paid = slot_tmp.get("include_gross_skins", False)
+        slot.is_net_skins_paid = slot_tmp.get("include_skins", False)
         slot.save()
-        registration = Registration(registration_group=group, member=member,
-                                    is_event_fee_paid=slot_tmp.get("include_event_fee", True),
-                                    is_gross_skins_paid=slot_tmp.get("include_gross_skins", False),
-                                    is_net_skins_paid=slot_tmp.get("include_skins", False))
-        registration.save()
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
@@ -104,7 +94,7 @@ def cancel_reserved_slots(request):
     group = get_object_or_404(RegistrationGroup, pk=group_id, signed_up_by=request.user.member)
     event = get_object_or_404(Event, pk=group.event.id)
 
-    SignupSlot.objects.cancel_group(event, group)
+    RegistrationSlot.objects.cancel_group(event, group)
 
     return Response(status=204)
 
@@ -113,7 +103,7 @@ def cancel_reserved_slots(request):
 @permission_classes((permissions.AllowAny,))
 def cancel_expired_slots(request):
 
-    SignupSlot.objects.cancel_expired()
+    RegistrationSlot.objects.cancel_expired()
 
     return Response(status=204)
 

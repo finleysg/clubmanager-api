@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Event, EventTemplate
-from register.models import SignupSlot
+from register.models import RegistrationSlot
 
 
 class EventTemplateAdmin(admin.ModelAdmin):
@@ -59,9 +59,9 @@ class EventAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super(EventAdmin, self).save_model(request, obj, form, change)
 
-        if obj.registration_window() == "future" and obj.group_size > 1 and obj.can_signup_group:
-            SignupSlot.objects.remove_slots(obj)
-            SignupSlot.objects.create_slots(obj)
+        if obj.registration_window() == "future" and obj.event_type == "L":
+            RegistrationSlot.objects.remove_slots(obj)
+            RegistrationSlot.objects.create_slots(obj)
 
     def event_type_display(self, obj):
         return obj.get_event_type_display()

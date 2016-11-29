@@ -1,3 +1,4 @@
+from register.serializers import RegistrationSlotSerializer
 from .models import Event, EventTemplate
 from documents.models import Document
 from rest_framework import serializers
@@ -22,6 +23,21 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   "notes", "event_type", "skins_type", "season_points", "requires_registration",
                   "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
                   "registration_maximum", "course_setups", "documents", )
+
+
+class EventDetailSerializer(serializers.HyperlinkedModelSerializer):
+
+    documents = EventDocumentSerializer(many=True, read_only=True)
+    registrations = RegistrationSlotSerializer(many=True)
+
+    class Meta:
+        model = Event
+        fields = ("url", "id", "name", "description", "rounds", "holes_per_round", "event_fee", "skins_fee",
+                  "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
+                  "can_signup_group", "can_choose_hole", "registration_window", "external_url",
+                  "notes", "event_type", "skins_type", "season_points", "requires_registration",
+                  "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
+                  "registration_maximum", "course_setups", "documents", "registrations",)
 
 
 class EventTemplateSerializer(serializers.HyperlinkedModelSerializer):
