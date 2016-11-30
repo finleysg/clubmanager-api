@@ -16,8 +16,7 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         model = Member
         fields = ("id", "address1", "address2", "city", "state", "zip",
                   "phone_number", "handicap", "handicap_revision_date",
-                  "birth_date", "status", "summary", "payment_method",
-                  "stripe_customer_id", "stripe_save_card", "dues_paid",)
+                  "birth_date", "status", "summary", "stripe_customer_id", "dues_paid",)
 
 
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
