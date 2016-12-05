@@ -1,4 +1,4 @@
-import datetime as dt
+from datetime import timedelta, datetime
 from rest_framework import generics
 
 from .models import Event, EventTemplate
@@ -25,11 +25,24 @@ class EventList(generics.ListAPIView):
         return queryset
 
 
+class QuickEventList(generics.ListAPIView):
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        today = datetime.today()
+        start_date = today + timedelta(days=-7)
+        end_date = today + timedelta(days=14)
+        queryset = Event.objects.all()
+        queryset = queryset.filter(start_date__lte=end_date, start_date__gt=start_date)
+        # print(queryset.query)
+        return queryset
+
+
 class UpcomingEventList(generics.ListAPIView):
     serializer_class = EventSerializer
 
     def get_queryset(self):
-        today = dt.date.today()
+        today = datetime.today()
         queryset = Event.objects.all()
         queryset = queryset.filter(signup_start__lte=today, signup_end__gt=today)
         # print(queryset.query)

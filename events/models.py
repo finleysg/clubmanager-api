@@ -13,6 +13,8 @@ EVENT_TYPE_CHOICES = (
     ("M", "Member Meeting"),
     ("B", "Board Meeting"),
     ("O", "Other"),
+    ("S", "State Tournament"),
+    ("R", "Open Registration Period"),
 )
 START_TYPE_CHOICES = (
     ("TT", "Tee Times"),
