@@ -18,13 +18,13 @@ from core.models import Member
 from events.models import Event
 
 
-# @api_view(['GET', ])
-# @permission_classes((permissions.IsAuthenticated,))
-# def slots(request, event_id):
-#     event = get_object_or_404(Event, pk=event_id)
-#     results = RegistrationSlot.objects.filter(event=event)
-#     serializer = RegistrationSlotSerializer(results, context={'request': request}, many=True)
-#     return Response(serializer.data)
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def slots(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    results = RegistrationSlot.objects.filter(event=event)
+    serializer = RegistrationSlotSerializer(results, context={'request': request}, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['POST', ])
@@ -111,10 +111,10 @@ def cancel_expired_slots(request):
 def stripe_charge(user, event, amount_due, token):
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    member = get_object_or_404(Member, pk=user.id)
+    member = user.member
 
     # scenario: member does not have a stripe customer id
-    if member.stripe_customer_id == "" and token != "no-token":
+    if (member.stripe_customer_id == "" or member.stripe_customer_id is None) and token != "no-token":
         customer = stripe.Customer.create(
             description=member.member_name(),
             email=user.email,
@@ -124,13 +124,13 @@ def stripe_charge(user, event, amount_due, token):
         member.save()
 
     # scenario: member has stripe customer id but is using a new card
-    elif member.stripe_customer_id != "" and token != "no-token":
+    elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token != "no-token":
         customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
         customer.source = token
         customer.save()
 
     # scenario: member has stripe customer id and using existing card (source)
-    elif member.stripe_customer_id != "" and token == "no-token":
+    elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token == "no-token":
         pass
 
     # invalid request
@@ -143,12 +143,13 @@ def stripe_charge(user, event, amount_due, token):
 def create_stripe_charge(user, event, amount_due):
 
     charge_description = "{} ({}): {}".format(event.name, event.get_event_type_display(), event.start_date.strftime('%Y-%m-%d'))
+    member = get_object_or_404(Member, pk=user.id)
 
     try:
         return stripe.Charge.create(
             amount=amount_due,
             currency="usd",
-            customer=user.member.stripe_customer_id,
+            customer=member.stripe_customer_id,
             receipt_email=user.email,
             description=charge_description,
             metadata={
