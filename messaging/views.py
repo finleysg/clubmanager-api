@@ -1,5 +1,5 @@
 from rest_framework import generics
-from datetime import datetime
+from django.utils import timezone
 
 from .models import Announcement
 from .serializers import AnnouncementSerializer
@@ -15,8 +15,7 @@ class AnnouncementList(generics.ListAPIView):
     # queryset = Announcement.objects.all()
 
     def get_queryset(self):
-        today = datetime.now()
+        today = timezone.now()
         queryset = Announcement.objects.all()
         queryset = queryset.filter(starts__lte=today, expires__gte=today)
-        print(queryset.query)
         return queryset
