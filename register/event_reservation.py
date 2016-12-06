@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from rest_framework.exceptions import APIException
 
 from courses.models import CourseSetupHole
@@ -42,7 +43,7 @@ class LeagueEvent:
             slot.status = "P"
             slot.registration_group = group
             slot.course_setup_hole = hole
-            slot.expires = datetime.now() + timedelta(minutes=10)
+            slot.expires = timezone.now() + timedelta(minutes=10)
             if i == 0:
                 slot.member = member
             slot.save()
@@ -70,7 +71,7 @@ class WeekendGroupEvent:
             slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=s)
             slot.status = "P"
             slot.registration_group = group
-            slot.expires = datetime.now() + timedelta(minutes=10)
+            slot.expires = timezone.now() + timedelta(minutes=10)
             if s == 0:
                 slot.member = member
             slot.save()
@@ -97,7 +98,7 @@ class IndividualEvent:
         slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=0)
         slot.status = "P"
         slot.registration_group = group
-        slot.expires = datetime.now() + timedelta(minutes=10)
+        slot.expires = timezone.now() + timedelta(minutes=10)
         slot.member = member
         slot.save()
 

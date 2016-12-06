@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from django.conf import settings
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.utils import timezone as tz
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -67,7 +68,7 @@ def register(request):
     group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=signed_up_by)
     group.payment_amount = amount_due / 100
     group.payment_confirmation_code = charge.id
-    group.payment_confirmation_timestamp = datetime.now()
+    group.payment_confirmation_timestamp = tz.now()
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
