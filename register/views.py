@@ -38,7 +38,7 @@ def reserve(request):
     slot_ids = request.data.get("slot_ids", None)
     starting_order = request.data.get("starting_order", 0)
 
-    member = get_object_or_404(Member, pk=request.user.id)
+    member = get_object_or_404(Member, pk=request.user.member.id)
     event = get_object_or_404(Event, pk=event_id)
 
     reg_event = create_event(event)
