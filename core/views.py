@@ -63,7 +63,7 @@ class MemberDetail(generics.RetrieveAPIView):
 def friends(request):
     """ API endpoint to view the current member's favorites
     """
-    member = get_object_or_404(Member, pk=request.user.id)
+    member = get_object_or_404(Member, pk=request.user.member.id)
     serializer = MemberSerializer(member.favorites, context={'request': request}, many=True)
     return Response(serializer.data)
 
@@ -71,7 +71,7 @@ def friends(request):
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
 def add_friend(request, member_id):
-    member = get_object_or_404(Member, pk=request.user.id)
+    member = get_object_or_404(Member, pk=request.user.member.id)
     friend = get_object_or_404(Member, pk=member_id)
     member.favorites.add(friend)
     member.save()
@@ -82,7 +82,7 @@ def add_friend(request, member_id):
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
 def remove_friend(request, member_id):
-    member = get_object_or_404(Member, pk=request.user.id)
+    member = get_object_or_404(Member, pk=request.user.member.id)
     friend = get_object_or_404(Member, pk=member_id)
     member.favorites.remove(friend)
     member.save()
@@ -95,7 +95,7 @@ def remove_friend(request, member_id):
 def stripe_details(request):
     """ API endpoint to view the current member's stripe account details
     """
-    member = get_object_or_404(Member, pk=request.user.id)
+    member = get_object_or_404(Member, pk=request.user.member.id)
     if member.stripe_customer_id != "":
         stripe.api_key = settings.STRIPE_SECRET_KEY
         customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
