@@ -11,7 +11,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from courses.models import CourseSetupHole
-from events.serializers import EventDetailSerializer
 from .exceptions import StripeCardError, StripePaymentError
 from .models import RegistrationSlot, RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
