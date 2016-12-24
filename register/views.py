@@ -10,6 +10,8 @@ from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
+from courses.models import CourseSetupHole
+from events.serializers import EventDetailSerializer
 from .exceptions import StripeCardError, StripePaymentError
 from .models import RegistrationSlot, RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
@@ -105,6 +107,38 @@ def cancel_reserved_slots(request):
 def cancel_expired_slots(request):
 
     RegistrationSlot.objects.cancel_expired()
+
+    return Response(status=204)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
+def add_row(request):
+
+    event_id = request.data["event_id"]
+    course_setup_hole_id = request.data["course_setup_hole_id"]
+    event = get_object_or_404(Event, pk=event_id)
+    hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
+
+    new_slots = RegistrationSlot.objects.add_slots(event, hole)
+
+    serializer = RegistrationSlotSerializer(new_slots, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
+def remove_row(request):
+
+    event_id = request.data["event_id"]
+    course_setup_hole_id = request.data["course_setup_hole_id"]
+    starting_order = request.data["starting_order"]
+    event = get_object_or_404(Event, pk=event_id)
+    hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
+
+    RegistrationSlot.objects.remove_hole(event, hole, starting_order)
 
     return Response(status=204)
 

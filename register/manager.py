@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.db.models import Max
 from courses.models import CourseSetupHole
 
 
@@ -45,13 +46,17 @@ class RegistrationSlotManager(models.Manager):
 
         return slots
 
+    def remove_hole(self, event, hole, starting_order):
+        self.filter(event=event, course_setup_hole=hole, starting_order=starting_order).delete()
+
     def add_slots(self, event, hole):
         slots = []
         start = 0
+
         # get max starting order and increment 1
-        previous = self.filter(event=event, course_setup_hole=hole)
-        if previous is not None:
-            start = previous.starting_order + 1
+        previous = self.filter(event=event, course_setup_hole=hole).aggregate(Max("starting_order"))
+        if len(previous):
+            start = previous["starting_order__max"] + 1
 
         for s in range(0, event.maximum_signup_group_size):
             slot = self.create(event=event, course_setup_hole=hole, starting_order=start, slot=s)
