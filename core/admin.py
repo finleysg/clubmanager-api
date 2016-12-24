@@ -16,7 +16,7 @@ class MemberInline(admin.StackedInline):
 # Define a new User admin
 class UserAdmin(UserAdmin):
     inlines = (MemberInline, )
-
+    save_on_top = True
 
 class ClubAdmin(admin.ModelAdmin):
     fields = ['description', 'address1', 'address2', 'city', 'state', 'zip', 'website', 'contact_email', 'phone_number']
