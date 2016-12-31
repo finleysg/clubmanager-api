@@ -15,7 +15,7 @@ class RegistrationSlotSerializer(serializers.ModelSerializer):
         fields = ("id", "course", "course_setup_id", "hole_number", "hole_id", "registration_group",
                   "member", "member_first_name", "member_last_name",
                   "is_event_fee_paid", "is_greens_fee_paid", "is_gross_skins_paid", "is_net_skins_paid",
-                  "starting_order", "slot", "status", "expires")
+                  "is_cart_fee_paid", "starting_order", "slot", "status", "expires")
 
 
 class RegistrationGroupSerializer(serializers.ModelSerializer):
@@ -25,4 +25,5 @@ class RegistrationGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistrationGroup
         fields = ("id", "event", "course_setup", "signed_up_by", "starting_hole", "starting_order", "notes",
-                  "payment_confirmation_code", "payment_confirmation_timestamp", "payment_amount", "slots")
+                  "payment_confirmation_code", "payment_confirmation_timestamp", "payment_amount",
+                  "card_verification_token", "slots")
