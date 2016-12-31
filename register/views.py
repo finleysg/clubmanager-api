@@ -22,10 +22,18 @@ from events.models import Event
 
 @api_view(['GET', ])
 @permission_classes((permissions.IsAuthenticated,))
-def slots(request, event_id):
+def registrations(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     results = RegistrationSlot.objects.filter(event=event)
     serializer = RegistrationSlotSerializer(results, context={'request': request}, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET, '])
+@permission_classes((permissions.IsAuthenticated,))
+def registration_group(request, group_id):
+    group = get_object_or_404(RegistrationGroup, pk=group_id)
+    serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
 
 
@@ -59,15 +67,18 @@ def reserve(request):
 def register(request):
 
     group_tmp = request.data["group"]
-    amount_due = int(float(request.data["amount_due"]) * 100)  # Stripe wants the amount in cents
-    token = request.data.get("token", "no-token")
+    amount_due = float(group_tmp["payment_amount"])
+    verification_token = group_tmp["card_verification_token"]
+    if verification_token is None or verification_token == "":
+        verification_token = "no-token"
 
-    signed_up_by = request.user.member
     event = get_object_or_404(Event, pk=group_tmp["event"])
-    charge = stripe_charge(request.user, event, amount_due, token)
+    group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=request.user.member)
 
-    group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=signed_up_by)
-    group.payment_amount = amount_due / 100
+    charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+
+    group.payment_amount = amount_due
+    group.card_verification_token = verification_token
     group.payment_confirmation_code = charge.id
     group.payment_confirmation_timestamp = tz.now()
     group.save()
