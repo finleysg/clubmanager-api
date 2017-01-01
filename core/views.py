@@ -16,7 +16,7 @@ from .serializers import ClubSerializer, MemberSerializer
 def api_root(request):
     return Response({
         'clubs': reverse('club-list', request=request),
-        'members': reverse('member-list', request=request),
+        'members': reverse('member-list', request=request),  # TODO: private
         'courses': reverse('course-list', request=request),
         'course-setups': reverse('coursesetup-list', request=request),
         'holes': reverse('hole-list', request=request),
@@ -25,7 +25,7 @@ def api_root(request):
         'event-templates': reverse('eventtemplate-list', request=request),
         'policies': reverse('policy-list', request=request),
         'announcements': reverse('announcement-list', request=request),
-        'documents': reverse('document-list', request=request),
+        'documents': reverse('document-list', request=request),  # TODO: private
     })
 
 
