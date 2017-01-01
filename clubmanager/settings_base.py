@@ -66,10 +66,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'EXCEPTION_HANDLER': 'core.exception_handler.custom_exception_handler'
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ],
+    # 'EXCEPTION_HANDLER': 'core.exception_handler.custom_exception_handler'
 }
 
 REST_AUTH_SERIALIZERS = {

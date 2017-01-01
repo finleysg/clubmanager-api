@@ -22,20 +22,27 @@ from events.models import Event
 
 
 @permission_classes((permissions.IsAuthenticated,))
-class RegistrationGroupList(generics.ListAPIView):
-    """ API endpoint to view Course Setups
+class RegistrationGroupDetail(generics.RetrieveAPIView):
+    """ API endpoint to view Registration Groups
     """
-    # queryset = CourseSetup.objects.all()
+    queryset = RegistrationGroup.objects.all()
     serializer_class = RegistrationGroupSerializer
+
+
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationList(generics.ListAPIView):
+
+    serializer_class = RegistrationSlotSerializer
 
     def get_queryset(self):
         """
-        Optionally restricts the list of course setups for a given event.
+        Optionally restricts the list of registrations for a given event.
         """
-        queryset = RegistrationGroup.objects.all()
-        group_id = self.request.query_params.get('group_id', None)
-        if group_id is not None:
-            queryset = queryset.filter(pk=group_id)
+        queryset = RegistrationSlot.objects.all()
+        event_id = self.request.query_params.get('event_id', None)
+        if event_id is not None:
+            event = get_object_or_404(Event, pk=event_id)
+            queryset = queryset.filter(event=event)
         return queryset
 
 
