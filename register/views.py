@@ -30,7 +30,7 @@ def registrations(request, event_id):
 
 
 @api_view(['GET, '])
-@permission_classes((permissions.IsAuthenticated,))
+# @permission_classes((permissions.IsAuthenticated,))
 def registration_group(request, group_id):
     group = get_object_or_404(RegistrationGroup, pk=group_id)
     serializer = RegistrationGroupSerializer(group, context={'request': request})
@@ -81,6 +81,7 @@ def register(request):
     group.card_verification_token = verification_token
     group.payment_confirmation_code = charge.id
     group.payment_confirmation_timestamp = tz.now()
+    group.notes = group_tmp["notes"]
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
@@ -89,9 +90,11 @@ def register(request):
         slot.member = member
         slot.expires = None
         slot.status = "R"
-        slot.is_event_fee_paid = slot_tmp.get("include_event_fee", True)
-        slot.is_gross_skins_paid = slot_tmp.get("include_gross_skins", False)
-        slot.is_net_skins_paid = slot_tmp.get("include_skins", False)
+        slot.is_event_fee_paid = slot_tmp.get("is_event_fee_paid", True)
+        slot.is_gross_skins_paid = slot_tmp.get("is_gross_skins_paid", False)
+        slot.is_net_skins_paid = slot_tmp.get("is_net_skins_paid", False)
+        slot.is_greens_fee_paid = slot_tmp.get("is_greens_fee_paid", False)
+        slot.is_cart_fee_paid = slot_tmp.get("is_cart_fee_paid", False)
         slot.save()
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
