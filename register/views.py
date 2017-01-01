@@ -30,9 +30,10 @@ def registrations(request, event_id):
 
 
 @api_view(['GET, '])
-# @permission_classes((permissions.IsAuthenticated,))
+@permission_classes((permissions.IsAuthenticated,))
 def registration_group(request, group_id):
-    group = get_object_or_404(RegistrationGroup, pk=group_id)
+    # group = get_object_or_404(RegistrationGroup, pk=group_id)
+    group = RegistrationGroup.objects.filter(pk=group_id)
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
 
