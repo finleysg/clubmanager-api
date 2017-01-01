@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils import timezone as tz
+from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -20,6 +21,24 @@ from core.models import Member
 from events.models import Event
 
 
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationGroupList(generics.ListAPIView):
+    """ API endpoint to view Course Setups
+    """
+    # queryset = CourseSetup.objects.all()
+    serializer_class = RegistrationGroupSerializer
+
+    def get_queryset(self):
+        """
+        Optionally restricts the list of course setups for a given event.
+        """
+        queryset = RegistrationGroup.objects.all()
+        group_id = self.request.query_params.get('group_id', None)
+        if group_id is not None:
+            queryset = queryset.filter(pk=group_id)
+        return queryset
+
+
 @api_view(['GET', ])
 @permission_classes((permissions.IsAuthenticated,))
 def registrations(request, event_id):
@@ -29,13 +48,13 @@ def registrations(request, event_id):
     return Response(serializer.data)
 
 
-@api_view(['GET, '])
-@permission_classes((permissions.IsAuthenticated,))
-def registration_group(request, group_id):
-    # group = get_object_or_404(RegistrationGroup, pk=group_id)
-    group = RegistrationGroup.objects.filter(pk=group_id)
-    serializer = RegistrationGroupSerializer(group, context={'request': request})
-    return Response(serializer.data)
+# @api_view(['GET, '])
+# @permission_classes((permissions.IsAuthenticated,))
+# def registration_group(request, group_id):
+#     # group = get_object_or_404(RegistrationGroup, pk=group_id)
+#     group = RegistrationGroup.objects.filter(pk=group_id)
+#     serializer = RegistrationGroupSerializer(group, context={'request': request})
+#     return Response(serializer.data)
 
 
 @api_view(['POST', ])
