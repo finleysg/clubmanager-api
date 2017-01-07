@@ -1,5 +1,6 @@
 import stripe
 import logging
+import threading
 
 from datetime import datetime, timezone
 from django.conf import settings
@@ -10,15 +11,19 @@ from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from .exceptions import StripeCardError, StripePaymentError
+from .exceptions import StripeCardError, StripePaymentError, SlotConflictError
 from .models import RegistrationSlot, RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
 
 from core.models import Member
 from events.models import Event
+from .registration_cache import can_reserve, reserve_slots, clear_slots, clear_slot
+
+reserve_lock = threading.Lock()
 
 
 @permission_classes((permissions.IsAuthenticated,))
@@ -55,27 +60,34 @@ def registrations(request, event_id):
     return Response(serializer.data)
 
 
-# @api_view(['GET, '])
-# @permission_classes((permissions.IsAuthenticated,))
-# def registration_group(request, group_id):
-#     # group = get_object_or_404(RegistrationGroup, pk=group_id)
-#     group = RegistrationGroup.objects.filter(pk=group_id)
-#     serializer = RegistrationGroupSerializer(group, context={'request': request})
-#     return Response(serializer.data)
-
-
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
 @transaction.atomic()
 def reserve(request):
 
-    event_id = request.data["event_id"]
+    member = Member.objects.filter(pk=request.user.member.id).get()
+
+    event_id = request.data.get("event_id", 0)
+    if event_id == 0:
+        raise ValidationError("There was no event id passed")
+
+    event = Event.objects.filter(pk=event_id).get()
+    if event is None:
+        raise ValidationError("{} is not a valid event id".format(event_id))
+
+    if event.registration_window() != "registration":  # and not request.user.is_staff:
+        raise ValidationError("Event {} is not open for registration".format(event_id))
+
+    # TODO: validation expiration
+
     course_setup_hole_id = request.data.get("course_setup_hole_id", None)
     slot_ids = request.data.get("slot_ids", None)
     starting_order = request.data.get("starting_order", 0)
 
-    member = get_object_or_404(Member, pk=request.user.member.id)
-    event = get_object_or_404(Event, pk=event_id)
+    with reserve_lock:
+        if not can_reserve(event.id, slot_ids):
+            raise SlotConflictError()
+        reserve_slots(event.id, slot_ids)
 
     reg_event = create_event(event)
     group = reg_event.reserve(member, **{
@@ -90,19 +102,41 @@ def reserve(request):
 
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
-@transaction.atomic()
 def register(request):
 
-    group_tmp = request.data["group"]
+    group_tmp = request.data.get("group", None)
+    if group_tmp is None:
+        raise ValidationError("You neglected to submit a registration group")
+
+    event = Event.objects.filter(pk=group_tmp["event"]).get()
+    if event is None:
+        raise ValidationError("{} is not a valid event id".format(group_tmp["event"]))
+
+    group = RegistrationGroup.objects.filter(pk=group_tmp["id"]).get()
+    if group is None:
+        raise ValidationError("{} is not a valid group id".format(group_tmp["id"]))
+
+    # TODO: validate the payment amount
+
     amount_due = float(group_tmp["payment_amount"])
     verification_token = group_tmp["card_verification_token"]
     if verification_token is None or verification_token == "":
         verification_token = "no-token"
 
-    event = get_object_or_404(Event, pk=group_tmp["event"])
-    group = get_object_or_404(RegistrationGroup, pk=group_tmp["id"], signed_up_by=request.user.member)
-
-    charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+    try:
+        charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+    except stripe.error.CardError as e:
+        raise StripeCardError(e)
+    except stripe.error.RateLimitError as e:
+        raise StripePaymentError(e)
+    except stripe.error.InvalidRequestError as e:
+        raise StripePaymentError(e)
+    except stripe.error.AuthenticationError as e:
+        raise StripePaymentError(e)
+    except stripe.error.APIConnectionError as e:
+        raise StripePaymentError(e)
+    except stripe.error.StripeError as e:
+        raise StripePaymentError(e)
 
     group.payment_amount = amount_due
     group.card_verification_token = verification_token
@@ -114,6 +148,9 @@ def register(request):
     for slot_tmp in group_tmp["slots"]:
         slot = RegistrationSlot.objects.get(pk=slot_tmp["id"])
         member = Member.objects.get(pk=slot_tmp["member"])
+        if member is None:
+            raise ValidationError("{} is an invalid member id".format(slot_tmp["member"]))
+
         slot.member = member
         slot.expires = None
         slot.status = "R"
@@ -133,22 +170,33 @@ def register(request):
 @transaction.atomic()
 def cancel_reserved_slots(request):
 
-    group_id = request.data["group_id"]
-    group = get_object_or_404(RegistrationGroup, pk=group_id, signed_up_by=request.user.member)
-    event = get_object_or_404(Event, pk=group.event.id)
+    group_id = request.data.get("group_id", 0)
+    if group_id == 0:
+        raise ValidationError("Missing group id")
 
-    RegistrationSlot.objects.cancel_group(event, group)
+    group = RegistrationGroup.objects.filter(pk=group_id).get()
+    if group is None:
+        raise ValidationError("{} is an invalid group id".format(group_id))
+
+    slot_ids = RegistrationSlot.objects.filter(registration_group__exact=group_id).values_list('pk', flat=True)
+    with reserve_lock:
+        clear_slots(group.event.id, slot_ids)
+
+    RegistrationSlot.objects.cancel_group(group)
 
     return Response(status=204)
 
 
-@api_view(['POST', ])
-@permission_classes((permissions.AllowAny,))
-def cancel_expired_slots(request):
+def cancel_expired_slots():
 
-    RegistrationSlot.objects.cancel_expired()
+    slots = list(RegistrationSlot.objects.filter(status="P").filter(expires__lt=datetime.now()))
+    if slots is not None and len(slots) > 0:
+        RegistrationSlot.objects.cancel_expired()
+        with reserve_lock:
+            for slot in slots:
+                clear_slot(slot.event, slot.id)
 
-    return Response(status=204)
+    return len(slots)
 
 
 @api_view(['POST', ])
@@ -213,7 +261,7 @@ def stripe_charge(user, event, amount_due, token):
 
     # invalid request
     else:
-        raise StripePaymentError("Missing stripe id and/or stripe token")
+        raise ValidationError("Missing stripe id and/or stripe token")
 
     return create_stripe_charge(user, customer_id, event, amount_due)
 
@@ -222,33 +270,20 @@ def create_stripe_charge(user, customer_id, event, amount_due):
 
     charge_description = "{} ({}): {}".format(event.name, event.get_event_type_display(), event.start_date.strftime('%Y-%m-%d'))
 
-    try:
-        return stripe.Charge.create(
-            amount=amount_due,
-            currency="usd",
-            customer=customer_id,
-            receipt_email=user.email,
-            description=charge_description,
-            metadata={
-                "event": event.name,
-                "date": event.start_date.strftime('%Y-%m-%d'),
-                "event_type": event.get_event_type_display(),
-                "member": "{} {}".format(user.first_name, user.last_name),
-                "email": user.email
-            }
-        )
-    except stripe.error.CardError as e:
-        raise StripeCardError(e)
-    except stripe.error.RateLimitError as e:
-        raise StripePaymentError(e)
-    except stripe.error.InvalidRequestError as e:
-        raise StripePaymentError(e)
-    except stripe.error.AuthenticationError as e:
-        raise StripePaymentError(e)
-    except stripe.error.APIConnectionError as e:
-        raise StripePaymentError(e)
-    except stripe.error.StripeError as e:
-        raise StripePaymentError(e)
+    return stripe.Charge.create(
+        amount=amount_due,
+        currency="usd",
+        customer=customer_id,
+        receipt_email=user.email,
+        description=charge_description,
+        metadata={
+            "event": event.name,
+            "date": event.start_date.strftime('%Y-%m-%d'),
+            "event_type": event.get_event_type_display(),
+            "member": "{} {}".format(user.first_name, user.last_name),
+            "email": user.email
+        }
+    )
 
 
 def convert_tstamp(ts):

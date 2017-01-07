@@ -9,8 +9,8 @@ class RegistrationSlotManager(models.Manager):
     def remove_slots(self, event):
         self.filter(event=event).delete()
 
-    def cancel_group(self, event, group):
-        if event.event_type == "L":
+    def cancel_group(self, group):
+        if group.event.event_type == "L":
             self.filter(registration_group=group)\
                 .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
         else:
