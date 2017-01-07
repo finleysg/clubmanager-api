@@ -5,7 +5,7 @@ from django.utils import timezone
 from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from .exceptions import EventFullError
+from .exceptions import EventFullError, SlotConflictError
 from .models import RegistrationSlot, RegistrationGroup
 
 
@@ -42,7 +42,12 @@ class LeagueEvent:
         group.save()
         self.logger.info("saved group {} for {}".format(group.id, member.id))
 
-        slots = list(RegistrationSlot.objects.filter(pk__in=slot_ids))
+        self.logger.info("selecting slots for update for member {} and group {}".format(member.id, group.id))
+        slots = list(RegistrationSlot.objects.get_for_update().filter(pk__in=slot_ids))
+        for s in slots:
+            if s.status != "A":
+                raise SlotConflictError()
+
         for i, slot in enumerate(slots):
             slot.status = "P"
             slot.registration_group = group

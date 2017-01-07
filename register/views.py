@@ -84,10 +84,10 @@ def reserve(request):
     slot_ids = request.data.get("slot_ids", None)
     starting_order = request.data.get("starting_order", 0)
 
-    with reserve_lock:
-        if not can_reserve(event.id, slot_ids):
-            raise SlotConflictError()
-        reserve_slots(event.id, slot_ids)
+    # with reserve_lock:
+    #     if not can_reserve(event.id, slot_ids):
+    #         raise SlotConflictError()
+    #     reserve_slots(event.id, slot_ids)
 
     reg_event = create_event(event)
     group = reg_event.reserve(member, **{
@@ -146,7 +146,7 @@ def register(request):
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
-        slot = RegistrationSlot.objects.get(pk=slot_tmp["id"])
+        slot = RegistrationSlot.objects.select_for_update().get(pk=slot_tmp["id"])
         member = Member.objects.get(pk=slot_tmp["member"])
         if member is None:
             raise ValidationError("{} is an invalid member id".format(slot_tmp["member"]))
@@ -178,9 +178,9 @@ def cancel_reserved_slots(request):
     if group is None:
         raise ValidationError("{} is an invalid group id".format(group_id))
 
-    slot_ids = RegistrationSlot.objects.filter(registration_group__exact=group_id).values_list('pk', flat=True)
-    with reserve_lock:
-        clear_slots(group.event.id, slot_ids)
+    # slot_ids = RegistrationSlot.objects.select_for_update().filter(registration_group__exact=group_id).values_list('pk', flat=True)
+    # with reserve_lock:
+    #     clear_slots(group.event.id, slot_ids)
 
     RegistrationSlot.objects.cancel_group(group)
 
@@ -192,9 +192,9 @@ def cancel_expired_slots():
     slots = list(RegistrationSlot.objects.filter(status="P").filter(expires__lt=datetime.now()))
     if slots is not None and len(slots) > 0:
         RegistrationSlot.objects.cancel_expired()
-        with reserve_lock:
-            for slot in slots:
-                clear_slot(slot.event, slot.id)
+        # with reserve_lock:
+        #     for slot in slots:
+        #         clear_slot(slot.event, slot.id)
 
     return len(slots)
 
