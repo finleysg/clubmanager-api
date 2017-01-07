@@ -11,13 +11,14 @@ class RegistrationSlotManager(models.Manager):
 
     def cancel_group(self, group):
         if group.event.event_type == "L":
-            self.filter(registration_group=group)\
+            self.select_for_update().filter(registration_group=group)\
                 .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
+            self.filter(registration_group=group).delete()
         else:
             self.filter(registration_group=group).delete()
 
     def cancel_expired(self):
-        self.filter(status="P")\
+        self.select_for_update().filter(status="P")\
             .filter(expires__lt=datetime.now())\
             .filter(event__event_type="L")\
             .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
