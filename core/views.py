@@ -96,17 +96,18 @@ def stripe_details(request):
     """ API endpoint to view the current member's stripe account details
     """
     member = get_object_or_404(Member, pk=request.user.member.id)
-    if member.stripe_customer_id != "":
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
-        default_source = customer.sources.data[0]
-        card = "{} ending in {}".format(default_source.brand, default_source.last4)
+    if member.stripe_customer_id is None or member.stripe_customer_id == "":
         return Response({
-            "stripe_id": customer.id,
-            "card": card
+            "stripe_id": "",
+            "card": ""
         })
 
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
+    default_source = customer.sources.data[0]
+    card = "{} ending in {}".format(default_source.brand, default_source.last4)
     return Response({
-        "stripe_id": "",
-        "card": ""
+        "stripe_id": customer.id,
+        "card": card
     })
+

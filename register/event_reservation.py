@@ -1,17 +1,18 @@
+import logging
+
 from datetime import timedelta
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from rest_framework.exceptions import APIException
+from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from .exceptions import SlotConflictError, EventFullError
+from .exceptions import EventFullError
 from .models import RegistrationSlot, RegistrationGroup
 
 
 def create_event(event):
 
     if not event.requires_registration:
-        raise APIException("{} does not require registration".format(event.name))
+        raise ValidationError("{} does not require registration".format(event.name))
 
     if event.event_type == "L":
         return LeagueEvent(event)
@@ -25,20 +26,23 @@ class LeagueEvent:
 
     def __init__(self, event):
         self.event = event
+        self.logger = logging.getLogger(__name__)
 
     def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
-        hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
-        slots = RegistrationSlot.objects.filter(pk__in=slot_ids)
+        if course_setup_hole_id is None:
+            raise ValidationError("A hole id is required for league events")
 
-        for slot in slots:
-            if slot.status != "A":
-                raise SlotConflictError()
+        hole = CourseSetupHole.objects.filter(pk=course_setup_hole_id).get()
+        if hole is None:
+            raise ValidationError("Hole id {} is not valid".format(course_setup_hole_id))
 
         group = RegistrationGroup(event=self.event, course_setup=hole.course_setup, signed_up_by=member,
                                   starting_hole=hole.hole_number, starting_order=starting_order)
         group.save()
+        self.logger.info("saved group {} for {}".format(group.id, member.id))
 
+        slots = list(RegistrationSlot.objects.filter(pk__in=slot_ids))
         for i, slot in enumerate(slots):
             slot.status = "P"
             slot.registration_group = group
@@ -46,6 +50,7 @@ class LeagueEvent:
             slot.expires = timezone.now() + timedelta(minutes=10)
             if i == 0:
                 slot.member = member
+            self.logger.info("saving slot {} for member {} and group {}".format(slot.id, member.id, group.id))
             slot.save()
 
         return group
