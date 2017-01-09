@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.db import models
 from django.db.models import Max
 from courses.models import CourseSetupHole
@@ -8,25 +7,6 @@ class RegistrationSlotManager(models.Manager):
 
     def remove_slots(self, event):
         self.filter(event=event).delete()
-
-    def cancel_group(self, group):
-        if group.event.event_type == "L":
-            self.select_for_update().filter(registration_group=group)\
-                .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
-            self.filter(registration_group=group).delete()
-        else:
-            self.filter(registration_group=group).delete()
-
-    def cancel_expired(self):
-        self.select_for_update().filter(status="P")\
-            .filter(expires__lt=datetime.now())\
-            .filter(event__event_type="L")\
-            .update(**{"status": "A", "registration_group": None, "expires": None, "member": None})
-
-        self.filter(status="P")\
-            .filter(expires__lt=datetime.now())\
-            .exclude(event__event_type="L")\
-            .delete()
 
     def create_slots(self, event):
         slots = []

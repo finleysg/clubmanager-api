@@ -44,6 +44,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'clubmanager.urls'
 
+PASSWORD_RESET_TIMEOUT_DAYS = 1
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
