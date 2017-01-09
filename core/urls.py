@@ -41,7 +41,6 @@ urlpatterns = [
     url(r'^registration-groups/(?P<pk>[0-9]+)/$', register_views.RegistrationGroupDetail.as_view(), name='registration-group'),
     url(r'^registration/reserve/$', register_views.reserve, name='reserve'),
     url(r'^registration/register/$', register_views.register, name='register'),
-    url(r'^registration/expired/$', register_views.cancel_expired_slots, name='cancel-expired-slots'),
     url(r'^registration/cancel/$', register_views.cancel_reserved_slots, name='cancel-reserved-slots'),
     url(r'^registration/add-row/$', register_views.add_row, name='add-row'),
     url(r'^registration/remove-row/$', register_views.remove_row, name='remove-row'),

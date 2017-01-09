@@ -1,6 +1,4 @@
 import stripe
-import logging
-import threading
 
 from datetime import datetime, timezone
 from django.conf import settings
@@ -14,16 +12,13 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from .exceptions import StripeCardError, StripePaymentError, SlotConflictError
+from .exceptions import StripeCardError, StripePaymentError
 from .models import RegistrationSlot, RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
 
 from core.models import Member
 from events.models import Event
-from .registration_cache import can_reserve, reserve_slots, clear_slots, clear_slot
-
-reserve_lock = threading.Lock()
 
 
 @permission_classes((permissions.IsAuthenticated,))
@@ -75,19 +70,18 @@ def reserve(request):
     if event is None:
         raise ValidationError("{} is not a valid event id".format(event_id))
 
-    if event.registration_window() != "registration":  # and not request.user.is_staff:
+    if event.registration_window() != "registration" and not request.user.is_staff:
         raise ValidationError("Event {} is not open for registration".format(event_id))
 
-    # TODO: validation expiration
-
     course_setup_hole_id = request.data.get("course_setup_hole_id", None)
-    slot_ids = request.data.get("slot_ids", None)
-    starting_order = request.data.get("starting_order", 0)
+    if event.event_type == "L" and course_setup_hole_id is None:
+        raise ValidationError("A hole id is required for league events")
 
-    # with reserve_lock:
-    #     if not can_reserve(event.id, slot_ids):
-    #         raise SlotConflictError()
-    #     reserve_slots(event.id, slot_ids)
+    slot_ids = request.data.get("slot_ids", None)
+    if event.event_type == "L" and slot_ids is None:
+        raise ValidationError("At least one registration slot is required for league events")
+
+    starting_order = request.data.get("starting_order", 0)
 
     reg_event = create_event(event)
     group = reg_event.reserve(member, **{
@@ -102,6 +96,7 @@ def reserve(request):
 
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
 def register(request):
 
     group_tmp = request.data.get("group", None)
@@ -116,13 +111,12 @@ def register(request):
     if group is None:
         raise ValidationError("{} is not a valid group id".format(group_tmp["id"]))
 
-    # TODO: validate the payment amount
-
     amount_due = float(group_tmp["payment_amount"])
     verification_token = group_tmp["card_verification_token"]
     if verification_token is None or verification_token == "":
         verification_token = "no-token"
 
+    # Translate any Stripe error to an ApiException
     try:
         charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
     except stripe.error.CardError as e:
@@ -146,20 +140,23 @@ def register(request):
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
-        slot = RegistrationSlot.objects.select_for_update().get(pk=slot_tmp["id"])
+
         member = Member.objects.get(pk=slot_tmp["member"])
         if member is None:
             raise ValidationError("{} is an invalid member id".format(slot_tmp["member"]))
 
-        slot.member = member
-        slot.expires = None
-        slot.status = "R"
-        slot.is_event_fee_paid = slot_tmp.get("is_event_fee_paid", True)
-        slot.is_gross_skins_paid = slot_tmp.get("is_gross_skins_paid", False)
-        slot.is_net_skins_paid = slot_tmp.get("is_net_skins_paid", False)
-        slot.is_greens_fee_paid = slot_tmp.get("is_greens_fee_paid", False)
-        slot.is_cart_fee_paid = slot_tmp.get("is_cart_fee_paid", False)
-        slot.save()
+        RegistrationSlot.objects\
+            .select_for_update()\
+            .filter(pk=slot_tmp["id"])\
+            .update(**{
+                "member": member,
+                "status": "R",
+                "is_event_fee_paid": slot_tmp.get("is_event_fee_paid", True),
+                "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
+                "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
+                "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
+                "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
+            })
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
@@ -178,25 +175,38 @@ def cancel_reserved_slots(request):
     if group is None:
         raise ValidationError("{} is an invalid group id".format(group_id))
 
-    # slot_ids = RegistrationSlot.objects.select_for_update().filter(registration_group__exact=group_id).values_list('pk', flat=True)
-    # with reserve_lock:
-    #     clear_slots(group.event.id, slot_ids)
+    if len(group.payment_confirmation_code) > 0 and not request.user.is_staff:
+        raise ValidationError("Cannot cancel a group that has already paid")
 
-    RegistrationSlot.objects.cancel_group(group)
+    if group.event.event_type == "L":
+        RegistrationSlot.objects.filter(registration_group=group) \
+            .update(**{"status": "A", "registration_group": None, "member": None})
+
+    group.delete()
 
     return Response(status=204)
 
 
 def cancel_expired_slots():
 
-    slots = list(RegistrationSlot.objects.filter(status="P").filter(expires__lt=datetime.now()))
-    if slots is not None and len(slots) > 0:
-        RegistrationSlot.objects.cancel_expired()
-        # with reserve_lock:
-        #     for slot in slots:
-        #         clear_slot(slot.event, slot.id)
+    groups = RegistrationGroup.objects.filter(expires_lt=datetime.now()).filter(payment_confirmation_code="")
+    count = len(groups)
 
-    return len(slots)
+    for group in groups:
+        RegistrationSlot.objects\
+            .filter(registration_group=group.id)\
+            .filter(event__event_type="L")\
+            .update(**{"status": "A", "registration_group": None, "member": None})
+
+        # Delete non-league slots
+        RegistrationSlot.objects.\
+            filter(registration_group=group.id)\
+            .exlude(event__event_type="L")\
+            .delete()
+
+        group.delete()
+
+    return count
 
 
 @api_view(['POST', ])
@@ -290,8 +300,3 @@ def convert_tstamp(ts):
     tz = timezone.utc if settings.USE_TZ else None
     return datetime.fromtimestamp(ts, tz)
 
-
-def log_error(message, e):
-    logger = logging.getLogger("stripe.payments")
-    logger.error(message)
-    logger.exception(e)

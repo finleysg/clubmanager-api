@@ -99,15 +99,20 @@ def stripe_details(request):
     if member.stripe_customer_id is None or member.stripe_customer_id == "":
         return Response({
             "stripe_id": "",
-            "card": ""
+            "card": "",
+            "expires": ""
         })
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
     customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
     default_source = customer.sources.data[0]
     card = "{} ending in {}".format(default_source.brand, default_source.last4)
+    expires = "{}/{}".format(default_source.exp_month, default_source.exp_year)
+
+    # TODO: change the id here to the card id
     return Response({
         "stripe_id": customer.id,
-        "card": card
+        "card": card,
+        "expires": expires
     })
 

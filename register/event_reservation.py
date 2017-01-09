@@ -30,20 +30,17 @@ class LeagueEvent:
 
     def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
-        if course_setup_hole_id is None:
-            raise ValidationError("A hole id is required for league events")
-
         hole = CourseSetupHole.objects.filter(pk=course_setup_hole_id).get()
         if hole is None:
             raise ValidationError("Hole id {} is not valid".format(course_setup_hole_id))
 
         group = RegistrationGroup(event=self.event, course_setup=hole.course_setup, signed_up_by=member,
                                   starting_hole=hole.hole_number, starting_order=starting_order)
+        group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
-        self.logger.info("saved group {} for {}".format(group.id, member.id))
 
         self.logger.info("selecting slots for update for member {} and group {}".format(member.id, group.id))
-        slots = list(RegistrationSlot.objects.get_for_update().filter(pk__in=slot_ids))
+        slots = list(RegistrationSlot.objects.select_for_update().filter(pk__in=slot_ids))
         for s in slots:
             if s.status != "A":
                 raise SlotConflictError()
@@ -52,11 +49,11 @@ class LeagueEvent:
             slot.status = "P"
             slot.registration_group = group
             slot.course_setup_hole = hole
-            slot.expires = timezone.now() + timedelta(minutes=10)
             if i == 0:
                 slot.member = member
-            self.logger.info("saving slot {} for member {} and group {}".format(slot.id, member.id, group.id))
             slot.save()
+
+        self.logger.info("saved slots for member {} and group {}".format(member.id, group.id))
 
         return group
 
@@ -75,13 +72,13 @@ class WeekendGroupEvent:
 
         group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=member,
                                   starting_hole=1, starting_order=starting_order)
+        group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
 
         for s in range(0, self.event.maximum_signup_group_size):
             slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=s)
             slot.status = "P"
             slot.registration_group = group
-            slot.expires = timezone.now() + timedelta(minutes=10)
             if s == 0:
                 slot.member = member
             slot.save()
@@ -103,12 +100,12 @@ class IndividualEvent:
 
         group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=member,
                                   starting_hole=1, starting_order=starting_order)
+        group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
 
         slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=0)
         slot.status = "P"
         slot.registration_group = group
-        slot.expires = timezone.now() + timedelta(minutes=10)
         slot.member = member
         slot.save()
 

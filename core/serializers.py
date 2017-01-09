@@ -15,7 +15,7 @@ class MemberDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ("id", "address1", "address2", "city", "state", "zip",
-                  "phone_number", "handicap", "handicap_revision_date",
+                  "phone_number", "handicap", "handicap_revision_date", "ghin",
                   "birth_date", "status", "summary", "stripe_customer_id", "dues_paid",)
 
 
@@ -49,7 +49,6 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         member.birth_date = member_data.get('birth_date', member.birth_date)
         member.status = member_data.get('status', member.status)
         member.summary = member_data.get('summary', member.summary)
-        member.stripe_customer_id = member_data.get('stripe_customer_id', member.stripe_customer_id)
         member.save()
 
         return instance
