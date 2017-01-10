@@ -12,5 +12,5 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Announcement
         fields = ("url", "id", "text", "starts", "expires",
-                  "event_id", "event_name", "event_link_type", "external_url", "external_name",
-                  "document_name", "document_url", )
+                  "event_id", "event_name", "external_url", "external_name",
+                  "document_name", "document_url", "title", 'members_only', )
