@@ -1,5 +1,6 @@
 import logging
 
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.views import exception_handler
 from rest_framework.compat import set_rollback
@@ -16,9 +17,12 @@ def custom_exception_handler(exc, context):
     # response == None is an exception not handled by the DRF framework in the call above
     if response is None:
         logger.error(exc)
-        response = Response({'detail': 'Unhandled server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        set_rollback()
 
-    # TODO: log this
+        if isinstance(exc, IntegrityError):
+            response = Response({"detail": "Must be unique - that one is already being used"}, status=status.HTTP_409_CONFLICT)
+        else:
+            response = Response({'detail': 'Unhandled server error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        set_rollback()
 
     return response

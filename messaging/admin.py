@@ -5,13 +5,16 @@ from .models import Announcement, ContactMessage
 class AnnouncementAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            "fields": ("text", "starts", "expires", )
+            "fields": ("title", "text", "starts", "expires", "members_only", )
         }),
-        ("Link (optional)", {
-            "fields": ("event", "event_link_type", "document", "external_url", "external_name", )
+        ("Link to an event or document (optional)", {
+            "fields": ("event", "document", )
+        }),
+        ("Link to an external site (optional)", {
+            "fields": ("external_url", "external_name", )
         }),
     )
-    list_display = ["starts", "expires", "short_text", ]
+    list_display = ["starts", "expires", "title", ]
     list_filter = ("starts", )
     save_on_top = True
 
