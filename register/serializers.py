@@ -1,5 +1,16 @@
 from rest_framework import serializers
+
+from core.serializers import MemberSerializer
 from .models import RegistrationGroup, RegistrationSlot
+
+
+class RegisteredMemberSerializer(serializers.ModelSerializer):
+
+    member = MemberSerializer()
+
+    class Meta:
+        model = RegistrationSlot
+        fields = ("member", )
 
 
 class RegistrationSlotSerializer(serializers.ModelSerializer):

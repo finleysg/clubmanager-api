@@ -4,7 +4,10 @@ from simple_history.models import HistoricalRecords
 POLICY_TYPE_CHOICES = (
     ("P", "Policy or Procedure"),
     ("R", "Local Rule"),
-    ("S", "Scoring and Handicap")
+    ("S", "Scoring and Handicap"),
+    ("N", "New Member Information"),
+    ("A", "About Us"),
+    ("F", "Payment FAQs")
 )
 
 

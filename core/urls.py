@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^clubs/$', core_views.ClubList.as_view(), name='club-list'),
     url(r'^clubs/(?P<pk>[0-9]+)/$', core_views.ClubDetail.as_view(), name='club-detail'),
     url(r'^members/$', core_views.MemberList.as_view(), name='member-list'),
+    url(r'^registered-members/$', register_views.registered_members, name='registered-member-list'),
     url(r'^members/(?P<pk>[0-9]+)/$', core_views.MemberDetail.as_view(), name='member-detail'),
     url(r'^courses/$', course_views.CourseList.as_view(), name='course-list'),
     url(r'^courses/(?P<pk>[0-9]+)/$', course_views.CourseDetail.as_view(), name='course-detail'),

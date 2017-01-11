@@ -22,7 +22,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   "can_signup_group", "can_choose_hole", "registration_window", "external_url",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration",
                   "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
-                  "registration_maximum", "course_setups", "documents", )
+                  "alt_event_fee", "green_fee", "cart_fee", "registration_maximum", "course_setups", "documents", )
 
 
 class EventDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,7 +37,8 @@ class EventDetailSerializer(serializers.HyperlinkedModelSerializer):
                   "can_signup_group", "can_choose_hole", "registration_window", "external_url",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration",
                   "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
-                  "registration_maximum", "course_setups", "documents", "registrations",)
+                  "alt_event_fee", "green_fee", "cart_fee", "registration_maximum", "course_setups", "documents",
+                  "registrations",)
 
 
 class EventTemplateSerializer(serializers.HyperlinkedModelSerializer):
@@ -45,5 +46,5 @@ class EventTemplateSerializer(serializers.HyperlinkedModelSerializer):
         model = EventTemplate
         fields = ("url", "id", "name", "description", "rounds", "holes_per_round", "event_fee", "skins_fee",
                   "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
-                  "can_signup_group", "can_choose_hole", "external_url",
+                  "can_signup_group", "can_choose_hole", "external_url", "alt_event_fee", "green_fee", "cart_fee",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration", )

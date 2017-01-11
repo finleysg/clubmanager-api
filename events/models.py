@@ -32,12 +32,15 @@ class EventTemplate(models.Model):
     event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="L")
     name = models.CharField(verbose_name="Event title", max_length=100)
     description = models.TextField(verbose_name="Format and rules")
-    notes = models.TextField(verbose_name="Additional notes")
+    notes = models.TextField(verbose_name="Additional notes", blank=True)
     rounds = models.IntegerField(verbose_name="Number of rounds", default=1)
     holes_per_round = models.IntegerField(verbose_name="Holes per round", default=18)
     event_fee = models.DecimalField(verbose_name="Event fee", max_digits=5, decimal_places=2, default=0.00)
+    alt_event_fee = models.DecimalField(verbose_name="Alternative event fee", max_digits=5, decimal_places=2, default=0.00)
     skins_fee = models.DecimalField(verbose_name="Skins fee", max_digits=5, decimal_places=2, default=0.00)
     skins_type = models.CharField(verbose_name="Skins type", max_length=1, choices=SKIN_TYPE_CHOICES, default="N")
+    green_fee = models.DecimalField(verbose_name="Green fee", max_digits=5, decimal_places=2, default=0.00)
+    cart_fee = models.DecimalField(verbose_name="Cart fee", max_digits=5, decimal_places=2, default=0.00)
     minimum_signup_group_size = models.IntegerField(verbose_name="Minimum sign-up group size", default=1)
     maximum_signup_group_size = models.IntegerField(verbose_name="Maximum sign-up group size", default=1)
     group_size = models.IntegerField(verbose_name="Group size", default=4)
@@ -63,8 +66,11 @@ class Event(models.Model):
     rounds = models.IntegerField(verbose_name="Number of rounds", default=1)
     holes_per_round = models.IntegerField(verbose_name="Holes per round", default=18)
     event_fee = models.DecimalField(verbose_name="Event fee", max_digits=5, decimal_places=2, default=0.00)
+    alt_event_fee = models.DecimalField(verbose_name="Alternative event fee", max_digits=5, decimal_places=2, default=0.00)
     skins_fee = models.DecimalField(verbose_name="Skins fee", max_digits=5, decimal_places=2, blank=0.00)
     skins_type = models.CharField(verbose_name="Skins type", max_length=1, choices=SKIN_TYPE_CHOICES, default="N")
+    green_fee = models.DecimalField(verbose_name="Green fee", max_digits=5, decimal_places=2, default=0.00)
+    cart_fee = models.DecimalField(verbose_name="Cart fee", max_digits=5, decimal_places=2, default=0.00)
     minimum_signup_group_size = models.IntegerField(verbose_name="Minimum sign-up group size", default=1)
     maximum_signup_group_size = models.IntegerField(verbose_name="Maximum sign-up group size", default=1)
     group_size = models.IntegerField(verbose_name="Group size", default=4)
@@ -87,7 +93,7 @@ class Event(models.Model):
 
     @property
     def enable_payments(self):
-        return self.requires_registration and self.event_fee > 0
+        return self.requires_registration and (self.event_fee > 0 or self.alt_event_fee > 0)
 
     def registration_window(self):
         right_now = timezone.now()
