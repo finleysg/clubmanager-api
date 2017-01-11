@@ -46,3 +46,6 @@ class RegistrationSlot(models.Model):
 
     objects = RegistrationSlotManager()
     history = HistoricalRecords()
+
+    class Meta:
+        unique_together = (("event", "member"),)

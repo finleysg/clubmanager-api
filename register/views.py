@@ -14,7 +14,7 @@ from rest_framework.serializers import ValidationError
 from courses.models import CourseSetupHole
 from .exceptions import StripeCardError, StripePaymentError
 from .models import RegistrationSlot, RegistrationGroup
-from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
+from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer, RegisteredMemberSerializer
 from .event_reservation import create_event
 
 from core.models import Member
@@ -44,6 +44,14 @@ class RegistrationList(generics.ListAPIView):
             event = get_object_or_404(Event, pk=event_id)
             queryset = queryset.filter(event=event)
         return queryset
+
+
+@api_view(['GET', ])
+def registered_members(request):
+    # TODO: Get the year's reg event id from config
+    regs = RegistrationSlot.objects.filter(event__id=43).filter(member__isnull=False)
+    serializer = RegisteredMemberSerializer(regs, context={"request": request}, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET', ])

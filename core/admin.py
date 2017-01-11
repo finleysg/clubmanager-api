@@ -11,6 +11,8 @@ class MemberInline(admin.StackedInline):
     model = Member
     can_delete = False
     verbose_name_plural = 'member'
+    fields = ["ghin", "birth_date", "forward_tees", "phone_number",
+              "handicap", "handicap_revision_date", "city", "stripe_customer_id", ]
 
 
 # Define a new User admin

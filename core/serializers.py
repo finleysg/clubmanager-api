@@ -16,7 +16,7 @@ class MemberDetailSerializer(serializers.ModelSerializer):
         model = Member
         fields = ("id", "address1", "address2", "city", "state", "zip",
                   "phone_number", "handicap", "handicap_revision_date", "ghin",
-                  "birth_date", "status", "summary", "stripe_customer_id", "dues_paid",)
+                  "birth_date", "status", "summary", "stripe_customer_id", "forward_tees",)
 
 
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,7 +26,7 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ("id", "username", "first_name", "last_name", "email", "member",
                   "is_authenticated", "is_staff", "is_active",)
-        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active", "dues_paid",)
+        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active", "forward_tees",)
 
     def update(self, instance, validated_data):
         member_data = validated_data.pop('member')
@@ -67,4 +67,4 @@ class MemberSerializer(serializers.HyperlinkedModelSerializer):
                   "address1", "address2", "city", "state", "zip",
                   "phone_number", "handicap", "handicap_revision_date",
                   "user_id", "birth_date", "status", "summary",
-                  "thumbnail_url", "profile_url")
+                  "thumbnail_url", "profile_url", "forward_tees")

@@ -6,14 +6,16 @@ from register.models import RegistrationSlot
 class EventTemplateAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
+            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'),
+                       ('event_fee', "alt_event_fee", "green_fee", "cart_fee"), ('skins_fee', 'skins_type'),)
         }),
         ('Format, Rules, and Notes', {
             'classes': ('wide',),
             'fields': ('description', 'notes',)
         }),
         ('Registration', {
-            'fields': ('requires_registration', ('minimum_signup_group_size', 'maximum_signup_group_size', 'group_size'), ('can_signup_group', 'can_choose_hole'),)
+            'fields': ('requires_registration', ('minimum_signup_group_size', 'maximum_signup_group_size', 'group_size'),
+                       ('can_signup_group', 'can_choose_hole'),)
         }),
         ('Other', {
             'fields': ('season_points', 'external_url',)
@@ -36,7 +38,8 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('template',)
         }),
         ('Basic Settings and Fees', {
-            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'), ('event_fee', 'skins_fee', 'skins_type'),)
+            'fields': ('name', ('event_type', 'start_type'), ('rounds', 'holes_per_round'),
+                       ('event_fee', "alt_event_fee", "green_fee", "cart_fee"), ('skins_fee', 'skins_type'),)
         }),
         ('Format, Rules, and Notes', {
             'classes': ('wide',),
@@ -46,12 +49,14 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('start_date', 'start_time', )
         }),
         ('Registration', {
-            'fields': ('requires_registration', ('signup_start', 'signup_end'), ('registration_maximum', 'minimum_signup_group_size', 'maximum_signup_group_size', 'group_size'), ('can_signup_group', 'can_choose_hole'),)
+            'fields': ('requires_registration', ('signup_start', 'signup_end'),
+                       ('registration_maximum', 'minimum_signup_group_size', 'maximum_signup_group_size', 'group_size'),
+                       ('can_signup_group', 'can_choose_hole'),)
         }),
         ('Other', {
             'fields': ('season_points', 'external_url',)
         }),
-        ('Courses', {
+        ('Courses (for league nights only)', {
             'fields': ('course_setups',)
         }),
     )
