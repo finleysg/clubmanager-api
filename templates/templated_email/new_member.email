@@ -1,0 +1,12 @@
+{% block subject %}New Member Registration{% endblock %}
+{% block html %}
+  <p>We just received a new member registration:
+      <dl>
+        <dt>name</dt><dd>{{name}}</dd>
+        <dt>email</dt><dd>{{email}}</dd>
+        <dt>ghin</dt><dd>{{ghin}}</dd>
+        <dt>former club</dt><dd>{{former_club}}</dd>
+        <dt>sign up date</dt><dd>{{signup_date}}</dd>
+      </dl>
+  </p>
+{% endblock %}

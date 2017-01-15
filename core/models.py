@@ -6,6 +6,9 @@ from imagekit import ImageSpec, register
 from imagekit.processors import ResizeToFit
 from datetime import datetime
 
+from core.manager import SettingsManager
+from events.models import Event
+
 
 class ThumbnailSpec(ImageSpec):
     format = "JPEG"
@@ -34,6 +37,15 @@ class Club(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class SeasonSettings(models.Model):
+    year = models.IntegerField(verbose_name="Current golf season")
+    reg_event = models.ForeignKey(verbose_name="Registration event", to=Event, related_name="registration")
+    match_play_event = models.ForeignKey(verbose_name="Match play event", to=Event, related_name="match_play", blank=True, null=True)
+    accept_new_members = models.BooleanField(verbose_name="Accepting new member registration?", default=False)
+
+    objects = SettingsManager()
 
 
 register.generator('member:image:thumbnail_image', ThumbnailSpec)

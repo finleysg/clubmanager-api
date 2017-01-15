@@ -5,15 +5,17 @@ from events.models import Event
 DOCUMENT_TYPE_CHOICES = (
     ("R", "Event Results"),
     ("T", "Event Tee Times"),
-    ("S", "Season Long Points"),
+    ("P", "Season Long Points"),
     ("D", "Dam Cup"),
     ("M", "Match Play"),
-    ("F", "Financial Statements")
+    ("F", "Financial Statements"),
+    ("S", "Sign Up")
 )
 
 
 class Document(models.Model):
     document_type = models.CharField(verbose_name="Type", choices=DOCUMENT_TYPE_CHOICES, max_length=1, default="R")
+    year = models.IntegerField(verbose_name="Golf Season", default=0)
     title = models.CharField(verbose_name="Title", max_length=120)
     file = models.FileField(verbose_name="File", upload_to="documents/%Y")
     last_update = models.DateTimeField(auto_now=True)

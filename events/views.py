@@ -32,7 +32,10 @@ class QuickEventList(generics.ListAPIView):
         today = datetime.today()
         start_date = today + timedelta(days=-7)
         end_date = today + timedelta(days=14)
-        return Event.objects.all().filter(start_date__lte=end_date, start_date__gt=start_date).order_by('start_date')
+        return Event.objects.all()\
+            .filter(start_date__lte=end_date, start_date__gt=start_date)\
+            .exclude(event_type="R")\
+            .order_by('start_date')
 
 
 class UpcomingEventList(generics.ListAPIView):

@@ -1,9 +1,20 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Max
 from courses.models import CourseSetupHole
 
 
 class RegistrationSlotManager(models.Manager):
+
+    def is_registered(self, event_id, member_id):
+        try:
+            self.filter(event__id=event_id).filter(member__id=member_id).get()
+            return True
+        except ObjectDoesNotExist:
+            return False
+
+    def members(self, event_id):
+        return self.filter(event__id=event_id).values_list('member', flat=True)
 
     def remove_slots(self, event):
         self.filter(event=event).delete()

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Club, Member
+from .models import Club, Member, SeasonSettings
 from rest_framework import serializers
 
 
@@ -8,6 +8,12 @@ class ClubSerializer(serializers.HyperlinkedModelSerializer):
         model = Club
         fields = ("url", "id", "description", "address1", "address2", "city", "state",
                   "zip", "website", "contact_email", "phone_number")
+
+
+class SettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SeasonSettings
+        fields = ('year', 'reg_event', 'match_play_event', 'accept_new_members', )
 
 
 class MemberDetailSerializer(serializers.ModelSerializer):
@@ -25,8 +31,8 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "last_name", "email", "member",
-                  "is_authenticated", "is_staff", "is_active",)
-        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active", "forward_tees",)
+                  "is_authenticated", "is_staff", "is_active", "password")
+        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active",)
 
     def update(self, instance, validated_data):
         member_data = validated_data.pop('member')
@@ -52,6 +58,37 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         member.save()
 
         return instance
+
+    def create(self, validated_data):
+        member_data = validated_data.pop('member')
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+        )
+        Member.objects.create(
+            address1=member_data.get('address1', ''),
+            city=member_data.get('city', ''),
+            zip=member_data.get('zip', ''),
+            phone_number=member_data['phone_number'],
+            birth_date=member_data['birth_date'],
+            ghin=member_data.get('ghin', ''),
+            forward_tees=member_data.get('forward_tees', False),
+            user=user
+        )
+        return user
+
+
+class SimpleMemberSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
+    email = serializers.CharField(source="user.email")
+
+    class Meta:
+        model = Member
+        fields = ("id", "first_name", "last_name", "email", )
 
 
 # All public information
