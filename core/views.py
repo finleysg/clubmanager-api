@@ -1,5 +1,5 @@
+import logging
 import stripe
-
 from rest_framework import permissions, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -7,15 +7,18 @@ from rest_framework.reverse import reverse
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 
-from .models import Club, Member
-from .serializers import ClubSerializer, MemberSerializer
+from register.models import RegistrationSlot
+from .models import Club, Member, SeasonSettings
+from .serializers import ClubSerializer, MemberSerializer, UserDetailSerializer, SettingsSerializer
+
+logger = logging.getLogger('core')
 
 
 @api_view(('GET',))
 @permission_classes((permissions.AllowAny,))
 def api_root(request):
     return Response({
-        'clubs': reverse('club-list', request=request),
+        'settings': reverse('current-settings', request=request),
         'members': reverse('member-list', request=request),  # TODO: private
         'courses': reverse('course-list', request=request),
         'course-setups': reverse('coursesetup-list', request=request),
@@ -43,11 +46,31 @@ class ClubDetail(generics.RetrieveUpdateAPIView):
     serializer_class = ClubSerializer
 
 
+class SettingsList(generics.ListAPIView):
+    """ API endpoint to view Clubs
+    """
+    queryset = SeasonSettings.objects.all()
+    serializer_class = SettingsSerializer
+
+
 class MemberList(generics.ListAPIView):
     """ API endpoint to view Members
     """
-    queryset = Member.objects.all()
+    # queryset = Member.objects.all()
     serializer_class = MemberSerializer
+
+    def get_queryset(self):
+        """ Optionally filter by year
+        """
+        queryset = Member.objects.all()
+        is_registered = self.request.query_params.get('registered', None)
+
+        if is_registered is not None:
+            ss = SeasonSettings.objects.current_settings()
+            ids = RegistrationSlot.objects.members(ss.reg_event_id)
+            queryset = queryset.filter(pk__in=ids)
+
+        return queryset
 
 
 class MemberDetail(generics.RetrieveAPIView):
@@ -55,6 +78,22 @@ class MemberDetail(generics.RetrieveAPIView):
     """
     queryset = Member.objects.all()
     serializer_class = MemberSerializer
+
+
+@api_view(['GET', ])
+def current_settings(request):
+    cs = SeasonSettings.objects.current_settings()
+    serializer = SettingsSerializer(cs, context={'request': request})
+    return Response(serializer.data)
+
+
+@api_view(['POST', ])
+def register_new_member(request):
+    serializer = UserDetailSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=204)
+    return Response(data=serializer.errors, status=400)
 
 
 # TODO: friends should be made restful (child of member?)
