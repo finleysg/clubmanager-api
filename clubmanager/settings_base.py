@@ -24,7 +24,6 @@ INSTALLED_APPS = (
     'register',
     'policies',
     'documents',
-    'roles',
     'messaging',
     'web',
 )
