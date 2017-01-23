@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^settings/$', core_views.current_settings, name='current-settings'),
     url(r'^members/$', core_views.MemberList.as_view(), name='member-list'),
     url(r'^members/(?P<pk>[0-9]+)/$', core_views.MemberDetail.as_view(), name='member-detail'),
+    url(r'^members/check/$', core_views.is_available, name='is-available'),
     url(r'^members/register/$', core_views.register_new_member, name='register-member'),
     url(r'^courses/$', course_views.CourseList.as_view(), name='course-list'),
     url(r'^courses/(?P<pk>[0-9]+)/$', course_views.CourseDetail.as_view(), name='course-detail'),

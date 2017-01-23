@@ -25,7 +25,7 @@ class ClubAdmin(admin.ModelAdmin):
 
 
 class SettingsAdmin(admin.ModelAdmin):
-    fields = ['year', 'reg_event', 'match_play_event', 'accept_new_members', ]
+    fields = ['year', 'reg_event', 'match_play_event', 'accept_new_members', 'website_version', ]
     list_display = ['year', ]
 
 # Re-register UserAdmin

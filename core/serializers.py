@@ -11,9 +11,11 @@ class ClubSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SettingsSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = SeasonSettings
-        fields = ('year', 'reg_event', 'match_play_event', 'accept_new_members', )
+        fields = ('year', 'reg_event', 'match_play_event', 'accept_new_members', 'website_version', 'api_version',
+                  'raven_dsn', 'stripe_pk', )
 
 
 class MemberDetailSerializer(serializers.ModelSerializer):
