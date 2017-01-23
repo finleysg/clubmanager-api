@@ -9,7 +9,8 @@ DOCUMENT_TYPE_CHOICES = (
     ("D", "Dam Cup"),
     ("M", "Match Play"),
     ("F", "Financial Statements"),
-    ("S", "Sign Up")
+    ("S", "Sign Up"),
+    ("O", "Other")
 )
 
 
