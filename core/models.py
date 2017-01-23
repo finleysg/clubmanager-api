@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from imagekit import ImageSpec, register
 from imagekit.processors import ResizeToFit
 from datetime import datetime
+from django.conf import settings
 
 from core.manager import SettingsManager
 from events.models import Event
@@ -44,6 +45,27 @@ class SeasonSettings(models.Model):
     reg_event = models.ForeignKey(verbose_name="Registration event", to=Event, related_name="registration")
     match_play_event = models.ForeignKey(verbose_name="Match play event", to=Event, related_name="match_play", blank=True, null=True)
     accept_new_members = models.BooleanField(verbose_name="Accepting new member registration?", default=False)
+    website_version = models.CharField(verbose_name="Website version", max_length=10, blank=True)
+
+    @property
+    def api_version(self):
+        return settings.API_VERSION
+
+    @property
+    def website_url(self):
+        return settings.WEBSITE_URL
+
+    @property
+    def admin_url(self):
+        return settings.ADMIN_URL
+
+    @property
+    def raven_dsn(self):
+        return settings.RAVEN_DSN
+
+    @property
+    def stripe_pk(self):
+        return settings.STRIPE_PUBLIC_KEY
 
     objects = SettingsManager()
 

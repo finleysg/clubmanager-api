@@ -8,13 +8,15 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from core.models import Member
+from core.models import Member, SeasonSettings
 from events.models import Event
 from .payments import stripe_charge
 from .models import RegistrationSlot, RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
 from .email import *
+
+config = SeasonSettings.objects.current_settings()
 
 
 @permission_classes((permissions.IsAuthenticated,))
@@ -56,7 +58,7 @@ def is_registered(request, event_id, member_id):
 @transaction.atomic()
 def reserve(request):
 
-    member = Member.objects.filter(pk=request.user.member.id).get()
+    member = Member.objects.get(pk=request.user.member.id)
 
     event_id = request.data.get("event_id", 0)
     if event_id == 0:
@@ -140,9 +142,20 @@ def register(request):
                 "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
             })
 
-    # notification and welcome emails for new members
-    if "NEW MEMBER" in group.notes:
-        send_new_member_notification(request.user, group)
+    # notification and confirmation/welcome emails
+    if group.event == config.reg_event:
+        if request.user.date_joined.year == config.year:
+            send_new_member_notification(request.user, group, config)
+            send_new_member_welcome(request.user, config)
+        else:
+            send_returning_member_welcome(request.user, config)
+            send_has_notes_notification(request.user, group, event)
+    elif group.event == config.match_play_event:
+        # TODO: maybe a separate confirmation and/or committee notification
+        send_event_confirmation(request.user, group, event, config)
+    else:
+        send_event_confirmation(request.user, group, event, config)
+        send_has_notes_notification(request.user, group, event)
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)

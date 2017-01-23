@@ -1,11 +1,13 @@
 import logging
 import stripe
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import permissions, generics
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 from register.models import RegistrationSlot
 from .models import Club, Member, SeasonSettings
@@ -85,6 +87,26 @@ def current_settings(request):
     cs = SeasonSettings.objects.current_settings()
     serializer = SettingsSerializer(cs, context={'request': request})
     return Response(serializer.data)
+
+
+@api_view(['GET', ])
+def is_available(request):
+    # TODO: throttle this endpoint
+    email = request.query_params.get('e', None)
+    username = request.query_params.get('u', None)
+
+    if email is not None:
+        try:
+            User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return Response(status=204)
+    elif username is not None:
+        try:
+            User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            return Response(status=204)
+
+    return Response(data={'detail': 'unavailable'}, status=409)
 
 
 @api_view(['POST', ])
