@@ -45,6 +45,8 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         member_data = validated_data.pop('member')
+        # group_data = validated_data.pop('groups')
+
         member = instance.member
 
         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -70,6 +72,8 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         member_data = validated_data.pop('member')
+        # group_data = validated_data.pop('groups')
+
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
