@@ -19,6 +19,8 @@ from django.views.generic import TemplateView
 
 from core import urls as api_urls
 
+admin.site.site_header = "Bunker Hills Men's Club Administration"
+
 urlpatterns = [
     url(r"^", include("web.urls", namespace="web")),
     url(r"^admin/", include(admin.site.urls)),

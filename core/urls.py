@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.views.decorators.cache import cache_page
+
 from core import views as core_views
 from courses import views as course_views
 from events import views as event_views
@@ -12,7 +14,7 @@ urlpatterns = [
     url(r'^$', core_views.api_root),
     url(r'^stripe/details/$', core_views.stripe_details, name='stripe-details'),
     url(r'^settings/$', core_views.current_settings, name='current-settings'),
-    url(r'^members/$', core_views.MemberList.as_view(), name='member-list'),
+    url(r'^members/$', cache_page(60 * 10)(core_views.MemberList.as_view()), name='member-list'),
     url(r'^members/(?P<pk>[0-9]+)/$', core_views.MemberDetail.as_view(), name='member-detail'),
     url(r'^members/check/$', core_views.is_available, name='is-available'),
     url(r'^members/register/$', core_views.register_new_member, name='register-member'),
@@ -24,17 +26,17 @@ urlpatterns = [
     url(r'^holes/(?P<pk>[0-9]+)/$', course_views.HoleDetail.as_view(), name='hole-detail'),
     url(r'^course-setup-holes/$', course_views.CourseSetupHoleList.as_view(), name='coursesetuphole-list'),
     url(r'^course-setup-holes/(?P<pk>[0-9]+)/$', course_views.CourseSetupHoleDetail.as_view(), name='coursesetuphole-detail'),
-    url(r'^events/$', event_views.EventList.as_view(), name='event-list'),
-    url(r'^events/current/$', event_views.QuickEventList.as_view(), name='quick-event-list'),
+    url(r'^events/$', cache_page(60 * 10)(event_views.EventList.as_view()), name='event-list'),
+    url(r'^events/current/$', cache_page(60 * 10)(event_views.QuickEventList.as_view()), name='quick-event-list'),
     url(r'^events/upcoming/$', event_views.UpcomingEventList.as_view(), name='upcoming-event-list'),
     url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
     url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
     url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),
-    url(r'^documents/$', document_views.DocumentList.as_view(), name='document-list'),
+    url(r'^documents/$', cache_page(60 * 10)(document_views.DocumentList.as_view()), name='document-list'),
     url(r'^documents/(?P<pk>[0-9]+)/$', document_views.DocumentDetail.as_view(), name='document-detail'),
-    url(r'^announcements/$', messaging_views.AnnouncementList.as_view(), name='announcement-list'),
+    url(r'^announcements/$', cache_page(60 * 10)(messaging_views.AnnouncementList.as_view()), name='announcement-list'),
     url(r'^announcements/(?P<pk>[0-9]+)/$', messaging_views.AnnouncementDetail.as_view(), name='announcement-detail'),
-    url(r'^policies/$', policy_views.PolicyList.as_view(), name='policy-list'),
+    url(r'^policies/$', cache_page(60 * 10)(policy_views.PolicyList.as_view()), name='policy-list'),
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
     url(r'^registrations/$', register_views.RegistrationList.as_view(), name='registration-list'),
     url(r'^registration/(?P<event_id>[0-9]+)/(?P<member_id>[0-9]+)/$', register_views.is_registered, name='registration-check'),

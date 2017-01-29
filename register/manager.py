@@ -1,7 +1,28 @@
+from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Max
 from courses.models import CourseSetupHole
+
+
+class RegistrationGroupManager(models.Manager):
+
+    def clean_up_expired(self):
+        groups = self.filter(expires__lt=datetime.now()).filter(payment_confirmation_code="")
+        count = len(groups)
+
+        for group in groups:
+            # Make league slots available
+            group.slots.filter(event__event_type="L") \
+                .update(**{"status": "A", "registration_group": None, "member": None})
+
+            # Delete non-league slots
+            group.slots.exclude(event__event_type="L") \
+                .delete()
+
+            group.delete()
+
+        return count
 
 
 class RegistrationSlotManager(models.Manager):
