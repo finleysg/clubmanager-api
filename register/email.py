@@ -14,7 +14,7 @@ with open(logo_file, 'rb') as logo:
 def send_new_member_welcome(user, config):
     send_templated_mail(
         template_name='welcome.html',
-        from_email='email@bhmc.org',
+        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
         recipient_list=[user.email],
         context={
             'first_name': user.first_name,
@@ -25,13 +25,14 @@ def send_new_member_welcome(user, config):
             'logo_image': inline_image
         },
         template_suffix='html',
+        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
     )
 
 
 def send_returning_member_welcome(user, config):
     send_templated_mail(
         template_name='welcome_back.html',
-        from_email='email@bhmc.org',
+        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
         recipient_list=[user.email],
         context={
             'first_name': user.first_name,
@@ -41,13 +42,14 @@ def send_returning_member_welcome(user, config):
             'logo_image': inline_image
         },
         template_suffix='html',
+        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
     )
 
 
 def send_new_member_notification(user, group, config):
     send_templated_mail(
         template_name='new_member_notification',
-        from_email='email@bhmc.org',
+        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
         recipient_list=['treasurer@bhmc.org', 'secretary@bhmc.org'],
         context={
             'name': '{} {}'.format(user.first_name, user.last_name),
@@ -58,6 +60,7 @@ def send_new_member_notification(user, group, config):
             'logo_image': inline_image
         },
         template_suffix='html',
+        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
     )
 
 
@@ -65,7 +68,7 @@ def send_has_notes_notification(user, group, event):
     if group.notes is not None and group.notes != '':
         send_templated_mail(
             template_name='has_notes_notification',
-            from_email='email@bhmc.org',
+            from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
             recipient_list=['treasurer@bhmc.org', 'secretary@bhmc.org'],
             context={
                 'name': '{} {}'.format(user.first_name, user.last_name),
@@ -75,7 +78,8 @@ def send_has_notes_notification(user, group, event):
                 'logo_image': inline_image
             },
             template_suffix='html',
-    )
+            headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+        )
 
 
 def send_event_confirmation(user, group, event, config):
@@ -103,10 +107,11 @@ def send_event_confirmation(user, group, event, config):
 
     send_templated_mail(
         template_name='registration_confirmation.html',
-        from_email='email@bhmc.org',
+        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
         recipient_list=[user.email],
         context=email_context,
         template_suffix='html',
+        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
     )
 
     # remove payment conf code before sending the rest
@@ -116,10 +121,11 @@ def send_event_confirmation(user, group, event, config):
     if len(recipients) > 0:
         send_templated_mail(
             template_name='registration_confirmation.html',
-            from_email='email@bhmc.org',
+            from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
             recipient_list=recipients,
             context=email_context,
             template_suffix='html',
+            headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
         )
 
 

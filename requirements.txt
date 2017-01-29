@@ -6,6 +6,7 @@ botocore==1.4.12
 cement==2.8.2
 colorama==0.3.7
 Django==1.9.2
+django-anymail==0.7
 django-appconf==1.0.2
 django-cors-headers==1.1.0
 django-floppyforms==1.6.2
@@ -35,6 +36,7 @@ pytz==2016.4
 pyxdg==0.25
 PyYAML==3.11
 RandomWords==0.2.0
+raven==5.32.0
 requests==2.9.1
 semantic-version==2.5.0
 six==1.10.0

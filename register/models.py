@@ -4,7 +4,7 @@ from simple_history.models import HistoricalRecords
 from events.models import Event
 from courses.models import CourseSetup, CourseSetupHole
 from core.models import Member
-from .manager import RegistrationSlotManager
+from .manager import RegistrationSlotManager, RegistrationGroupManager
 
 STATUS_CHOICES = (
     ("A", "Available"),
@@ -27,6 +27,7 @@ class RegistrationGroup(models.Model):
     payment_confirmation_timestamp = models.DateTimeField(verbose_name="Payment confirmation timestamp", blank=True, null=True)
     payment_amount = models.DecimalField(verbose_name="Payment amount", max_digits=5, decimal_places=2, blank=True, null=True)
 
+    objects = RegistrationGroupManager()
     history = HistoricalRecords()
 
 

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .models import Club, Member, SeasonSettings
 from rest_framework import serializers
 
@@ -27,14 +27,21 @@ class MemberDetailSerializer(serializers.ModelSerializer):
                   "birth_date", "status", "summary", "stripe_customer_id", "forward_tees",)
 
 
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('name',)
+
+
 class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     member = MemberDetailSerializer()
+    groups = GroupSerializer(many=True)
 
     class Meta:
         model = User
         fields = ("id", "username", "first_name", "last_name", "email", "member",
-                  "is_authenticated", "is_staff", "is_active", "password")
-        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active",)
+                  "is_authenticated", "is_staff", "is_active", "password", "groups", )
+        read_only_fields = ("id", "is_authenticated", "is_staff", "is_active", )
 
     def update(self, instance, validated_data):
         member_data = validated_data.pop('member')
