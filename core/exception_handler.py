@@ -15,7 +15,8 @@ def custom_exception_handler(exc, context):
     # to get the standard error response.
     response = exception_handler(exc, context)
 
-    client.captureException(exc)
+    exc_info = (type(exc), exc, None)
+    client.captureException(exc_info)
 
     # response == None is an exception not handled by the DRF framework in the call above
     if response is None:
