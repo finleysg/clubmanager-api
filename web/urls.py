@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^loaderio-c54279d9d52133c06541d1471217c18b/$', views.index, name='load-test'),
     # url(r'account/', views.account, name='account'),
     # url(r'calendar/', views.calendar, name='calendar'),
     # url(r'contact/', views.contact, name='contact'),
