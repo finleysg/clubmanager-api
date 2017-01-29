@@ -6,6 +6,7 @@ from datetime import datetime
 
 # Last_Name,First_Name,DOB,MemNumber,HOMEPHONE,BUSPhone,Joined,EMAIL,ShowPhone,SecLevel,hdcp,Home_hdcp,Occupation,adminflag
 from core.models import Member
+from core.passwords import generate_password
 
 
 class Command(BaseCommand):
@@ -41,12 +42,12 @@ class Command(BaseCommand):
                 email = "%s@nunya.com" % username if email == "" else email
 
                 date_joined = datetime(year=year, month=3, day=31)
+                pwd = generate_password()
 
                 try:
-                    user = User.objects.create_user(last_name=last_name, first_name=first_name, email=email, username=username, date_joined=date_joined, password=str(ghin))
+                    user = User.objects.create_user(last_name=last_name, first_name=first_name, email=email, username=username, date_joined=date_joined, password=pwd)
                     member = Member(user=user, ghin=str(ghin), birth_date=bd)
                     member.save()
-                    print(user.email)
                 except:
                     print("error: " + username)
                     dups += 1
