@@ -5,6 +5,10 @@ from templated_email import send_templated_mail
 from templated_email import InlineImage
 from register.models import RegistrationSlot
 
+sender_email = "BHMC (testing)<admin@zoomdoggydesign.com>"
+secretary_email = "nate55792@gmail.com"
+treasurer_email = "pmwright21@gmail.com"
+
 logo_file = os.path.join(settings.BASE_DIR, 'templates/templated_email/logo.png')
 with open(logo_file, 'rb') as logo:
     image = logo.read()
@@ -14,7 +18,7 @@ with open(logo_file, 'rb') as logo:
 def send_new_member_welcome(user, config):
     send_templated_mail(
         template_name='welcome.html',
-        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
+        from_email=sender_email,
         recipient_list=[user.email],
         context={
             'first_name': user.first_name,
@@ -32,7 +36,7 @@ def send_new_member_welcome(user, config):
 def send_returning_member_welcome(user, config):
     send_templated_mail(
         template_name='welcome_back.html',
-        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
+        from_email=sender_email,
         recipient_list=[user.email],
         context={
             'first_name': user.first_name,
@@ -49,8 +53,8 @@ def send_returning_member_welcome(user, config):
 def send_new_member_notification(user, group, config):
     send_templated_mail(
         template_name='new_member_notification',
-        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
-        recipient_list=['treasurer@bhmc.org', 'secretary@bhmc.org'],
+        from_email=sender_email,
+        recipient_list=[treasurer_email, secretary_email],
         context={
             'name': '{} {}'.format(user.first_name, user.last_name),
             'email': user.email,
@@ -68,8 +72,8 @@ def send_has_notes_notification(user, group, event):
     if group.notes is not None and group.notes != '':
         send_templated_mail(
             template_name='has_notes_notification',
-            from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
-            recipient_list=['treasurer@bhmc.org', 'secretary@bhmc.org'],
+            from_email=sender_email,
+            recipient_list=[treasurer_email, secretary_email],
             context={
                 'name': '{} {}'.format(user.first_name, user.last_name),
                 'email': user.email,
@@ -107,7 +111,7 @@ def send_event_confirmation(user, group, event, config):
 
     send_templated_mail(
         template_name='registration_confirmation.html',
-        from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
+        from_email=sender_email,
         recipient_list=[user.email],
         context=email_context,
         template_suffix='html',
@@ -121,7 +125,7 @@ def send_event_confirmation(user, group, event, config):
     if len(recipients) > 0:
         send_templated_mail(
             template_name='registration_confirmation.html',
-            from_email='BHMC (testing)<admin@zoomdoggydesign.com>',
+            from_email=sender_email,
             recipient_list=recipients,
             context=email_context,
             template_suffix='html',
