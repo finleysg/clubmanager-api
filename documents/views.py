@@ -1,16 +1,18 @@
 from rest_framework import generics
-
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Document
-from .serializers import DocumentSerializer
+from .serializers import DocumentSerializer, DocumentDetailSerializer
 
 
-class DocumentDetail(generics.RetrieveAPIView):
-    serializer_class = DocumentSerializer
+class DocumentDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DocumentDetailSerializer
     queryset = Document.objects.all()
+    parser_classes = (MultiPartParser, FormParser, )
 
 
-class DocumentList(generics.ListAPIView):
+class DocumentList(generics.ListCreateAPIView):
     serializer_class = DocumentSerializer
+    parser_classes = (MultiPartParser, FormParser, )
 
     def get_queryset(self):
         queryset = Document.objects.all()
