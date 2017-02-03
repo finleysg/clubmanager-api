@@ -11,7 +11,7 @@ class DocumentDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class DocumentList(generics.ListCreateAPIView):
-    serializer_class = DocumentSerializer
+    serializer_class = DocumentDetailSerializer
     parser_classes = (MultiPartParser, FormParser, )
 
     def get_queryset(self):
