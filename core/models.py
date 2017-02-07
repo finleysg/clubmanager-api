@@ -97,6 +97,9 @@ class Member(models.Model):
 
     history = HistoricalRecords()
 
+    class Meta:
+        ordering = ('user__last_name', 'user__first_name')
+
     def member_name(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
