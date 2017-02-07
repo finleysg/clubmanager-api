@@ -33,7 +33,7 @@ class RegistrationSlotInline(admin.TabularInline):
 
 
 class RegistrationGroupAdmin(admin.ModelAdmin):
-    model: RegistrationGroup
+    model = RegistrationGroup
     can_delete = True
     save_on_top = True
 
@@ -53,12 +53,6 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     list_display = ['members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('members', )
     list_filter = (NoLeagueFilter, )
-
-    # def members(self, obj):
-    #     member_names = []
-    #     for slot in obj.slots.all():
-    #         member_names.append(slot.member.member_name())
-    #     return ", ".join(member_names)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "event":
