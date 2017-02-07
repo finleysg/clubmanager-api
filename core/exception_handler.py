@@ -13,7 +13,10 @@ def custom_exception_handler(exc, context):
     # Call REST framework's default exception handler first
     # to get the standard error response.
     response = exception_handler(exc, context)
-    logger.error(exc, extra={'context': context})
+    if context.request is not None:
+        logger.error(exc, extra={'request': context.request})
+    else:
+        logger.error(exc, extra={'context': context})
 
     # response == None is an exception not handled by the DRF framework in the call above
     if response is None:

@@ -1,6 +1,9 @@
+import logging
+
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils import timezone as tz
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
@@ -11,11 +14,12 @@ from courses.models import CourseSetupHole
 from core.models import Member, SeasonSettings
 from events.models import Event
 from .payments import stripe_charge
-from .models import RegistrationSlot, RegistrationGroup
+from .models import RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
 from .email import *
 
+logger = logging.getLogger(__name__)
 config = SeasonSettings.objects.current_settings()
 
 
@@ -170,20 +174,24 @@ def cancel_reserved_slots(request):
     if group_id == 0:
         raise ValidationError("Missing group id")
 
-    group = RegistrationGroup.objects.filter(pk=group_id).get()
-    if group is None:
-        raise ValidationError("{} is an invalid group id".format(group_id))
+    try:
+        group = RegistrationGroup.objects.filter(pk=group_id).get()
 
-    if len(group.payment_confirmation_code) > 0 and not request.user.is_staff:
-        raise ValidationError("Cannot cancel a group that has already paid")
+        if len(group.payment_confirmation_code) > 0 and not request.user.is_staff:
+            raise ValidationError("Cannot cancel a group that has already paid")
 
-    if group.event.event_type == "L":
-        RegistrationSlot.objects.filter(registration_group=group) \
-            .update(**{"status": "A", "registration_group": None, "member": None})
-    else:
-        RegistrationSlot.objects.filter(registration_group=group).delete()
+        if group.event.event_type == "L":
+            RegistrationSlot.objects.filter(registration_group=group) \
+                .update(**{"status": "A", "registration_group": None, "member": None})
+        else:
+            RegistrationSlot.objects.filter(registration_group=group).delete()
 
-    group.delete()
+        group.delete()
+
+    except ObjectDoesNotExist:
+        # I hope if we sink this we improve the user experience (no red message) and don't cause any DB harm
+        # Why would we ever get to here is a mystery -- maybe double click from the UI?
+        logger.warning("Could not find and cancel a registration group with id {}".format(group_id), request=request)
 
     return Response(status=204)
 
