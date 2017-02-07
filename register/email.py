@@ -98,10 +98,10 @@ def send_event_confirmation(user, group, event, config):
         'event_date': event.start_date,
         'event_start': event.start_time,
         'event_hole': get_starting_hole(event, group),
-        'required_fees': required_fees,
-        'optional_fees': optional_fees,
-        'transaction_fees': Decimal(str(group.payment_amount)) - (required_fees + optional_fees),
-        'total_fees': group.payment_amount,
+        'required_fees': '${:,.2f}'.format(required_fees),
+        'optional_fees': '${:,.2f}'.format(optional_fees),
+        'transaction_fees': '${:,.2f}'.format(Decimal(str(group.payment_amount)) - (required_fees + optional_fees)),
+        'total_fees': '${:,.2f}'.format(group.payment_amount),
         'payment_confirmation_code': group.payment_confirmation_code,
         'show_confirmation_code': True,
         'members': get_members(event, registrations),
@@ -147,7 +147,8 @@ def get_starting_hole(event, group):
 def get_required_fees(event, registrations):
     fees = Decimal('0.0')
     for reg in registrations:
-        fees = fees + event.event_fee
+        if reg.member is not None:
+            fees = fees + event.event_fee
 
     return fees
 
@@ -155,14 +156,15 @@ def get_required_fees(event, registrations):
 def get_optional_fees(event, registrations):
     fees = Decimal('0.0')
     for reg in registrations:
-        if reg.is_gross_skins_paid:
-            fees = fees + event.skins_fee
-        if reg.is_net_skins_paid:
-            fees = fees + event.skins_fee
-        if reg.is_greens_fee_paid:
-            fees = fees + event.green_fee
-        if reg.is_cart_fee_paid:
-            fees = fees + event.cart_fee
+        if reg.member is not None:
+            if reg.is_gross_skins_paid:
+                fees = fees + event.skins_fee
+            if reg.is_net_skins_paid:
+                fees = fees + event.skins_fee
+            if reg.is_greens_fee_paid:
+                fees = fees + event.green_fee
+            if reg.is_cart_fee_paid:
+                fees = fees + event.cart_fee
 
     return fees
 
@@ -170,38 +172,39 @@ def get_optional_fees(event, registrations):
 def get_members(event, registrations):
     members = []
     for reg in registrations:
-        members.append({
-            'name': reg.member.member_name(),
-            'email': reg.member.member_email(),
-            'fees': get_fees(reg, event)
-        })
+        if reg.member is not None:
+            members.append({
+                'name': reg.member.member_name(),
+                'email': reg.member.member_email(),
+                'fees': get_fees(reg, event)
+            })
     return members
 
 
 def get_fees(registration, event):
     fees = [{
         'description': 'Event Fee',
-        'amount': event.event_fee
+        'amount': '${:,.2f}'.format(event.event_fee)
     }]
     if registration.is_gross_skins_paid:
         fees.append({
             'description': 'Gross Skins',
-            'amount': event.skins_fee
+            'amount': '${:,.2f}'.format(event.skins_fee)
         })
     if registration.is_net_skins_paid:
         fees.append({
             'description': 'Net Skins',
-            'amount': event.skins_fee
+            'amount': '${:,.2f}'.format(event.skins_fee)
         })
     if registration.is_greens_fee_paid:
         fees.append({
             'description': 'Green Fee',
-            'amount': event.green_fee
+            'amount': '${:,.2f}'.format(event.green_fee)
         })
     if registration.is_cart_fee_paid:
         fees.append({
             'description': 'Cart Fee',
-            'amount': event.cart_fee
+            'amount': '${:,.2f}'.format(event.cart_fee)
         })
     return fees
 
@@ -209,7 +212,8 @@ def get_fees(registration, event):
 def get_recipients(user, registrations):
     recipients = []
     for reg in registrations:
-        if reg.member.id != user.member.id:
-            recipients.append(reg.member.member_email())
+        if reg.member is not None:
+            if reg.member.id != user.member.id:
+                recipients.append(reg.member.member_email())
 
     return recipients

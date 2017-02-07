@@ -71,6 +71,7 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
         instances = formset.save(commit=False)
         for instance in instances:
             instance.event_id = instance.registration_group.event_id
+            instance.status = "R"
             instance.save()
         formset.save_m2m()
 

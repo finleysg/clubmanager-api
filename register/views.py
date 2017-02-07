@@ -129,22 +129,23 @@ def register(request):
 
     for slot_tmp in group_tmp["slots"]:
 
-        member = Member.objects.get(pk=slot_tmp["member"])
-        if member is None:
-            raise ValidationError("{} is an invalid member id".format(slot_tmp["member"]))
-
-        RegistrationSlot.objects\
-            .select_for_update()\
-            .filter(pk=slot_tmp["id"])\
-            .update(**{
-                "member": member,
-                "status": "R",
-                "is_event_fee_paid": slot_tmp.get("is_event_fee_paid", True),
-                "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
-                "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
-                "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
-                "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
-            })
+        member_id = slot_tmp["member"]
+        if member_id > 0:
+            member = Member.objects.get(pk=slot_tmp["member"])
+            RegistrationSlot.objects\
+                .select_for_update()\
+                .filter(pk=slot_tmp["id"])\
+                .update(**{
+                    "member": member,
+                    "status": "R",
+                    "is_event_fee_paid": slot_tmp.get("is_event_fee_paid", True),
+                    "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
+                    "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
+                    "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
+                    "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
+                })
+        else:
+            RegistrationSlot.objects.select_for_update().filter(pk=slot_tmp["id"]).update(**{"status": "A"})
 
     # notification and confirmation/welcome emails
     if group.event == config.reg_event:
