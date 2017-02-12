@@ -101,7 +101,7 @@ class SimpleMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ("id", "first_name", "last_name", "email", )
+        fields = ("id", "first_name", "last_name", "email", "ghin", )
 
 
 # All public information
@@ -110,11 +110,12 @@ class MemberSerializer(serializers.HyperlinkedModelSerializer):
     last_name = serializers.CharField(source="user.last_name")
     email = serializers.CharField(source="user.email")
     user_id = serializers.CharField(source="user.id")
+    is_active = serializers.BooleanField(source="user.is_active")
+    date_joined = serializers.DateTimeField(source="user.date_joined")
 
     class Meta:
         model = Member
         fields = ("id", "first_name", "last_name", "email",
                   "address1", "address2", "city", "state", "zip",
-                  "phone_number", "handicap", "handicap_revision_date",
-                  "user_id", "birth_date", "status", "summary",
-                  "thumbnail_url", "profile_url", "forward_tees")
+                  "phone_number", "handicap", "handicap_revision_date", "date_joined",
+                  "user_id", "birth_date", "ghin", "forward_tees", "is_active", )

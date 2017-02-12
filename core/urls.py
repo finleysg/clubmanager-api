@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
     url(r'^registrations/$', register_views.RegistrationList.as_view(), name='registration-list'),
     url(r'^registration/(?P<event_id>[0-9]+)/(?P<member_id>[0-9]+)/$', register_views.is_registered, name='registration-check'),
+    url(r'^registration/groups/$', register_views.RegistrationGroupList.as_view(), name='registration-group-list'),
     url(r'^registration/groups/(?P<pk>[0-9]+)/$', register_views.RegistrationGroupDetail.as_view(), name='registration-group'),
     url(r'^registration/reserve/$', register_views.reserve, name='reserve'),
     url(r'^registration/register/$', register_views.register, name='register'),
