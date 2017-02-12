@@ -110,3 +110,8 @@ def get_customer_charges(customer_id):
         results.append(charge)
 
     return results
+
+
+def get_stripe_charge(charge_id):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    return stripe.Charge.retrieve(charge_id)
