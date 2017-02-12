@@ -24,6 +24,20 @@ config = SeasonSettings.objects.current_settings()
 
 
 @permission_classes((permissions.IsAuthenticated,))
+class RegistrationGroupList(generics.ListAPIView):
+    """ API endpoint to view Registration Groups
+    """
+    serializer_class = RegistrationGroupSerializer
+
+    def get_queryset(self):
+        queryset = RegistrationGroup.objects.all()
+        event_id = self.request.query_params.get('event_id', None)
+        if event_id is not None:
+            queryset = queryset.filter(event=event_id)
+            return queryset
+
+
+@permission_classes((permissions.IsAuthenticated,))
 class RegistrationGroupDetail(generics.RetrieveAPIView):
     """ API endpoint to view Registration Groups
     """

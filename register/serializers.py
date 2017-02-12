@@ -29,6 +29,7 @@ class RegistrationSlotSerializer(serializers.ModelSerializer):
 
 class RegistrationGroupSerializer(serializers.ModelSerializer):
 
+    signed_up_by = SimpleMemberSerializer()
     slots = RegistrationSlotSerializer(many=True)
 
     class Meta:
