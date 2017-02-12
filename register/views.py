@@ -13,7 +13,7 @@ from rest_framework.serializers import ValidationError
 from courses.models import CourseSetupHole
 from core.models import Member, SeasonSettings
 from events.models import Event
-from .payments import stripe_charge
+from .payments import stripe_charge, get_stripe_charges
 from .models import RegistrationGroup
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
 from .event_reservation import create_event
@@ -62,6 +62,14 @@ class RegistrationList(generics.ListAPIView):
         if member_id is not None:
             queryset = queryset.filter(member=member_id)
         return queryset
+
+
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def charges(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    event_charges = get_stripe_charges(event)
+    return Response(event_charges)
 
 
 @api_view(['GET', ])
