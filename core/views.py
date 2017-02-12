@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 
 from register.models import RegistrationSlot
+from register.payments import get_customer_charges
 from .models import Club, Member, SeasonSettings
 from .serializers import ClubSerializer, MemberSerializer, UserDetailSerializer, SettingsSerializer
 
@@ -177,3 +178,12 @@ def stripe_details(request):
         "expires": expires
     })
 
+
+@api_view(['GET', ])
+@permission_classes((permissions.IsAuthenticated,))
+def stripe_charges(request):
+    customer_id = request.query_params.get('id', None)
+    if customer_id is None:
+        customer_id = request.user.member.stripe_customer_id
+    charges = get_customer_charges(customer_id)
+    return Response(charges)

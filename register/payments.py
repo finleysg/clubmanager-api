@@ -1,6 +1,6 @@
 import stripe
-
-from datetime import datetime, timezone
+import calendar
+from datetime import datetime, timezone, timedelta
 from django.conf import settings
 from rest_framework.serializers import ValidationError
 
@@ -79,3 +79,34 @@ def create_stripe_charge(user, customer_id, event, amount_due):
 def convert_tstamp(ts):
     tz = timezone.utc if settings.USE_TZ else None
     return datetime.fromtimestamp(ts, tz)
+
+
+def get_stripe_charges(event):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    results = []
+    start_dt = event.signup_start - timedelta(days=1)
+    end_dt = event.signup_end + timedelta(days=1)
+    params = {
+        'limit': 100,
+        'created[gte]': calendar.timegm(start_dt.timetuple()),
+        'created[lte]': calendar.timegm(end_dt.timetuple())
+    }
+    filtered_charges = stripe.Charge.auto_paging_iter(**params)
+    for charge in filtered_charges:
+        results.append(charge)
+
+    return results
+
+
+def get_customer_charges(customer_id):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    results = []
+    params = {
+        'limit': 100,
+        'customer': customer_id
+    }
+    filtered_charges = stripe.Charge.auto_paging_iter(**params)
+    for charge in filtered_charges:
+        results.append(charge)
+
+    return results
