@@ -15,6 +15,7 @@ EVENT_TYPE_CHOICES = (
     ("O", "Other"),
     ("S", "State Tournament"),
     ("R", "Open Registration Period"),
+    ("D", "Deadline"),
 )
 START_TYPE_CHOICES = (
     ("TT", "Tee Times"),
@@ -81,7 +82,7 @@ class Event(models.Model):
     requires_registration = models.BooleanField(verbose_name="Requires registration", default=True)
     external_url = models.CharField(verbose_name="External url", max_length=255, blank=True, null=True)
     # Event instance specific
-    notes = models.TextField(verbose_name="Additional notes")
+    notes = models.TextField(verbose_name="Additional notes", blank=True, null=True)
     start_date = models.DateField(verbose_name="Start date")
     start_time = models.CharField(verbose_name="Starting time", max_length=40)
     signup_start = models.DateTimeField(verbose_name="Signup start", blank=True, null=True)
