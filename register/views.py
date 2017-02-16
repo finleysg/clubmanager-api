@@ -1,6 +1,7 @@
 import logging
 
 from django.db import transaction
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.utils import timezone as tz
 from django.core.exceptions import ObjectDoesNotExist
@@ -230,30 +231,37 @@ def cancel_reserved_slots(request):
 @api_view(['POST', ])
 @permission_classes((permissions.IsAuthenticated,))
 @transaction.atomic()
-def add_row(request):
+def add_groups(request):
 
     event_id = request.data["event_id"]
-    course_setup_hole_id = request.data["course_setup_hole_id"]
     event = get_object_or_404(Event, pk=event_id)
-    hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
 
-    new_slots = RegistrationSlot.objects.add_slots(event, hole)
+    # select all the holes with only one group
+    holes = list(RegistrationSlot.objects.filter(event=event)
+                 .distinct()
+                 .values_list("course_setup_hole", flat=True)
+                 .annotate(row_count=Count("course_setup_hole"))
+                 .filter(row_count__lte=event.group_size)
+                 .order_by("course_setup_hole"))
 
-    serializer = RegistrationSlotSerializer(new_slots, context={'request': request}, many=True)
-    return Response(serializer.data)
+    for hole in holes:
+        instance = CourseSetupHole.objects.get(pk=hole)
+        RegistrationSlot.objects.add_slots(event, instance)
 
+    return Response({"groups_added": len(holes)}, status=201)
 
-@api_view(['POST', ])
-@permission_classes((permissions.IsAuthenticated,))
-@transaction.atomic()
-def remove_row(request):
-
-    event_id = request.data["event_id"]
-    course_setup_hole_id = request.data["course_setup_hole_id"]
-    starting_order = request.data["starting_order"]
-    event = get_object_or_404(Event, pk=event_id)
-    hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
-
-    RegistrationSlot.objects.remove_hole(event, hole, starting_order)
-
-    return Response(status=204)
+#
+# @api_view(['POST', ])
+# @permission_classes((permissions.IsAuthenticated,))
+# @transaction.atomic()
+# def remove_row(request):
+#
+#     event_id = request.data["event_id"]
+#     course_setup_hole_id = request.data["course_setup_hole_id"]
+#     starting_order = request.data["starting_order"]
+#     event = get_object_or_404(Event, pk=event_id)
+#     hole = get_object_or_404(CourseSetupHole, pk=course_setup_hole_id)
+#
+#     RegistrationSlot.objects.remove_hole(event, hole, starting_order)
+#
+#     return Response(status=204)
