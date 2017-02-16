@@ -25,6 +25,7 @@ class RegistrationSlotSerializer(serializers.ModelSerializer):
         fields = ("id", "event", "course", "course_setup_id", "hole_number", "hole_id", "registration_group",
                   "is_event_fee_paid", "is_greens_fee_paid", "is_gross_skins_paid", "is_net_skins_paid",
                   "is_cart_fee_paid", "starting_order", "slot", "status", "member")
+        order_by = ("hole_number", "starting_order", )
 
 
 class RegistrationGroupSerializer(serializers.ModelSerializer):

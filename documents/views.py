@@ -25,4 +25,4 @@ class DocumentList(generics.ListCreateAPIView):
             queryset = queryset.filter(document_type=doc_type)
         if event_type is not None:
             queryset = queryset.filter(event__event_type=event_type)
-        return queryset
+        return queryset.order_by('title')
