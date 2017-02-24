@@ -59,3 +59,14 @@ class RegistrationSlot(models.Model):
 
     def __str__(self):
         return self.status
+
+
+class RegistrationSlotPayment(models.Model):
+    registration_slot = models.ForeignKey(verbose_name="Registration", to=RegistrationSlot, related_name="payments")
+    recorded_by = models.ForeignKey(verbose_name="Member", to=Member)
+    card_verification_token = models.CharField(verbose_name="Card verification token", max_length=30, blank=True)
+    payment_code = models.CharField(verbose_name="Payment code", max_length=30, blank=True)
+    payment_timestamp = models.DateTimeField(verbose_name="Payment timestamp", auto_now=True)
+    payment_amount = models.DecimalField(verbose_name="Payment amount", max_digits=5, decimal_places=2, blank=True, null=True)
+
+    history = HistoricalRecords()
