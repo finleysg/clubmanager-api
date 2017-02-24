@@ -30,14 +30,16 @@ class RegistrationGroup(models.Model):
     objects = RegistrationGroupManager()
     history = HistoricalRecords()
 
+    @property
     def members(self):
         member_names = []
         for slot in self.slots.all():
-            member_names.append(slot.member.member_name())
+            if slot.member is not None:
+                member_names.append(slot.member.member_name())
         return ", ".join(member_names)
 
     def __str__(self):
-        return "{} group: {}".format(self.event.name, self.members())
+        return "{} group: {}".format(self.event.name, self.members)
 
 
 class RegistrationSlot(models.Model):
