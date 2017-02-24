@@ -25,10 +25,10 @@ class DocumentDetailSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.file = validated_data.get('file', instance.file)
-        instance.last_name = validated_data.get('document_type', instance.document_type)
-        instance.username = validated_data.get('title', instance.title)
-        instance.email = validated_data.get('year', instance.year)
-        instance.email = validated_data.get('event', instance.event)
+        instance.document_type = validated_data.get('document_type', instance.document_type)
+        instance.title = validated_data.get('title', instance.title)
+        instance.year = validated_data.get('year', instance.year)
+        instance.event = validated_data.get('event', instance.event)
         instance.save()
 
         return instance
