@@ -1,16 +1,7 @@
 from rest_framework import serializers
 
-from core.serializers import MemberSerializer, SimpleMemberSerializer
-from .models import RegistrationGroup, RegistrationSlot
-
-
-# class RegisteredMemberSerializer(serializers.ModelSerializer):
-#
-#     member = MemberSerializer()
-#
-#     class Meta:
-#         model = RegistrationSlot
-#         fields = ("member", )
+from core.serializers import SimpleMemberSerializer
+from .models import RegistrationGroup, RegistrationSlot, RegistrationSlotPayment
 
 
 class RegistrationSlotSerializer(serializers.ModelSerializer):
@@ -38,3 +29,11 @@ class RegistrationGroupSerializer(serializers.ModelSerializer):
         fields = ("id", "event", "course_setup", "signed_up_by", "starting_hole", "starting_order", "notes",
                   "payment_confirmation_code", "payment_confirmation_timestamp", "payment_amount",
                   "card_verification_token", "slots", "expires")
+
+
+class RegistrationSlotPaymentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RegistrationSlotPayment
+        fields = ("id", "registration_slot", "recorded_by", "card_verification_token",
+                  "payment_code", "payment_timestamp", "payment_amount")
