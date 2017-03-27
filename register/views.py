@@ -15,8 +15,8 @@ from courses.models import CourseSetupHole
 from core.models import Member, SeasonSettings
 from events.models import Event
 from .payments import stripe_charge, get_stripe_charges, get_stripe_charge
-from .models import RegistrationGroup
-from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer
+from .models import RegistrationGroup, RegistrationSlotPayment
+from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer, RegistrationSlotPaymentSerializer
 from .event_reservation import create_event
 from .email import *
 
@@ -265,3 +265,25 @@ def add_groups(request):
 #     RegistrationSlot.objects.remove_hole(event, hole, starting_order)
 #
 #     return Response(status=204)
+
+
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationSlotPaymentList(generics.ListCreateAPIView):
+    """ API endpoint to view Registration Slot Payments
+    """
+    serializer_class = RegistrationSlotPaymentSerializer
+
+    def get_queryset(self):
+        queryset = RegistrationSlotPayment.objects.all()
+        event_id = self.request.query_params.get('event_id', None)
+        if event_id is not None:
+            queryset = queryset.filter(registration_slot__event=event_id)
+            return queryset
+
+
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationSlotPaymentDetail(generics.RetrieveUpdateAPIView):
+    """ API endpoint to view Registration Slot Payments
+    """
+    queryset = RegistrationSlotPayment.objects.all()
+    serializer_class = RegistrationSlotPaymentSerializer

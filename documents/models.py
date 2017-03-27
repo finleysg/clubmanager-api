@@ -13,6 +13,13 @@ DOCUMENT_TYPE_CHOICES = (
     ("O", "Other")
 )
 
+SPONSOR_LEVEL = (
+    ("G", "Gold"),
+    ("S", "Silver"),
+    ("B", "Bronze"),
+    ("O", "Other"),
+)
+
 
 def document_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/documents/year/<filename>
@@ -31,3 +38,16 @@ class Document(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Sponsor(models.Model):
+    name = models.CharField(verbose_name="Name", max_length=40, unique=True)
+    description = models.TextField(verbose_name="Description", blank=True)
+    website = models.CharField(verbose_name="Website URL", max_length=240)
+    level = models.CharField(verbose_name="Level", choices=SPONSOR_LEVEL, max_length=1)
+    ad_image = models.ImageField(verbose_name="Ad Image", upload_to="sponsor_images", blank=True, null=True)
+
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return self.name

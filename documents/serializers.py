@@ -1,6 +1,6 @@
 from events.serializers import EventSerializer
 from events.models import Event
-from .models import Document
+from .models import Document, Sponsor
 from rest_framework import serializers
 
 
@@ -41,3 +41,10 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ("year", "id", "title", "document_type", "file", "last_update", "event")
+
+
+class SponsorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Sponsor
+        fields = ("id", "name", "description", "website", "level", "ad_image",)

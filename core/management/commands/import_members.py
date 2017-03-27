@@ -45,13 +45,16 @@ class Command(BaseCommand):
                 pwd = generate_password()
 
                 try:
-                    user = User.objects.create_user(last_name=last_name, first_name=first_name, email=email, username=username, date_joined=date_joined, password=pwd)
-                    member = Member(user=user, ghin=str(ghin), birth_date=bd)
-                    member.save()
-                except:
-                    print("error: " + username)
+                    User.objects.get(email=email)
                     dups += 1
+                except:
+                    try:
+                        user = User.objects.create_user(last_name=last_name, first_name=first_name, email=email, username=username, date_joined=date_joined, password=pwd)
+                        member = Member(user=user, ghin=str(ghin), birth_date=bd)
+                        member.save()
+                    except Exception as e:
+                        print(e)
 
                 count += 1
 
-        self.stdout.write(self.style.SUCCESS('Successfully imported %s members with %s skipped to due error' % (count, dups)))
+        self.stdout.write(self.style.SUCCESS('Successfully imported %s members with %s skipped (already imported)' % (count, dups)))
