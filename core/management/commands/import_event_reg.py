@@ -10,6 +10,7 @@ from register.models import RegistrationGroup, RegistrationSlot
 from events.models import Event
 
 
+# TODO: need to determine the right hole and starting position
 class Command(BaseCommand):
     help = 'Import event signups from the given file'
 

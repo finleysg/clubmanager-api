@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import Document
-from .serializers import DocumentSerializer, DocumentDetailSerializer
+from .models import Document, Sponsor
+from .serializers import DocumentDetailSerializer, SponsorSerializer
 
 
 class DocumentDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -26,3 +26,8 @@ class DocumentList(generics.ListCreateAPIView):
         if event_type is not None:
             queryset = queryset.filter(event__event_type=event_type)
         return queryset.order_by('title')
+
+
+class SponsorList(generics.ListAPIView):
+    serializer_class = SponsorSerializer
+    queryset = Sponsor.objects.all()
