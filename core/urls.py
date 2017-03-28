@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^announcements/(?P<pk>[0-9]+)/$', messaging_views.AnnouncementDetail.as_view(), name='announcement-detail'),
     url(r'^policies/$', cache_page(60 * 10)(policy_views.PolicyList.as_view()), name='policy-list'),
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
+    url(r'^sponsors/$', document_views.SponsorList.as_view(), name='sponsor-list'),
     url(r'^registrations/$', register_views.RegistrationList.as_view(), name='registration-list'),
     url(r'^registration/(?P<event_id>[0-9]+)/(?P<member_id>[0-9]+)/$', register_views.is_registered, name='registration-check'),
     url(r'^registration/groups/$', register_views.RegistrationGroupList.as_view(), name='registration-group-list'),
