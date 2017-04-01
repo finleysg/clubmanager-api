@@ -30,8 +30,10 @@ class Command(BaseCommand):
                 bd = None
                 if birth_date != "":
                     birth_date = birth_date.replace(" 00:00:00", "")
+                    birth_date = birth_date.replace(" 0:00:00", "")
                     if birth_date != "0000-00-00":
-                        bd = datetime.strptime(birth_date, '%Y-%m-%d')
+                        # bd = datetime.strptime(birth_date, '%Y-%m-%d')
+                        bd = datetime.strptime(birth_date, '%m/%d/%Y')
                 ghin = int(row[3])
                 year = row[6]
                 year = int(year) if year is not None else 1900
