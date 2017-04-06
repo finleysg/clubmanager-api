@@ -2,7 +2,7 @@ import decimal
 
 from django.core.management.base import BaseCommand
 
-from register.models import RegistrationGroup
+from register.models import RegistrationGroup, RegistrationSlot
 from events.models import Event
 
 
@@ -16,13 +16,14 @@ class Command(BaseCommand):
         count = 0
         event_id = int(options['event'])
         event = Event.objects.get(pk=event_id)
-        groups = RegistrationGroup.objects.get(event=event)
+        groups = RegistrationGroup.objects.filter(event=event)
 
         for group in groups:
             try:
-                subtotal = 0.0
+                subtotal = decimal.Decimal('0.0')
 
-                for reg in group.registrations:
+                registrations = RegistrationSlot.objects.filter(registration_group=group)
+                for reg in registrations:
                     if reg.is_event_fee_paid:
                         subtotal += event.event_fee
                     if reg.is_gross_skins_paid:
@@ -34,7 +35,7 @@ class Command(BaseCommand):
                     if reg.is_cart_fee_paid:
                         subtotal += event.cart_fee
 
-                group.payment_amount = (subtotal + decimal.Decimal("0.30")) / (1.0 - decimal.Decimal("0.029"))
+                group.payment_amount = (subtotal + decimal.Decimal("0.30")) / (decimal.Decimal("1.0") - decimal.Decimal("0.029"))
                 group.save()
 
                 count += 1

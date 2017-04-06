@@ -32,8 +32,8 @@ class Command(BaseCommand):
                     birth_date = birth_date.replace(" 00:00:00", "")
                     birth_date = birth_date.replace(" 0:00:00", "")
                     if birth_date != "0000-00-00":
-                        # bd = datetime.strptime(birth_date, '%Y-%m-%d')
-                        bd = datetime.strptime(birth_date, '%m/%d/%Y')
+                        bd = datetime.strptime(birth_date, '%Y-%m-%d')
+                        # bd = datetime.strptime(birth_date, '%m/%d/%Y')
                 ghin = int(row[3])
                 year = row[6]
                 year = int(year) if year is not None else 1900
@@ -47,9 +47,10 @@ class Command(BaseCommand):
                 pwd = generate_password()
 
                 try:
-                    User.objects.get(email=email)
+                    User.objects.get(member__ghin=ghin)
                     dups += 1
-                except:
+                except Exception as ex:
+                    print('failed to find ghin ' + str(ghin))
                     try:
                         user = User.objects.create_user(last_name=last_name, first_name=first_name, email=email, username=username, date_joined=date_joined, password=pwd)
                         member = Member(user=user, ghin=str(ghin), birth_date=bd)
