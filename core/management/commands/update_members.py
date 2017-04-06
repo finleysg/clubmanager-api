@@ -21,7 +21,7 @@ class Command(BaseCommand):
                 ghin = int(row[3])
 
                 try:
-                    user = User.objects.get(ghin=ghin)
+                    user = User.objects.get(member__ghin=ghin)
                     user.is_active = True
                     user.save()
                 except Exception as e:
