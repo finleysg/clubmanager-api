@@ -11,7 +11,6 @@ from register.models import RegistrationGroup, RegistrationSlot
 from events.models import Event
 
 
-# Course,Hole,GHIN,,Last Name,First Name,Signed Up By,Date Reserved,Conf Number,Event ID,Event Fee,Gross Skins,Net Skins,Green Fee,Cart Fee
 class Command(BaseCommand):
     help = 'Import event signups from the given file'
 
@@ -31,28 +30,22 @@ class Command(BaseCommand):
             next(reader)
             for row in reader:
                 try:
-                    ghin = row[2]
+                    ghin = row[0]
                     if ghin == "0" or ghin == "" or ghin == 0:
                         continue
 
-                    course_name = row[0] + " League"
-                    course = CourseSetup.objects.get(name=course_name)
-                    hole_array = row[1].split("-")
-                    hole_number = int(hole_array[0])
-                    starting_order = 0 if hole_array[1] == "A" else 1
-                    hole = CourseSetupHole.objects.get(course_setup=course, hole_number=hole_number)
-                    last_name = row[4]
-                    first_name = row[5]
-                    sign_up_member_ghin = row[6]
-                    date_reserved = row[7]
+                    last_name = row[1]
+                    first_name = row[2]
+                    sign_up_member_ghin = row[3]
+                    date_reserved = row[4]
                     dt_reserved = datetime.strptime(date_reserved, "%Y-%m-%d %H:%M:%S")
-                    conf_code = row[8]
-                    legacy_event_id = row[9]
-                    event_fee = decimal.Decimal(row[10].replace("$", ""))
-                    gross_skins = decimal.Decimal(row[11].replace("$", ""))
-                    net_skins = decimal.Decimal(row[12].replace("$", ""))
-                    green_fee = decimal.Decimal(row[13].replace("$", ""))
-                    cart_fee = decimal.Decimal(row[14].replace("$", ""))
+                    conf_code = row[5]
+                    legacy_event_id = row[6]
+                    event_fee = decimal.Decimal(row[7].replace("$", ""))
+                    gross_skins = decimal.Decimal(row[8].replace("$", ""))
+                    net_skins = decimal.Decimal(row[9].replace("$", ""))
+                    green_fee = decimal.Decimal(row[10].replace("$", ""))
+                    cart_fee = decimal.Decimal(row[11].replace("$", ""))
 
                     member = Member.objects.get(ghin=ghin)
                     if sign_up_member_ghin == 0 or sign_up_member_ghin == '0':
@@ -69,22 +62,16 @@ class Command(BaseCommand):
                         except:
                             group = RegistrationGroup(event=event, signed_up_by=signup_member, payment_confirmation_code=conf_code,
                                                       payment_confirmation_timestamp=dt_reserved, payment_amount=0.00,
-                                                      starting_hole=hole_number, starting_order=starting_order,
+                                                      starting_hole=1, starting_order=0,
                                                       notes="Imported from existing system - legacy event id " + legacy_event_id)
                             group.save()
 
-                        slot = RegistrationSlot.objects\
-                            .filter(event=event, course_setup_hole=hole, starting_order=starting_order)\
-                            .filter(member=None)\
-                            .first()
-                        slot.registration_group = group
-                        slot.member = member
-                        slot.status = "R"
-                        slot.is_event_fee_paid = (event_fee > 0)
-                        slot.is_gross_skins_paid = (gross_skins > 0)
-                        slot.is_net_skins_paid = (net_skins > 0)
-                        slot.is_cart_fee_paid = (cart_fee > 0)
-                        slot.is_greens_fee_paid = (green_fee > 0)
+                        slot = RegistrationSlot(event=event, registration_group=group, member=member, status="R",
+                                                is_event_fee_paid=True,
+                                                is_gross_skins_paid = (gross_skins > 0),
+                                                is_net_skins_paid = (net_skins > 0),
+                                                is_cart_fee_paid = (cart_fee > 0),
+                                                is_greens_fee_paid = (green_fee > 0))
                         slot.save()
 
                         count += 1
