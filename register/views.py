@@ -25,7 +25,7 @@ config = SeasonSettings.objects.current_settings()
 
 
 @permission_classes((permissions.IsAuthenticated,))
-class RegistrationGroupList(generics.ListAPIView):
+class RegistrationGroupList(generics.ListCreateAPIView):
     """ API endpoint to view Registration Groups
     """
     serializer_class = RegistrationGroupSerializer
@@ -58,11 +58,20 @@ class RegistrationList(generics.ListAPIView):
         queryset = RegistrationSlot.objects.all()
         event_id = self.request.query_params.get('event_id', None)
         member_id = self.request.query_params.get('member_id', None)
+        is_open = self.request.query_params.get('is_open', False)
         if event_id is not None:
             queryset = queryset.filter(event=event_id)
         if member_id is not None:
             queryset = queryset.filter(member=member_id)
+        if is_open:
+            queryset = queryset.filter(member__isnull=True)
         return queryset
+
+
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationDetail(generics.RetrieveUpdateAPIView):
+    queryset = RegistrationSlot.objects.all()
+    serializer_class = RegistrationSlotSerializer
 
 
 @api_view(['GET', ])
@@ -93,7 +102,10 @@ def is_registered(request, event_id, member_id):
 @transaction.atomic()
 def reserve(request):
 
-    member = Member.objects.get(pk=request.user.member.id)
+    # Is an admin registering a member?
+    member_id = request.data.get("member_id", request.user.member.id)
+    member = Member.objects.get(pk=member_id)
+    registrar = Member.objects.get(pk=request.user.member.id)
 
     event_id = request.data.get("event_id", 0)
     if event_id == 0:
@@ -117,7 +129,7 @@ def reserve(request):
     starting_order = request.data.get("starting_order", 0)
 
     reg_event = create_event(event)
-    group = reg_event.reserve(member, **{
+    group = reg_event.reserve(registrar, member, **{
         "slot_ids": slot_ids,
         "course_setup_hole_id": course_setup_hole_id,
         "starting_order": starting_order
@@ -145,24 +157,35 @@ def register(request):
         raise ValidationError("{} is not a valid group id".format(group_tmp["id"]))
 
     amount_due = float(group_tmp["payment_amount"])
-    verification_token = group_tmp["card_verification_token"]
-    if verification_token is None or verification_token == "":
-        verification_token = "no-token"
 
-    charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+    if group_tmp["payment_confirmation_code"] == "Cash":
+        group.payment_confirmation_code = "Cash"
+        group.payment_amount = amount_due
+        group.payment_confirmation_timestamp = tz.now()
+    else:
+        verification_token = group_tmp["card_verification_token"]
+        if verification_token is None or verification_token == "":
+            verification_token = "no-token"
 
-    group.payment_amount = amount_due
-    group.card_verification_token = verification_token
-    group.payment_confirmation_code = charge.id
-    group.payment_confirmation_timestamp = tz.now()
-    group.notes = group_tmp["notes"]
+        charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+
+        group.payment_amount = amount_due
+        group.card_verification_token = verification_token
+        group.payment_confirmation_code = charge.id
+        group.payment_confirmation_timestamp = tz.now()
+        group.notes = group_tmp["notes"]
+
     group.save()
 
     for slot_tmp in group_tmp["slots"]:
 
-        member_id = slot_tmp["member"]
+        if type(slot_tmp["member"]) is dict:
+            member_id = slot_tmp["member"]["id"]
+        else:
+            member_id = slot_tmp["member"]
+
         if member_id > 0:
-            member = Member.objects.get(pk=slot_tmp["member"])
+            member = Member.objects.get(pk=member_id)
             RegistrationSlot.objects\
                 .select_for_update()\
                 .filter(pk=slot_tmp["id"])\
@@ -189,6 +212,8 @@ def register(request):
     elif group.event == config.match_play_event:
         # TODO: maybe a separate confirmation and/or committee notification
         send_event_confirmation(request.user, group, event, config)
+    elif group_tmp["payment_confirmation_code"] == "Cash":
+        pass
     else:
         send_event_confirmation(request.user, group, event, config)
         send_has_notes_notification(request.user, group, event)

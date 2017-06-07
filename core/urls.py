@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^policies/(?P<pk>[0-9]+)/$', policy_views.PolicyDetail.as_view(), name='policy-detail'),
     url(r'^sponsors/$', document_views.SponsorList.as_view(), name='sponsor-list'),
     url(r'^registrations/$', register_views.RegistrationList.as_view(), name='registration-list'),
+    url(r'^registrations/(?P<pk>[0-9]+)/$', register_views.RegistrationDetail.as_view(), name='registration-detail'),
     url(r'^registration/(?P<event_id>[0-9]+)/(?P<member_id>[0-9]+)/$', register_views.is_registered, name='registration-check'),
     url(r'^registration/groups/$', register_views.RegistrationGroupList.as_view(), name='registration-group-list'),
     url(r'^registration/groups/(?P<pk>[0-9]+)/$', register_views.RegistrationGroupDetail.as_view(), name='registration-group'),

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from core.models import Member
 from core.serializers import SimpleMemberSerializer
 from .models import RegistrationGroup, RegistrationSlot, RegistrationSlotPayment
 
@@ -17,6 +18,24 @@ class RegistrationSlotSerializer(serializers.ModelSerializer):
                   "is_event_fee_paid", "is_greens_fee_paid", "is_gross_skins_paid", "is_net_skins_paid",
                   "is_cart_fee_paid", "starting_order", "slot", "status", "member")
         order_by = ("hole_number", "starting_order", )
+
+    def update(self, instance, validated_data):
+        member = instance.member
+        if member is None:
+            member_data = validated_data.pop('member')
+            member = Member.objects.get(pk=member_data['id'])
+
+        instance.member = member
+        instance.registration_group = validated_data.get('registration_group', instance.registration_group)
+        instance.is_event_fee_paid = validated_data.get('is_event_fee_paid', instance.is_event_fee_paid)
+        instance.is_net_skins_paid = validated_data.get('is_net_skins_paid', instance.is_net_skins_paid)
+        instance.is_gross_skins_paid = validated_data.get('is_gross_skins_paid', instance.is_gross_skins_paid)
+        instance.is_greens_fee_paid = validated_data.get('is_greens_fee_paid', instance.is_greens_fee_paid)
+        instance.is_cart_fee_paid = validated_data.get('is_cart_fee_paid', instance.is_cart_fee_paid)
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+
+        return instance
 
 
 class RegistrationGroupSerializer(serializers.ModelSerializer):
@@ -36,4 +55,4 @@ class RegistrationSlotPaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistrationSlotPayment
         fields = ("id", "registration_slot", "recorded_by", "card_verification_token",
-                  "payment_code", "payment_timestamp", "payment_amount")
+                  "payment_code", "payment_timestamp", "payment_amount", "comment")
