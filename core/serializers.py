@@ -101,7 +101,7 @@ class SimpleMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ("id", "first_name", "last_name", "email", "ghin", )
+        fields = ("id", "first_name", "last_name", "email", "ghin", "forward_tees")
 
 
 # All public information
