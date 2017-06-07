@@ -70,5 +70,6 @@ class RegistrationSlotPayment(models.Model):
     payment_code = models.CharField(verbose_name="Payment code", max_length=30, blank=True)
     payment_timestamp = models.DateTimeField(verbose_name="Payment timestamp", auto_now=True)
     payment_amount = models.DecimalField(verbose_name="Payment amount", max_digits=5, decimal_places=2, blank=True, null=True)
+    comment = models.CharField(verbose_name="Comment", max_length=200, blank=True)
 
     history = HistoricalRecords()
