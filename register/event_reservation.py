@@ -28,13 +28,13 @@ class LeagueEvent:
         self.event = event
         self.logger = logging.getLogger(__name__)
 
-    def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
+    def reserve(self, registrar, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         hole = CourseSetupHole.objects.filter(pk=course_setup_hole_id).get()
         if hole is None:
             raise ValidationError("Hole id {} is not valid".format(course_setup_hole_id))
 
-        group = RegistrationGroup(event=self.event, course_setup=hole.course_setup, signed_up_by=member,
+        group = RegistrationGroup(event=self.event, course_setup=hole.course_setup, signed_up_by=registrar,
                                   starting_hole=hole.hole_number, starting_order=starting_order)
         group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
@@ -63,14 +63,14 @@ class WeekendGroupEvent:
     def __init__(self, event):
         self.event = event
 
-    def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
+    def reserve(self, registrar, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         if self.event.registration_maximum != 0:
             registrations = RegistrationSlot.objects.filter(event=self.event).count()
             if registrations >= self.event.registration_maximum:
                 raise EventFullError()
 
-        group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=member,
+        group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=registrar,
                                   starting_hole=1, starting_order=starting_order)
         group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
@@ -91,14 +91,14 @@ class IndividualEvent:
     def __init__(self, event):
         self.event = event
 
-    def reserve(self, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
+    def reserve(self, registrar, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         if self.event.registration_maximum != 0:
             registrations = RegistrationSlot.objects.filter(event=self.event).count()
             if registrations >= self.event.registration_maximum:
                 raise EventFullError()
 
-        group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=member,
+        group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=registrar,
                                   starting_hole=1, starting_order=starting_order)
         group.expires = timezone.now() + timedelta(minutes=10)
         group.save()
