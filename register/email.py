@@ -5,9 +5,9 @@ from templated_email import send_templated_mail
 from templated_email import InlineImage
 from register.models import RegistrationSlot
 
-sender_email = "BHMC (testing)<admin@zoomdoggydesign.com>"
-secretary_email = "nate55792@gmail.com"
-treasurer_email = "pmwright21@gmail.com"
+sender_email = "BHMC<admin@bhmc.org>"
+secretary_email = "secretary@bhmc.org"
+treasurer_email = "treasurer@bhmc.org"
 
 logo_file = os.path.join(settings.BASE_DIR, 'templates/templated_email/logo.png')
 with open(logo_file, 'rb') as logo:
@@ -29,7 +29,7 @@ def send_new_member_welcome(user, config):
             'logo_image': inline_image
         },
         template_suffix='html',
-        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+        headers={"Reply-To": "no-reply@bhmc.org"}
     )
 
 
@@ -46,7 +46,7 @@ def send_returning_member_welcome(user, config):
             'logo_image': inline_image
         },
         template_suffix='html',
-        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+        headers={"Reply-To": "no-reply@bhmc.org"}
     )
 
 
@@ -64,7 +64,7 @@ def send_new_member_notification(user, group, config):
             'logo_image': inline_image
         },
         template_suffix='html',
-        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+        headers={"Reply-To": "no-reply@bhmc.org"}
     )
 
 
@@ -82,7 +82,7 @@ def send_has_notes_notification(user, group, event):
                 'logo_image': inline_image
             },
             template_suffix='html',
-            headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+            headers={"Reply-To": "no-reply@bhmc.org"}
         )
 
 
@@ -115,7 +115,7 @@ def send_event_confirmation(user, group, event, config):
         recipient_list=[user.email],
         context=email_context,
         template_suffix='html',
-        headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+        headers={"Reply-To": "no-reply@bhmc.org"}
     )
 
     # remove payment conf code before sending the rest
@@ -129,7 +129,7 @@ def send_event_confirmation(user, group, event, config):
             recipient_list=recipients,
             context=email_context,
             template_suffix='html',
-            headers={"Reply-To": "no-reply@zoomdoggydesign.com"}
+            headers={"Reply-To": "no-reply@bhmc.org"}
         )
 
 
