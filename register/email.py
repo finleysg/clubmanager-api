@@ -5,7 +5,7 @@ from templated_email import send_templated_mail
 from templated_email import InlineImage
 from register.models import RegistrationSlot
 
-sender_email = "BHMC<admin@bhmc.org>"
+sender_email = "BHMC<postmaster@bhmc.org>"
 secretary_email = "secretary@bhmc.org"
 treasurer_email = "treasurer@bhmc.org"
 
