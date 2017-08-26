@@ -32,5 +32,6 @@ node_modules/
 clubmanager-api.iml
 
 db-backup.sh
+update_passwords.py
 
 list/

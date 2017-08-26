@@ -21,6 +21,7 @@ class AnnouncementList(generics.ListAPIView):
         today = timezone.now()
         queryset = Announcement.objects.all()
         queryset = queryset.filter(starts__lte=today, expires__gte=today)
+        queryset = queryset.order_by("-id")
         return queryset
 
 
