@@ -13,8 +13,8 @@ class NoLeagueFilter(SimpleListFilter):
     parameter_name = 'event'
 
     def lookups(self, request, model_admin):
-        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(requires_registration=True).exclude(event_type='L')])
-        return [(e.id, e.name) for e in events]
+        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(requires_registration=True)])  # .exclude(event_type='L')])
+        return [(e.id, '{} ({})'.format(e.name, e.start_date)) for e in events]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -50,13 +50,13 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     )
     inlines = [RegistrationSlotInline, ]
 
-    list_display = ['members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
-    list_display_links = ('members', )
+    list_display = ['id', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
+    list_display_links = ('id', )
     list_filter = (NoLeagueFilter, )
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "event":
-            kwargs["queryset"] = Event.objects.filter(start_date__year=config.year).filter(requires_registration=True).exclude(event_type='L')
+            kwargs["queryset"] = Event.objects.filter(start_date__year=config.year).filter(requires_registration=True) # .exclude(event_type='L')
         return super(RegistrationGroupAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_changeform_initial_data(self, request):
