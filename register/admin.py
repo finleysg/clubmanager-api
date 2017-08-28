@@ -13,7 +13,22 @@ class NoLeagueFilter(SimpleListFilter):
     parameter_name = 'event'
 
     def lookups(self, request, model_admin):
-        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(requires_registration=True)])  # .exclude(event_type='L')])
+        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(requires_registration=True).exclude(event_type='L')])
+        return [(e.id, e.name) for e in events]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(event__id__exact=self.value())
+        else:
+            return queryset
+
+
+class LeagueFilter(SimpleListFilter):
+    title = '{} events'.format(config.year)
+    parameter_name = 'event'
+
+    def lookups(self, request, model_admin):
+        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(event_type='L')])
         return [(e.id, '{} ({})'.format(e.name, e.start_date)) for e in events]
 
     def queryset(self, request, queryset):
@@ -52,11 +67,12 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
+    ordering = ['members']
     list_filter = (NoLeagueFilter, )
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "event":
-            kwargs["queryset"] = Event.objects.filter(start_date__year=config.year).filter(requires_registration=True) # .exclude(event_type='L')
+            kwargs["queryset"] = Event.objects.filter(start_date__year=config.year).filter(requires_registration=True).exclude(event_type='L')
         return super(RegistrationGroupAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_changeform_initial_data(self, request):
@@ -75,4 +91,17 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
             instance.save()
         formset.save_m2m()
 
-admin.site.register(RegistrationGroup, RegistrationGroupAdmin)
+
+class RegistrationSlotAdmin(admin.ModelAdmin):
+    model = RegistrationSlot
+    can_delete = True
+    save_on_top = True
+
+    fields = ["event", "registration_group", "member", "course_setup_hole", "starting_order", "status",
+              "is_event_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", "is_greens_fee_paid", "is_cart_fee_paid", ]
+
+    list_display = ["id", "event", "registration_group", "member", "course_setup_hole", "starting_order", "status" ]
+    list_display_links = ("id", )
+    list_filter = (LeagueFilter, )
+
+admin.site.register(RegistrationGroup, RegistrationGroupAdmin, RegistrationSlotAdmin)
