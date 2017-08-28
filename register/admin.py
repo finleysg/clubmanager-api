@@ -68,6 +68,7 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
     ordering = ['members']
+    # search_fields = ['user__email']
     list_filter = (NoLeagueFilter, )
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -97,10 +98,18 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
     can_delete = True
     save_on_top = True
 
-    fields = ["event", "registration_group", "member", "course_setup_hole", "starting_order", "status",
-              "is_event_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", "is_greens_fee_paid", "is_cart_fee_paid", ]
-
-    list_display = ["id", "event", "registration_group", "member", "course_setup_hole", "starting_order", "status" ]
+    fieldsets = (
+        (None, {
+            "fields": (("event", "registration_group", "course_setup_hole", "starting_order", ), )
+        }),
+        ("Member", {
+            "fields": ("member", "status", )
+        }),
+        ("Details", {
+            "fields": ("is_event_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", "is_greens_fee_paid", "is_cart_fee_paid", )
+        })
+    )
+    list_display = ["id", "registration_group", "member", "course_setup_hole", "starting_order", "status" ]
     list_display_links = ("id", )
     list_filter = (LeagueFilter, )
 
