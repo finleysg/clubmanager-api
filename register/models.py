@@ -46,7 +46,7 @@ class RegistrationSlot(models.Model):
     event = models.ForeignKey(verbose_name="Event", to=Event, related_name="registrations")
     course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True)
     registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, blank=True, null=True, on_delete=models.SET_NULL, related_name="slots")
-    member = models.ForeignKey(verbose_name="Member", to=Member, null=True)
+    member = models.ForeignKey(verbose_name="Member", to=Member, blank=True, null=True)
     starting_order = models.IntegerField(verbose_name="Starting order", default=0)
     slot = models.IntegerField(verbose_name="Slot number", default=0)
     status = models.CharField(verbose_name="Status", choices=STATUS_CHOICES, max_length=1, default="A")
