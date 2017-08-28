@@ -39,7 +39,7 @@ class RegistrationGroup(models.Model):
         return ", ".join(member_names)
 
     def __str__(self):
-        return "{} group: {}".format(self.event.name, self.members)
+        return "{} group: {}".format(self.event.name, self.signed_up_by)
 
 
 class RegistrationSlot(models.Model):
