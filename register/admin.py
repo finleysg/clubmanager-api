@@ -67,7 +67,7 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
 
     list_display = ['id', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
-    ordering = ['members']
+    # ordering = ['members']
     # search_fields = ['user__email']
     list_filter = (NoLeagueFilter, )
 
@@ -99,8 +99,8 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
     save_on_top = True
 
     fieldsets = (
-        (None, {
-            "fields": (("event", "registration_group", "course_setup_hole", "starting_order", ), )
+        ("Event", {
+            "fields": ("event", "registration_group", "course_setup_hole", "starting_order", )
         }),
         ("Member", {
             "fields": ("member", "status", )
