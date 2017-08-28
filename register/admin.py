@@ -104,4 +104,5 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
     list_display_links = ("id", )
     list_filter = (LeagueFilter, )
 
-admin.site.register(RegistrationGroup, RegistrationGroupAdmin, RegistrationSlot, RegistrationSlotAdmin)
+admin.site.register(RegistrationGroup, RegistrationGroupAdmin)
+admin.site.register(RegistrationSlot, RegistrationSlotAdmin)
