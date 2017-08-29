@@ -65,13 +65,14 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     )
     inlines = [RegistrationSlotInline, ]
 
-    list_display = ['id', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
+    list_display = ['id', 'signed_up_by', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
-    # ordering = ['members']
+    list_select_related = ('signed_up_by', 'event', )
+    ordering = ['signed_up_by']
     # search_fields = ['user__email']
     list_filter = (NoLeagueFilter, )
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == "event":
             kwargs["queryset"] = Event.objects.filter(start_date__year=config.year).filter(requires_registration=True).exclude(event_type='L')
         return super(RegistrationGroupAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
@@ -109,9 +110,17 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
             "fields": ("is_event_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", "is_greens_fee_paid", "is_cart_fee_paid", )
         })
     )
-    list_display = ["id", "registration_group", "member", "course_setup_hole", "starting_order", "status" ]
+    list_display = ["id", "registration_group", "member", "course_setup_hole", "starting_order", "status", ]
     list_display_links = ("id", )
     list_filter = (LeagueFilter, )
+    list_select_related = ('member', 'course_setup_hole', )
+    search_fields = ("member__user__first_name", "member__user__last_name")
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(RegistrationSlotAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['registration_group'].queryset = RegistrationGroup.objects.filter(event__id=obj.event_id)
+        return form
+
 
 admin.site.register(RegistrationGroup, RegistrationGroupAdmin)
 admin.site.register(RegistrationSlot, RegistrationSlotAdmin)
