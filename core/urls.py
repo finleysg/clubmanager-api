@@ -57,6 +57,7 @@ urlpatterns = [
     url(r'^registration/slot-payments/$', register_views.RegistrationSlotPaymentList.as_view(), name='registration-slot-payments'),
     url(r'^registration/slot-payments/(?P<pk>[0-9]+)/$', register_views.RegistrationSlotPaymentDetail.as_view(), name='registration-slot-payment'),
     url(r'^contact-us/$', messaging_views.contact_message, name='contact-us'),
+    url(r'^contacts/$', messaging_views.ContactList.as_view(), name='contact-list'),
     url(r'^friends/$', core_views.friends, name='friends'),
     url(r'^friends/add/(?P<member_id>[0-9]+)/$', core_views.add_friend, name='add_friend'),
     url(r'^friends/remove/(?P<member_id>[0-9]+)/$', core_views.remove_friend, name='remove_friend'),

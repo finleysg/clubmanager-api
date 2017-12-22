@@ -30,3 +30,19 @@ class ContactMessage(models.Model):
     email = models.CharField(verbose_name="Email", max_length=254)
     message_text = models.TextField(verbose_name="Message text")
     message_date = models.DateTimeField(verbose_name="Message date", auto_now_add=True)
+
+
+class Contact(models.Model):
+    directors = models.TextField(verbose_name="Directors")
+    committees = models.TextField(verbose_name="Committees")
+    staff = models.TextField(verbose_name="Golf Course Staff")
+    president_name = models.CharField(verbose_name="Current President", max_length=100)
+    vice_president_name = models.CharField(verbose_name="Current Vice-President", max_length=100)
+    secretary_name = models.CharField(verbose_name="Current Secretary", max_length=100)
+    treasurer_name = models.CharField(verbose_name="Current Treasurer", max_length=100)
+    president_phone = models.CharField(verbose_name="President Phone", max_length=20, blank=True)
+    vice_president_phone = models.CharField(verbose_name="Vice-President Phone", max_length=20, blank=True)
+    secretary_phone = models.CharField(verbose_name="Secretary Phone", max_length=20, blank=True)
+    treasurer_phone = models.CharField(verbose_name="Treasurer Phone", max_length=20, blank=True)
+
+    history = HistoricalRecords()

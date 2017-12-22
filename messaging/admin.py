@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Announcement, ContactMessage
+from .models import Announcement, ContactMessage, Contact
 
 
 class AnnouncementAdmin(admin.ModelAdmin):
@@ -19,6 +19,20 @@ class AnnouncementAdmin(admin.ModelAdmin):
     save_on_top = True
 
 admin.site.register(Announcement, AnnouncementAdmin)
+
+
+class ContactAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ("Officers", {
+            "fields": ("president_name", "president_phone", "vice_president_name", "vice_president_phone",
+                       "secretary_name", "secretary_phone", "treasurer_name", "treasurer_phone", )
+        }),
+        (None, {
+            "fields": ("directors", "committees", "staff", )
+        })
+    )
+
+admin.site.register(Contact, ContactAdmin)
 
 
 class ContactMessageAdmin(admin.ModelAdmin):

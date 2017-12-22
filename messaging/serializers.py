@@ -1,4 +1,4 @@
-from .models import Announcement
+from .models import Announcement, Contact
 from rest_framework import serializers
 
 
@@ -14,3 +14,12 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
         fields = ("url", "id", "text", "starts", "expires",
                   "event_id", "event_name", "external_url", "external_name",
                   "document_name", "document_url", "title", 'members_only', )
+
+
+class ContactSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Contact
+        fields = ("president_name", "president_phone", "vice_president_name", "vice_president_phone",
+                  "secretary_name", "secretary_phone", "treasurer_name", "treasurer_phone",
+                  "directors", "committees", "staff", )

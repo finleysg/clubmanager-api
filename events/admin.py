@@ -1,4 +1,6 @@
 from django.contrib import admin
+
+from courses.models import CourseSetup
 from .models import Event, EventTemplate
 from register.models import RegistrationSlot
 
@@ -56,15 +58,16 @@ class EventAdmin(admin.ModelAdmin):
         ('Other', {
             'fields': ('season_points', 'external_url',)
         }),
-        ('Courses (for league nights only)', {
-            'fields': ('course_setups',)
-        }),
+        # ('Courses (for league nights only)', {
+        #     'fields': ('course_setups',)
+        # }),
     )
 
     def save_model(self, request, obj, form, change):
         super(EventAdmin, self).save_model(request, obj, form, change)
 
         if obj.registration_window() == "future" and obj.event_type == "L":
+            CourseSetup.objects.append_default_courses(obj)
             RegistrationSlot.objects.remove_slots(obj)
             RegistrationSlot.objects.create_slots(obj)
 
