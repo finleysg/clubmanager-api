@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Sum
 from simple_history.models import HistoricalRecords
 
+from courses.manager import CourseSetupManager
+
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
@@ -34,6 +36,7 @@ class CourseSetup(models.Model):
     rating = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
     is_standard = models.BooleanField(default=True)
 
+    objects = CourseSetupManager()
     history = HistoricalRecords()
 
     def _get_yardage(self):

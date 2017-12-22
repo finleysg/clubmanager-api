@@ -5,8 +5,8 @@ from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
-from .models import Announcement, ContactMessage
-from .serializers import AnnouncementSerializer
+from .models import Announcement, ContactMessage, Contact
+from .serializers import AnnouncementSerializer, ContactSerializer
 
 
 class AnnouncementDetail(generics.RetrieveAPIView):
@@ -23,6 +23,11 @@ class AnnouncementList(generics.ListAPIView):
         queryset = queryset.filter(starts__lte=today, expires__gte=today)
         queryset = queryset.order_by("-id")
         return queryset
+
+
+class ContactList(generics.ListAPIView):
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
 
 
 @api_view(['POST', ])
