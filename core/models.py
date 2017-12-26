@@ -88,6 +88,7 @@ class Member(models.Model):
     birth_date = models.DateField(verbose_name="Birth date", blank=True, null=True)
     summary = models.TextField(verbose_name="Summary", blank=True, null=True)
     status = models.CharField(verbose_name="Status", max_length=140, blank=True, null=True)
+    save_last_card = models.BooleanField(verbose_name="Save Last Card Used", default=False)
     stripe_customer_id = models.CharField(verbose_name="Stripe ID", max_length=255, blank=True, null=True)
     raw_image = models.ImageField(verbose_name="Profile picture", upload_to="member_images", blank=True, null=True)
     thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")

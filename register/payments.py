@@ -21,8 +21,10 @@ def stripe_charge(user, event, amount_due, token):
             source=token
         )
         customer_id = customer.stripe_id
-        member.stripe_customer_id = customer.stripe_id
-        member.save()
+
+        if member.save_last_card:
+            member.stripe_customer_id = customer.stripe_id
+            member.save()
 
     # scenario: member has stripe customer id but is using a new card
     elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token != "no-token":

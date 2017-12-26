@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^events/current/$', cache_page(60 * 10)(event_views.QuickEventList.as_view()), name='quick-event-list'),
     url(r'^events/upcoming/$', event_views.UpcomingEventList.as_view(), name='upcoming-event-list'),
     url(r'^events/(?P<pk>[0-9]+)/$', event_views.EventDetail.as_view(), name='event-detail'),
+    url(r'^events/(?P<pk>[0-9]+)/portal/$', event_views.update_portal, name='event-portal'),
     url(r'^event-templates/$', event_views.EventTemplateList.as_view(), name='eventtemplate-list'),
     url(r'^event-templates/(?P<pk>[0-9]+)/$', event_views.EventTemplateDetail.as_view(), name='eventtemplate-detail'),
     url(r'^documents/$', document_views.DocumentList.as_view(), name='document-list'),

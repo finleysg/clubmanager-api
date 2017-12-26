@@ -23,7 +23,7 @@ class MemberDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
         fields = ("id", "address1", "address2", "city", "state", "zip",
-                  "phone_number", "handicap", "handicap_revision_date", "ghin",
+                  "phone_number", "handicap", "handicap_revision_date", "ghin", "save_last_card",
                   "birth_date", "status", "summary", "stripe_customer_id", "forward_tees",)
 
 
@@ -66,6 +66,10 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         member.birth_date = member_data.get('birth_date', member.birth_date)
         member.status = member_data.get('status', member.status)
         member.summary = member_data.get('summary', member.summary)
+        member.save_last_card = member_data.get("save_last_card", member.save_last_card)
+        if not member.save_last_card:
+            member.stripe_customer_id = ""
+
         member.save()
 
         return instance
@@ -85,8 +89,8 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
             address1=member_data.get('address1', ''),
             city=member_data.get('city', ''),
             zip=member_data.get('zip', ''),
-            phone_number=member_data['phone_number'],
-            birth_date=member_data['birth_date'],
+            phone_number=member_data.get('phone_number', ''),
+            birth_date=member_data.get('birth_date', ''),
             ghin=member_data.get('ghin', ''),
             forward_tees=member_data.get('forward_tees', False),
             user=user

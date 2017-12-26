@@ -1,5 +1,9 @@
 from datetime import timedelta, datetime
-from rest_framework import generics
+from rest_framework import generics, permissions
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import ValidationError
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
 
 from .models import Event, EventTemplate
 from .serializers import EventSerializer, EventTemplateSerializer, EventDetailSerializer
@@ -68,3 +72,19 @@ class EventTemplateDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = EventTemplate.objects.all()
     serializer_class = EventTemplateSerializer
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+def update_portal(request, pk):
+
+    event = get_object_or_404(Event, pk=pk)
+    portal = request.data.get("portal", None)
+    if portal is None:
+        raise ValidationError("A portal url is required")
+
+    event.portal_url = portal
+    event.save()
+
+    serializer = EventDetailSerializer(event, context={'request': request})
+    return Response(serializer.data)
