@@ -88,6 +88,7 @@ class Event(models.Model):
     signup_start = models.DateTimeField(verbose_name="Signup start", blank=True, null=True)
     signup_end = models.DateTimeField(verbose_name="Signup end", blank=True, null=True)
     registration_maximum = models.IntegerField(verbose_name="Registration max (non-league events)", default=0)
+    portal_url = models.CharField(verbose_name="Golf Genius Portal", max_length=240, blank=True, null=True)
     course_setups = models.ManyToManyField(verbose_name="Course(s)", to=CourseSetup, blank=True)
 
     history = HistoricalRecords()
