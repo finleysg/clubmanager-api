@@ -56,7 +56,7 @@ class EventAdmin(admin.ModelAdmin):
                        ('can_signup_group', 'can_choose_hole'),)
         }),
         ('Other', {
-            'fields': ('season_points', 'external_url',)
+            'fields': ('season_points', 'external_url', 'portal_url',)
         }),
         # ('Courses (for league nights only)', {
         #     'fields': ('course_setups',)
