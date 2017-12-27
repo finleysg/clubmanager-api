@@ -13,9 +13,13 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r"^blog/", include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
+from wiki.urls import get_pattern as get_wiki_patterns
+from django_nyt.urls import get_pattern as get_nyt_patterns
 
 from core import urls as api_urls
 
@@ -30,4 +34,9 @@ urlpatterns = [
     url(r'^member/reset-password-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         TemplateView.as_view(template_name="password_reset_confirm.html"),
         name='password_reset_confirm'),
+    url(r'^notifications/', get_nyt_patterns()),
+    url(r'^wiki/', get_wiki_patterns()),
+    url(r'^login/$', admin.site.login, name='login'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

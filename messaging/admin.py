@@ -31,6 +31,7 @@ class ContactAdmin(admin.ModelAdmin):
             "fields": ("directors", "committees", "staff", )
         })
     )
+    save_on_top = True
 
 admin.site.register(Contact, ContactAdmin)
 
