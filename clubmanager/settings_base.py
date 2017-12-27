@@ -2,6 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
@@ -28,6 +29,17 @@ INSTALLED_APPS = (
     'documents',
     'messaging',
     'web',
+    'django.contrib.sites',
+    'django.contrib.humanize',
+    'django_nyt',
+    'mptt',
+    'sekizai',
+    'sorl.thumbnail',
+    'wiki',
+    'wiki.plugins.attachments',
+    'wiki.plugins.notifications',
+    'wiki.plugins.images',
+    'wiki.plugins.macros',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai',
             ],
         },
     },
@@ -102,6 +115,9 @@ MARKDOWNIFY_WHITELIST_TAGS = [
     'h5',
     'h6',
 ]
+
+WIKI_ACCOUNT_HANDLING = False
+WIKI_ACCOUNT_SIGNUP_ALLOWED = False
 
 LANGUAGE_CODE = 'en-us'
 
