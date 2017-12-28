@@ -11,7 +11,7 @@ class MemberInline(admin.StackedInline):
     model = Member
     can_delete = False
     verbose_name_plural = 'member'
-    fields = ["ghin", "birth_date", "forward_tees", "phone_number", ]
+    fields = ["ghin", "birth_date", "forward_tees", ]
 
 
 # Define a new User admin
@@ -25,7 +25,7 @@ class ClubAdmin(admin.ModelAdmin):
 
 
 class SettingsAdmin(admin.ModelAdmin):
-    fields = ['year', 'reg_event', 'match_play_event', 'accept_new_members', 'website_version', ]
+    fields = ['year', 'reg_event', 'match_play_event', 'accept_new_members', ]
     list_display = ['year', ]
 
 # Re-register UserAdmin
