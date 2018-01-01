@@ -87,6 +87,7 @@ class Event(models.Model):
     start_time = models.CharField(verbose_name="Starting time", max_length=40)
     signup_start = models.DateTimeField(verbose_name="Signup start", blank=True, null=True)
     signup_end = models.DateTimeField(verbose_name="Signup end", blank=True, null=True)
+    skins_end = models.DateTimeField(verbose_name="Online skins deadline", blank=True, null=True)
     registration_maximum = models.IntegerField(verbose_name="Registration max (non-league events)", default=0)
     portal_url = models.CharField(verbose_name="Golf Genius Portal", max_length=240, blank=True, null=True)
     course_setups = models.ManyToManyField(verbose_name="Course(s)", to=CourseSetup, blank=True)
@@ -100,13 +101,15 @@ class Event(models.Model):
     def registration_window(self):
         right_now = timezone.now()
         aware_start = pytz.utc.localize(datetime.combine(self.start_date, time=datetime.min.time()))
+        signup_start = pytz.utc.normalize(self.signup_start)
+        signup_end = pytz.utc.normalize(self.signup_end)
         state = "n/a"
 
         if self.requires_registration:
             state = "past"
-            if self.signup_start < right_now and self.signup_end > right_now:
+            if signup_start < right_now and signup_end > right_now:
                 state = "registration"
-            elif self.signup_start > right_now:
+            elif signup_start > right_now:
                 state = "future"
             elif state == "past" and aware_start > right_now:
                 state = "pending"

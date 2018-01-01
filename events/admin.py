@@ -48,10 +48,10 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('description', 'notes',)
         }),
         ('Event Date', {
-            'fields': ('start_date', 'start_time', )
+            'fields': ('start_date', 'start_time',)
         }),
         ('Registration', {
-            'fields': ('requires_registration', ('signup_start', 'signup_end'),
+            'fields': ('requires_registration', ('signup_start', 'signup_end', 'skins_end',),
                        ('registration_maximum', 'minimum_signup_group_size', 'maximum_signup_group_size', 'group_size'),
                        ('can_signup_group', 'can_choose_hole'),)
         }),
