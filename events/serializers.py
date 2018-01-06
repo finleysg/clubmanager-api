@@ -21,7 +21,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                   "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
                   "can_signup_group", "can_choose_hole", "registration_window", "external_url",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration", "portal_url",
-                  "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
+                  "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end", "skins_end",
                   "alt_event_fee", "green_fee", "cart_fee", "registration_maximum", "course_setups", "documents", )
 
 
@@ -36,7 +36,7 @@ class EventDetailSerializer(serializers.HyperlinkedModelSerializer):
                   "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
                   "can_signup_group", "can_choose_hole", "registration_window", "external_url",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration", "portal_url",
-                  "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end",
+                  "template", "start_date", "start_time", "enable_payments", "signup_start", "signup_end", "skins_end",
                   "alt_event_fee", "green_fee", "cart_fee", "registration_maximum", "course_setups", "documents",
                   "registrations",)
 
