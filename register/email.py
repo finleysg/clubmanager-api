@@ -8,6 +8,7 @@ from register.models import RegistrationSlot
 sender_email = "BHMC<postmaster@bhmc.org>"
 secretary_email = "secretary@bhmc.org"
 treasurer_email = "treasurer@bhmc.org"
+admin_email = "admin@bhmc.org"
 
 logo_file = os.path.join(settings.BASE_DIR, 'templates/templated_email/logo.png')
 with open(logo_file, 'rb') as logo:
@@ -54,10 +55,15 @@ def send_new_member_notification(user, group, config):
     send_templated_mail(
         template_name='new_member_notification',
         from_email=sender_email,
-        recipient_list=[treasurer_email, secretary_email],
+        recipient_list=[treasurer_email, secretary_email, admin_email],
         context={
             'name': '{} {}'.format(user.first_name, user.last_name),
             'email': user.email,
+            'phone': user.member.phone_number,
+            'address': user.member.address1,
+            'city': user.member.city,
+            'state': user.member.state,
+            'zip': user.member.zip,
             'ghin': user.member.ghin,
             'club': group.notes.replace('NEW MEMBER REGISTRATION', ''),
             'admin_url': '{}/auth/user/?q={}'.format(config.admin_url, user.username),
