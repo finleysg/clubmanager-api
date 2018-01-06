@@ -2,7 +2,7 @@ import os
 
 
 def to_bool(setting):
-    if setting == 'True':
+    if setting == 'True' or setting == 'true':
         return True
     elif setting is True:
         return True

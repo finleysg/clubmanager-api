@@ -88,6 +88,7 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         Member.objects.create(
             address1=member_data.get('address1', ''),
             city=member_data.get('city', ''),
+            state=member_data.get('state', ''),
             zip=member_data.get('zip', ''),
             phone_number=member_data.get('phone_number', ''),
             birth_date=member_data.get('birth_date', ''),
