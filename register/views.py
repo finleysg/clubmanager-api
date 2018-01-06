@@ -1,5 +1,7 @@
 import logging
 
+import pytz
+from datetime import timedelta
 from django.db import transaction
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -35,7 +37,7 @@ class RegistrationGroupList(generics.ListCreateAPIView):
         event_id = self.request.query_params.get('event_id', None)
         if event_id is not None:
             queryset = queryset.filter(event=event_id)
-            return queryset
+        return queryset
 
 
 @permission_classes((permissions.IsAuthenticated,))
@@ -120,11 +122,11 @@ def reserve(request):
 
     course_setup_hole_id = request.data.get("course_setup_hole_id", None)
     if event.event_type == "L" and course_setup_hole_id is None:
-        raise ValidationError("A hole id is required for league events")
+        raise ValidationError("A hole id is required for weekday evening events")
 
     slot_ids = request.data.get("slot_ids", None)
     if event.event_type == "L" and slot_ids is None:
-        raise ValidationError("At least one registration slot is required for league events")
+        raise ValidationError("At least one registration slot is required for weekday evening events")
 
     starting_order = request.data.get("starting_order", 0)
 
@@ -139,7 +141,7 @@ def reserve(request):
     return Response(serializer.data)
 
 
-@api_view(['POST', ])
+@api_view(['POST', 'PUT', ])
 @permission_classes((permissions.IsAuthenticated,))
 @transaction.atomic()
 def register(request):
@@ -158,7 +160,20 @@ def register(request):
 
     amount_due = float(group_tmp["payment_amount"])
 
-    if group_tmp["payment_confirmation_code"] == "Cash":
+    if request.method == "POST":
+        group = register_new(request, event, group_tmp, group, amount_due)
+    else:
+        group = register_update(request, event, group_tmp, group, amount_due)
+
+    serializer = RegistrationGroupSerializer(group, context={'request': request})
+    return Response(serializer.data)
+
+
+def register_new(request, event, group_tmp, group, amount_due):
+
+    payment_code = group_tmp["payment_confirmation_code"]
+
+    if payment_code == "Cash" or payment_code == "cash":
         group.payment_confirmation_code = "Cash"
         group.payment_amount = amount_due
         group.payment_confirmation_timestamp = tz.now()
@@ -210,16 +225,67 @@ def register(request):
             send_returning_member_welcome(request.user, config)
             send_has_notes_notification(request.user, group, event)
     elif group.event == config.match_play_event:
-        # TODO: maybe a separate confirmation and/or committee notification
         send_event_confirmation(request.user, group, event, config)
-    elif group_tmp["payment_confirmation_code"] == "Cash":
+    elif payment_code == "Cash" or payment_code == "cash":
         pass
     else:
         send_event_confirmation(request.user, group, event, config)
         send_has_notes_notification(request.user, group, event)
 
-    serializer = RegistrationGroupSerializer(group, context={'request': request})
-    return Response(serializer.data)
+    return RegistrationGroup.objects.get(pk=group.id)
+
+
+# updates support online skins only at this time
+def register_update(request, event, group_tmp, group, amount_due):
+
+    # allow a 10 minute grace period on the deadline
+    skins_end = pytz.utc.normalize(event.skins_end)
+    padded_now = tz.now() - timedelta(minutes=10)
+    if padded_now > skins_end:
+        raise ValidationError("Sorry, online skins registration has closed")
+
+    payment_code = group_tmp["payment_confirmation_code"]
+    verification_token = group_tmp["card_verification_token"]
+    registrar = Member.objects.get(pk=request.user.member.id)
+    payment_ts = tz.now()
+
+    if payment_code != "Cash" or payment_code != "cash":
+        if verification_token is None or verification_token == "":
+            verification_token = "no-token"
+        charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
+        payment_code = charge.id
+
+    for slot_tmp in group_tmp["slots"]:
+        RegistrationSlot.objects\
+            .select_for_update()\
+            .filter(pk=slot_tmp["id"])\
+            .update(**{
+                "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
+                "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
+                "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
+                "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
+            })
+        # slot payment records repeat the payment info for each updated reg slot,
+        # so that will have to be accounted for at reporting time
+        slot = RegistrationSlot.objects.get(pk=slot_tmp["id"])
+        slot_payment = RegistrationSlotPayment(
+            registration_slot=slot,
+            recorded_by=registrar,
+            card_verification_token=verification_token,
+            payment_code=payment_code,
+            payment_timestamp=payment_ts,
+            payment_amount=amount_due,
+            comment="online skins"
+        )
+        slot_payment.save()
+
+    # notification and confirmation/welcome emails
+    # if group_tmp["payment_confirmation_code"] == "Cash":
+    #     pass
+    # else:
+    #     send_event_confirmation(request.user, group, event, config)
+
+    return RegistrationGroup.objects.get(pk=group.id)
 
 
 @api_view(['POST', ])

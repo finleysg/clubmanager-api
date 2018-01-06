@@ -16,8 +16,6 @@ def create_event(event):
 
     if event.event_type == "L":
         return LeagueEvent(event)
-    # elif event.event_type == "W" and event.can_signup_group:
-    #     return WeekendGroupEvent(event)
     else:
         return NonLeagueEvent(event)
 
@@ -84,29 +82,3 @@ class NonLeagueEvent:
             slot.save()
 
         return group
-
-
-# class IndividualEvent:
-#
-#     def __init__(self, event):
-#         self.event = event
-#
-#     def reserve(self, registrar, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
-#
-#         if self.event.registration_maximum != 0:
-#             registrations = RegistrationSlot.objects.filter(event=self.event).count()
-#             if registrations >= self.event.registration_maximum:
-#                 raise EventFullError()
-#
-#         group = RegistrationGroup(event=self.event, course_setup=None, signed_up_by=registrar,
-#                                   starting_hole=1, starting_order=starting_order)
-#         group.expires = timezone.now() + timedelta(minutes=10)
-#         group.save()
-#
-#         slot = RegistrationSlot(event=self.event, starting_order=starting_order, slot=0)
-#         slot.status = "P"
-#         slot.registration_group = group
-#         slot.member = member
-#         slot.save()
-#
-#         return group
