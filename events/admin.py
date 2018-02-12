@@ -1,4 +1,7 @@
+import pytz
+from datetime import timedelta
 from django.contrib import admin
+from django.utils import timezone
 
 from courses.models import CourseSetup
 from .models import Event, EventTemplate
@@ -58,12 +61,17 @@ class EventAdmin(admin.ModelAdmin):
         ('Other', {
             'fields': ('season_points', 'external_url', 'portal_url',)
         }),
-        # ('Courses (for league nights only)', {
-        #     'fields': ('course_setups',)
-        # }),
     )
 
     def save_model(self, request, obj, form, change):
+        obj.validate_signup_window()
+
+        if change and not request.user.is_superuser and obj.requires_registration:
+            right_now = timezone.now()
+            no_more_changes = pytz.utc.normalize(obj.signup_end) + timedelta(days=30)
+            if right_now > no_more_changes:
+                raise PermissionError('You cannot change a completed event')
+
         super(EventAdmin, self).save_model(request, obj, form, change)
 
         if obj.registration_window() == "future" and obj.event_type == "L":

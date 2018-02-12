@@ -99,14 +99,14 @@ class Event(models.Model):
         return self.requires_registration and (self.event_fee > 0 or self.alt_event_fee > 0)
 
     def registration_window(self):
-        right_now = timezone.now()
-        aware_start = pytz.utc.localize(datetime.combine(self.start_date, time=datetime.min.time()))
-        signup_start = pytz.utc.normalize(self.signup_start)
-        signup_end = pytz.utc.normalize(self.signup_end)
         state = "n/a"
-
         if self.requires_registration:
             state = "past"
+            right_now = timezone.now()
+            aware_start = pytz.utc.localize(datetime.combine(self.start_date, time=datetime.min.time()))
+            signup_start = pytz.utc.normalize(self.signup_start)
+            signup_end = pytz.utc.normalize(self.signup_end)
+
             if signup_start < right_now and signup_end > right_now:
                 state = "registration"
             elif signup_start > right_now:
@@ -115,6 +115,13 @@ class Event(models.Model):
                 state = "pending"
 
         return state
+
+    def validate_signup_window(self):
+        if self.requires_registration:
+            if self.signup_start is None or self.signup_end is None:
+                raise ValueError('When an event requires registration, both signup start and signup end are required')
+            if self.signup_start > self.signup_end:
+                raise ValueError('The signup start must be earlier than signup end')
 
     def __str__(self):
         return self.name
