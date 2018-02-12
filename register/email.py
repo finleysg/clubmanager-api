@@ -66,7 +66,7 @@ def send_new_member_notification(user, group, config):
             'zip': user.member.zip,
             'ghin': user.member.ghin,
             'club': group.notes.replace('NEW MEMBER REGISTRATION', ''),
-            'admin_url': '{}/auth/user/?q={}'.format(config.admin_url, user.username),
+            'admin_url': '{}/admin/auth/user/?q={}'.format(config.admin_url, user.username),
             'logo_image': inline_image
         },
         template_suffix='html',

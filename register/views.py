@@ -1,11 +1,6 @@
-import logging
-
-import pytz
-from datetime import timedelta
 from django.db import transaction
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
-from django.utils import timezone as tz
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework import permissions
@@ -14,16 +9,12 @@ from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 
 from courses.models import CourseSetupHole
-from core.models import Member, SeasonSettings
+from core.models import Member
 from events.models import Event
-from .payments import stripe_charge, get_stripe_charges, get_stripe_charge
-from .models import RegistrationGroup, RegistrationSlotPayment
+from .payments import get_stripe_charges, get_stripe_charge
+from .models import RegistrationGroup, RegistrationSlotPayment, RegistrationSlot
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer, RegistrationSlotPaymentSerializer
-from .event_reservation import create_event
-from .email import *
-
-logger = logging.getLogger(__name__)
-config = SeasonSettings.objects.current_settings()
+from .utils import create_event, register_new, register_update
 
 
 @permission_classes((permissions.IsAuthenticated,))
@@ -76,6 +67,28 @@ class RegistrationDetail(generics.RetrieveUpdateAPIView):
     serializer_class = RegistrationSlotSerializer
 
 
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationSlotPaymentList(generics.ListCreateAPIView):
+    """ API endpoint to view Registration Slot Payments
+    """
+    serializer_class = RegistrationSlotPaymentSerializer
+
+    def get_queryset(self):
+        queryset = RegistrationSlotPayment.objects.all()
+        event_id = self.request.query_params.get('event_id', None)
+        if event_id is not None:
+            queryset = queryset.filter(registration_slot__event=event_id)
+            return queryset
+
+
+@permission_classes((permissions.IsAuthenticated,))
+class RegistrationSlotPaymentDetail(generics.RetrieveUpdateAPIView):
+    """ API endpoint to view Registration Slot Payments
+    """
+    queryset = RegistrationSlotPayment.objects.all()
+    serializer_class = RegistrationSlotPaymentSerializer
+
+
 @api_view(['GET', ])
 @permission_classes((permissions.IsAuthenticated,))
 def get_charge(request):
@@ -114,9 +127,6 @@ def reserve(request):
         raise ValidationError("There was no event id passed")
 
     event = Event.objects.filter(pk=event_id).get()
-    if event is None:
-        raise ValidationError("{} is not a valid event id".format(event_id))
-
     if event.registration_window() != "registration" and not request.user.is_staff:
         raise ValidationError("Event {} is not open for registration".format(event_id))
 
@@ -151,141 +161,21 @@ def register(request):
         raise ValidationError("You neglected to submit a registration group")
 
     event = Event.objects.filter(pk=group_tmp["event"]).get()
-    if event is None:
-        raise ValidationError("{} is not a valid event id".format(group_tmp["event"]))
-
     group = RegistrationGroup.objects.filter(pk=group_tmp["id"]).get()
-    if group is None:
-        raise ValidationError("{} is not a valid group id".format(group_tmp["id"]))
 
-    amount_due = float(group_tmp["payment_amount"])
+    amount_due = float(group_tmp.get("payment_amount", 0.0))
+    payment_code = group_tmp.get("payment_confirmation_code", "cash")
+    verification_token = group_tmp.get("card_verification_token", "no-token")
+    if not verification_token:
+        verification_token = "no-token"
 
     if request.method == "POST":
-        group = register_new(request, event, group_tmp, group, amount_due)
+        group = register_new(request.user, event, group_tmp, group, amount_due, payment_code, verification_token)
     else:
-        group = register_update(request, event, group_tmp, group, amount_due)
+        group = register_update(request.user, event, group_tmp, group, amount_due, payment_code, verification_token)
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
-
-
-def register_new(request, event, group_tmp, group, amount_due):
-
-    payment_code = group_tmp["payment_confirmation_code"]
-
-    if payment_code == "Cash" or payment_code == "cash":
-        group.payment_confirmation_code = "Cash"
-        group.payment_amount = amount_due
-        group.payment_confirmation_timestamp = tz.now()
-    else:
-        verification_token = group_tmp["card_verification_token"]
-        if verification_token is None or verification_token == "":
-            verification_token = "no-token"
-
-        charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
-
-        group.payment_amount = amount_due
-        group.card_verification_token = verification_token
-        group.payment_confirmation_code = charge.id
-        group.payment_confirmation_timestamp = tz.now()
-        group.notes = group_tmp["notes"]
-
-    group.save()
-
-    for slot_tmp in group_tmp["slots"]:
-
-        if type(slot_tmp["member"]) is dict:
-            member_id = slot_tmp["member"]["id"]
-        else:
-            member_id = slot_tmp["member"]
-
-        if member_id > 0:
-            member = Member.objects.get(pk=member_id)
-            RegistrationSlot.objects\
-                .select_for_update()\
-                .filter(pk=slot_tmp["id"])\
-                .update(**{
-                    "member": member,
-                    "status": "R",
-                    "is_event_fee_paid": slot_tmp.get("is_event_fee_paid", True),
-                    "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
-                    "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
-                    "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
-                    "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
-                })
-        else:
-            RegistrationSlot.objects.select_for_update().filter(pk=slot_tmp["id"]).update(**{"status": "A"})
-
-    # notification and confirmation/welcome emails
-    if group.event == config.reg_event:
-        if request.user.date_joined.year == config.year:
-            send_new_member_notification(request.user, group, config)
-            send_new_member_welcome(request.user, config)
-        else:
-            send_returning_member_welcome(request.user, config)
-            send_has_notes_notification(request.user, group, event)
-    elif group.event == config.match_play_event:
-        send_event_confirmation(request.user, group, event, config)
-    elif payment_code == "Cash" or payment_code == "cash":
-        pass
-    else:
-        send_event_confirmation(request.user, group, event, config)
-        send_has_notes_notification(request.user, group, event)
-
-    return RegistrationGroup.objects.get(pk=group.id)
-
-
-# updates support online skins only at this time
-def register_update(request, event, group_tmp, group, amount_due):
-
-    # allow a 10 minute grace period on the deadline
-    skins_end = pytz.utc.normalize(event.skins_end)
-    padded_now = tz.now() - timedelta(minutes=10)
-    if padded_now > skins_end:
-        raise ValidationError("Sorry, online skins registration has closed")
-
-    payment_code = group_tmp["payment_confirmation_code"]
-    verification_token = group_tmp["card_verification_token"]
-    registrar = Member.objects.get(pk=request.user.member.id)
-    payment_ts = tz.now()
-
-    if payment_code != "Cash" or payment_code != "cash":
-        if verification_token is None or verification_token == "":
-            verification_token = "no-token"
-        charge = stripe_charge(request.user, event, int(amount_due * 100), verification_token)
-        payment_code = charge.id
-
-    for slot_tmp in group_tmp["slots"]:
-        RegistrationSlot.objects\
-            .select_for_update()\
-            .filter(pk=slot_tmp["id"])\
-            .update(**{
-                "is_gross_skins_paid": slot_tmp.get("is_gross_skins_paid", False),
-                "is_net_skins_paid": slot_tmp.get("is_net_skins_paid", False),
-                "is_greens_fee_paid": slot_tmp.get("is_greens_fee_paid", False),
-                "is_cart_fee_paid": slot_tmp.get("is_cart_fee_paid", False)
-            })
-        # slot payment records repeat the payment info for each updated reg slot,
-        # so that will have to be accounted for at reporting time
-        slot = RegistrationSlot.objects.get(pk=slot_tmp["id"])
-        slot_payment = RegistrationSlotPayment(
-            registration_slot=slot,
-            recorded_by=registrar,
-            card_verification_token=verification_token,
-            payment_code=payment_code,
-            payment_timestamp=payment_ts,
-            payment_amount=amount_due,
-            comment="online skins"
-        )
-        slot_payment.save()
-
-    # notification and confirmation/welcome emails
-    # if group_tmp["payment_confirmation_code"] == "Cash":
-    #     pass
-    # else:
-    #     send_event_confirmation(request.user, group, event, config)
-
-    return RegistrationGroup.objects.get(pk=group.id)
 
 
 @api_view(['POST', ])
@@ -356,25 +246,3 @@ def add_groups(request):
 #     RegistrationSlot.objects.remove_hole(event, hole, starting_order)
 #
 #     return Response(status=204)
-
-
-@permission_classes((permissions.IsAuthenticated,))
-class RegistrationSlotPaymentList(generics.ListCreateAPIView):
-    """ API endpoint to view Registration Slot Payments
-    """
-    serializer_class = RegistrationSlotPaymentSerializer
-
-    def get_queryset(self):
-        queryset = RegistrationSlotPayment.objects.all()
-        event_id = self.request.query_params.get('event_id', None)
-        if event_id is not None:
-            queryset = queryset.filter(registration_slot__event=event_id)
-            return queryset
-
-
-@permission_classes((permissions.IsAuthenticated,))
-class RegistrationSlotPaymentDetail(generics.RetrieveUpdateAPIView):
-    """ API endpoint to view Registration Slot Payments
-    """
-    queryset = RegistrationSlotPayment.objects.all()
-    serializer_class = RegistrationSlotPaymentSerializer
