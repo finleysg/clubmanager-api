@@ -3,8 +3,8 @@ import calendar
 from datetime import datetime, timezone, timedelta
 from django.conf import settings
 from rest_framework.serializers import ValidationError
-
-from register.exceptions import StripeCardError, StripePaymentError
+from .models import RegistrationRefund
+from .exceptions import StripeCardError, StripePaymentError
 
 
 def stripe_charge(user, event, amount_due, token):
@@ -117,3 +117,18 @@ def get_customer_charges(customer_id):
 def get_stripe_charge(charge_id):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     return stripe.Charge.retrieve(charge_id)
+
+
+def refund_stripe_charge(charge):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    return stripe.Charge.refund(charge)
+
+
+def refund_payment(record_id, record_type, payment_code, member, reason):
+    charge = get_stripe_charge(payment_code)
+    refund = refund_stripe_charge(charge)
+    refund_record = RegistrationRefund(related_record_id=record_id, related_record_name=record_type,
+                                       recorded_by=member, refund_code=refund.stripe_id, refund_amount=refund.amount / 100,
+                                       comment=reason)
+    refund_record.save()
+    return refund_record

@@ -1,11 +1,17 @@
+import logging
+
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.forms import Form
 
 from core.models import SeasonSettings
 from events.models import Event
-from .models import RegistrationGroup, RegistrationSlot
+from register.decorators import action_form
+from register.payments import refund_payment
+from .models import RegistrationGroup, RegistrationSlot, OnlinePayment
 
 config = SeasonSettings.objects.current_settings()
+logger = logging.getLogger('register')
 
 
 class NoLeagueFilter(SimpleListFilter):
@@ -34,6 +40,21 @@ class LeagueFilter(SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value():
             return queryset.filter(event__id__exact=self.value())
+        else:
+            return queryset
+
+
+class RequiresRegistrationFilter(SimpleListFilter):
+    title = '{} events'.format(config.year)
+    parameter_name = 'event_id'
+
+    def lookups(self, request, model_admin):
+        events = set([c for c in Event.objects.filter(start_date__year=config.year).filter(requires_registration=True)])
+        return [(e.id, '{} ({})'.format(e.name, e.start_date)) for e in sorted(events, key=lambda event: event.start_date)]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(event_id=self.value())
         else:
             return queryset
 
@@ -124,3 +145,57 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
 
 admin.site.register(RegistrationGroup, RegistrationGroupAdmin)
 admin.site.register(RegistrationSlot, RegistrationSlotAdmin)
+
+
+class PostRefundForm(Form):
+    title = 'Refund selected payments'
+    # payments = ModelChoiceField(queryset=OnlinePayment.objects.all())
+
+
+class OnlinePaymentAdmin(admin.ModelAdmin):
+    exclude = ("pkey", "event_id", "signed_up_by_id", "record_id")
+    readonly_fields = ["name", "event_type", "start_date", "first_name", "last_name",
+                       "payment_confirmation_code", "payment_confirmation_timestamp", "payment_amount",
+                       "record_type", "refund_code", "refund_timestamp", "refund_amount", "comment", "refunded_by", ]
+    list_display = ["name", "start_date", "first_name", "last_name", "payment_confirmation_code", "refund_code", ]
+    list_display_links = ["name", ]
+    list_filter = (RequiresRegistrationFilter, "refund_timestamp", )
+    ordering = ["start_date", "last_name", "first_name", ]
+    actions = ["process_refunds", ]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['show_save_and_continue'] = False
+        extra_context['show_save'] = False
+        extra_context['title'] = 'View Payment'
+        return super(OnlinePaymentAdmin, self).changeform_view(request, object_id, extra_context=extra_context)
+
+    def get_actions(self, request):
+        actions = super(OnlinePaymentAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    @action_form(PostRefundForm)
+    def process_refunds(self, request, queryset, form):
+        payments = queryset.values_list("record_id", "record_type", "payment_confirmation_code", "payment_amount", "first_name", "last_name", )
+        success = 0
+        failure = 0
+        for payment in payments:
+            if payment[2].startswith("ch_"):
+                try:
+                    refund_payment(payment[0], payment[1], payment[2], request.user.member, "bulk refund")
+                    success += 1
+                except Exception as e:
+                    logger.exception(e)
+                    failure += 1
+
+        return "{} failures, {} ".format(failure, success)  # "objects updated"
+
+
+admin.site.register(OnlinePayment, OnlinePaymentAdmin)
