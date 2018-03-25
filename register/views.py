@@ -1,3 +1,5 @@
+import logging
+
 from django.db import transaction
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -15,6 +17,8 @@ from .payments import get_stripe_charges, get_stripe_charge
 from .models import RegistrationGroup, RegistrationSlotPayment, RegistrationSlot
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer, RegistrationSlotPaymentSerializer
 from .utils import create_event, register_new, register_update
+
+logger = logging.getLogger('register')
 
 
 @permission_classes((permissions.IsAuthenticated,))

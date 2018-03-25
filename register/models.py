@@ -73,3 +73,45 @@ class RegistrationSlotPayment(models.Model):
     comment = models.CharField(verbose_name="Comment", max_length=200, blank=True)
 
     history = HistoricalRecords()
+
+
+class RegistrationRefund(models.Model):
+    related_record_id = models.IntegerField(verbose_name="Related record id")
+    related_record_name = models.CharField(verbose_name="Related record name", max_length=30)
+    recorded_by = models.ForeignKey(verbose_name="Recorded by", to=Member)
+    refund_code = models.CharField(verbose_name="Refund code", max_length=30)
+    refund_timestamp = models.DateTimeField(verbose_name="Refund timestamp", auto_now=True)
+    refund_amount = models.DecimalField(verbose_name="Refund amount", max_digits=5, decimal_places=2)
+    comment = models.CharField(verbose_name="Comment", max_length=200, blank=True)
+
+    history = HistoricalRecords()
+
+
+class OnlinePayment(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Online Payments"
+        db_table = "online_payment_view"
+        managed = False
+
+    event_id = models.IntegerField(verbose_name="Event Id")
+    name = models.CharField(verbose_name="Event Name", max_length=100)
+    event_type = models.CharField(verbose_name="Event Type", max_length=1)
+    start_date = models.DateField(verbose_name="Start Date")
+    signed_up_by_id = models.IntegerField(verbose_name="Member Id")
+    first_name = models.CharField(verbose_name="Member First Name", max_length=40)
+    last_name = models.CharField(verbose_name="Member Last Name", max_length=60)
+    payment_confirmation_code = models.CharField(verbose_name="Payment Confirmation Code", max_length=30)
+    payment_confirmation_timestamp = models.DateTimeField(verbose_name="Payment Confirmation Timestamp")
+    payment_amount = models.DecimalField(verbose_name="Payment Amount", max_digits=5, decimal_places=2)
+    record_id = models.IntegerField(verbose_name="Record Id")
+    record_type = models.CharField(verbose_name="Record Type", max_length=12)
+    refund_code = models.CharField(verbose_name="Refund Confirmation Code", max_length=12)
+    refund_timestamp = models.DateTimeField(verbose_name="Refund Confirmation Timestamp")
+    refund_amount = models.DecimalField(verbose_name="Refund Amount", max_digits=5, decimal_places=2)
+    comment = models.CharField(verbose_name="Refund Comment", max_length=12)
+    refunded_by = models.CharField(verbose_name="Refunded By", max_length=12)
+    pkey = models.CharField(primary_key=True, max_length=10)
+
+    def __str__(self):
+        return "{} ({}) on {} - {} {}".format(self.name, self.event_type, self.start_date, self.first_name, self.last_name)
