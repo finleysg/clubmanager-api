@@ -16,6 +16,7 @@ EVENT_TYPE_CHOICES = (
     ("S", "State Tournament"),
     ("R", "Open Registration Period"),
     ("D", "Deadline"),
+    ("X", "Canceled"),
 )
 START_TYPE_CHOICES = (
     ("TT", "Tee Times"),
