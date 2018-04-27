@@ -188,7 +188,7 @@ class NonLeagueEvent:
     def reserve(self, registrar, member, slot_ids=None, course_setup_hole_id=None, starting_order=0):
 
         if self.event.registration_maximum != 0:
-            registrations = RegistrationSlot.objects.filter(event=self.event).count()
+            registrations = RegistrationSlot.objects.filter(event=self.event).filter(status="A").count()
             if registrations >= self.event.registration_maximum:
                 raise EventFullError()
 

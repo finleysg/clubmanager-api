@@ -27,6 +27,7 @@ class ClubAdmin(admin.ModelAdmin):
 class SettingsAdmin(admin.ModelAdmin):
     fields = ['year', 'reg_event', 'match_play_event', 'accept_new_members', ]
     list_display = ['year', ]
+    can_delete = False
 
 # Re-register UserAdmin
 admin.site.unregister(User)
