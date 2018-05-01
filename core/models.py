@@ -107,6 +107,11 @@ class Member(models.Model):
     def member_email(self):
         return self.user.email
 
+    def has_email(self):
+        return len(self.user.email) > 0 and \
+               "@" in self.user.email and \
+               not self.user.email.endswith("fake.com")
+
     def age(self):
         my_age = 0
         if self.birth_date:

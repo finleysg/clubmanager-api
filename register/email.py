@@ -218,7 +218,7 @@ def get_fees(registration, event):
 def get_recipients(user, registrations):
     recipients = []
     for reg in registrations:
-        if reg.member is not None:
+        if reg.member is not None and reg.member.has_email():
             if reg.member.id != user.member.id:
                 recipients.append(reg.member.member_email())
 
