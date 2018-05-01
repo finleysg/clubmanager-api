@@ -86,18 +86,21 @@ def register_new(user, event, group_tmp, group, amount_due, payment_code, verifi
             RegistrationSlot.objects.select_for_update().filter(pk=slot_tmp["id"]).update(**{"status": "A"})
 
     # notification and confirmation/welcome emails
-    if group.event == config.reg_event:
-        if user.date_joined.year == config.year:
-            send_new_member_notification(user, group, config)
-            send_new_member_welcome(user, config)
-        else:
-            send_returning_member_welcome(user, config)
+    try:
+        if group.event == config.reg_event:
+            if user.date_joined.year == config.year:
+                send_new_member_notification(user, group, config)
+                send_new_member_welcome(user, config)
+            else:
+                send_returning_member_welcome(user, config)
+                send_has_notes_notification(user, group, event)
+        elif group.event == config.match_play_event:
+            send_event_confirmation(user, group, event, config)
+        elif not is_cash_or_check(payment_code):
+            send_event_confirmation(user, group, event, config)
             send_has_notes_notification(user, group, event)
-    elif group.event == config.match_play_event:
-        send_event_confirmation(user, group, event, config)
-    elif not is_cash_or_check(payment_code):
-        send_event_confirmation(user, group, event, config)
-        send_has_notes_notification(user, group, event)
+    except Exception:
+        logging.exception("failed to send post-registration email(s)")
 
     return RegistrationGroup.objects.get(pk=group.id)
 
