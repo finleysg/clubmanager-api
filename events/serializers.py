@@ -8,7 +8,7 @@ class EventDocumentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Document
-        fields = ("url", "id", "title", "document_type", "file", )
+        fields = ("url", "id", "title", "document_type", "file", "year", )
 
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
