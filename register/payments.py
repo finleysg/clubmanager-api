@@ -12,6 +12,7 @@ def stripe_charge(user, event, amount_due, token):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     member = user.member
     customer_id = ""
+    use_customer_id = True
 
     # scenario: member does not have a stripe customer id
     if (member.stripe_customer_id == "" or member.stripe_customer_id is None) and token != "no-token":
@@ -26,12 +27,14 @@ def stripe_charge(user, event, amount_due, token):
             member.stripe_customer_id = customer.stripe_id
             member.save()
 
-    # scenario: member has stripe customer id but is using a new card
+    # scenario: member has stripe customer id but is not using a saved card
     elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token != "no-token":
-        customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
-        customer.source = token
-        customer.save()
-        customer_id = customer.stripe_id
+
+        use_customer_id = False
+        # customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
+        # customer.source = token
+        # customer.save()
+        # customer_id = customer.stripe_id
 
     # scenario: member has stripe customer id and using existing card (source)
     elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token == "no-token":
@@ -43,7 +46,10 @@ def stripe_charge(user, event, amount_due, token):
 
     # Translate any Stripe error to an ApiException
     try:
-        return create_stripe_charge(user, customer_id, event, amount_due)
+        if use_customer_id:
+            return create_stripe_charge(user, customer_id, event, amount_due)
+        else:
+            return create_new_stripe_charge(user, token, event, amount_due)
     except stripe.error.CardError as e:
         raise StripeCardError(e)
     except stripe.error.RateLimitError as e:
@@ -66,6 +72,27 @@ def create_stripe_charge(user, customer_id, event, amount_due):
         amount=amount_due,
         currency="usd",
         customer=customer_id,
+        receipt_email=user.email,
+        description=charge_description,
+        metadata={
+            "event": event.name,
+            "date": event.start_date.strftime('%Y-%m-%d'),
+            "event_type": event.get_event_type_display(),
+            "member": "{} {}".format(user.first_name, user.last_name),
+            "email": user.email
+        }
+    )
+
+
+# This version uses source - no customer
+def create_new_stripe_charge(user, token, event, amount_due):
+
+    charge_description = "{} ({}): {}".format(event.name, event.get_event_type_display(), event.start_date.strftime('%Y-%m-%d'))
+
+    return stripe.Charge.create(
+        amount=amount_due,
+        currency="usd",
+        source=token,
         receipt_email=user.email,
         description=charge_description,
         metadata={
