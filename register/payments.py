@@ -11,45 +11,20 @@ def stripe_charge(user, event, amount_due, token):
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
     member = user.member
-    customer_id = ""
-    use_customer_id = True
 
-    # scenario: member does not have a stripe customer id
-    if (member.stripe_customer_id == "" or member.stripe_customer_id is None) and token != "no-token":
-        customer = stripe.Customer.create(
-            description=member.member_name(),
-            email=user.email,
-            source=token
-        )
-        customer_id = customer.stripe_id
+    try:
 
-        if member.save_last_card:
-            member.stripe_customer_id = customer.stripe_id
-            member.save()
+        # badly named "save_last_card" == use a saved card
+        if member.save_last_card and member.has_stripe_id() and token == "no-token":
+            return stripe_customer_charge(user, member.stripe_customer_id, event, amount_due)
 
-    # scenario: member has stripe customer id but is not using a saved card
-    elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token != "no-token":
+        elif token != "no-token":
+            return stripe_token_charge(user, token, event, amount_due)
 
-        use_customer_id = False
-        # customer = stripe.Customer.retrieve(id=member.stripe_customer_id)
-        # customer.source = token
-        # customer.save()
-        # customer_id = customer.stripe_id
-
-    # scenario: member has stripe customer id and using existing card (source)
-    elif member.stripe_customer_id != "" and member.stripe_customer_id is not None and token == "no-token":
-        customer_id = member.stripe_customer_id
-
-    # invalid request
-    else:
-        raise ValidationError("Missing stripe id and/or stripe token")
+        else:
+            raise ValidationError("Missing stripe id and/or stripe token")
 
     # Translate any Stripe error to an ApiException
-    try:
-        if use_customer_id:
-            return create_stripe_charge(user, customer_id, event, amount_due)
-        else:
-            return create_new_stripe_charge(user, token, event, amount_due)
     except stripe.error.CardError as e:
         raise StripeCardError(e)
     except stripe.error.RateLimitError as e:
@@ -62,9 +37,12 @@ def stripe_charge(user, event, amount_due, token):
         raise StripePaymentError(e)
     except stripe.error.StripeError as e:
         raise StripePaymentError(e)
+    # TODO: maybe some general payment error with useful messaging
+    # except Exception as ex:
+    #     raise ApiException()
 
 
-def create_stripe_charge(user, customer_id, event, amount_due):
+def stripe_customer_charge(user, customer_id, event, amount_due):
 
     charge_description = "{} ({}): {}".format(event.name, event.get_event_type_display(), event.start_date.strftime('%Y-%m-%d'))
 
@@ -85,7 +63,7 @@ def create_stripe_charge(user, customer_id, event, amount_due):
 
 
 # This version uses source - no customer
-def create_new_stripe_charge(user, token, event, amount_due):
+def stripe_token_charge(user, token, event, amount_due):
 
     charge_description = "{} ({}): {}".format(event.name, event.get_event_type_display(), event.start_date.strftime('%Y-%m-%d'))
 

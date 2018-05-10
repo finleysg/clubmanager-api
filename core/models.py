@@ -112,6 +112,10 @@ class Member(models.Model):
                "@" in self.user.email and \
                not self.user.email.endswith("fake.com")
 
+    def has_stripe_id(self):
+        return self.stripe_customer_id is not None and \
+               self.stripe_customer_id.startswith("cus_")
+
     def age(self):
         my_age = 0
         if self.birth_date:
