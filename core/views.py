@@ -158,7 +158,7 @@ def stripe_details(request):
     """ API endpoint to view the current member's stripe account details
     """
     member = get_object_or_404(Member, pk=request.user.member.id)
-    if member.stripe_customer_id is None or member.stripe_customer_id == "":
+    if not member.save_last_card or not member.has_stripe_id():
         return Response({
             "stripe_id": "",
             "last4": "",
@@ -178,6 +178,28 @@ def stripe_details(request):
         "exp_month": default_source.exp_month,
         "exp_year": default_source.exp_year
     })
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated, ))
+def save_card(request):
+    token = request.data
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    member = request.user.member
+    customer_id = member.stripe_customer_id
+    if not customer_id:
+        customer = stripe.Customer.create(
+            description=member.member_name(),
+            email=request.user.email,
+            source=token
+        )
+        member.stripe_customer_id = customer.stripe_id
+        member.save()
+    else:
+        stripe.Customer.modify(customer_id, source=token)
+
+    return Response(True)
 
 
 @api_view(['GET', ])

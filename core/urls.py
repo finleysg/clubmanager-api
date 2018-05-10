@@ -13,6 +13,7 @@ from documents import views as document_views
 urlpatterns = [
     url(r'^$', core_views.api_root),
     url(r'^stripe/details/$', core_views.stripe_details, name='stripe-details'),
+    url(r'^stripe/card/$', core_views.save_card, name='save-card'),
     url(r'^settings/$', core_views.current_settings, name='current-settings'),
     url(r'^members/$', cache_page(60 * 10)(core_views.MemberList.as_view()), name='member-list'),
     url(r'^members/(?P<pk>[0-9]+)/$', core_views.MemberDetail.as_view(), name='member-detail'),
