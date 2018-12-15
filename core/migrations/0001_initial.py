@@ -90,7 +90,7 @@ class Migration(migrations.Migration):
                 ('ghin', models.CharField(max_length=7)),
                 ('handicap', models.DecimalField(max_digits=3, decimal_places=1)),
                 ('handicap_revision_date', models.DateField()),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
     ]
