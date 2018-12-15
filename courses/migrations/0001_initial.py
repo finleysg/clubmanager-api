@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import django
 from django.db import migrations, models
 
 
@@ -35,7 +36,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('hole_number', models.IntegerField(default=0)),
                 ('handicap', models.IntegerField()),
-                ('course_setup', models.ForeignKey(to='courses.CourseSetup')),
+                ('course_setup', models.ForeignKey(to='courses.CourseSetup', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -47,12 +48,12 @@ class Migration(migrations.Migration):
                 ('par', models.IntegerField(default=0)),
                 ('default_handicap', models.IntegerField()),
                 ('yardage', models.IntegerField()),
-                ('course', models.ForeignKey(to='courses.Course')),
+                ('course', models.ForeignKey(to='courses.Course', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='coursesetuphole',
             name='hole',
-            field=models.ForeignKey(to='courses.Hole'),
+            field=models.ForeignKey(to='courses.Hole', on_delete=django.db.models.deletion.CASCADE),
         ),
     ]

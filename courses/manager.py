@@ -15,4 +15,4 @@ class CourseSetupManager(models.Manager):
             setups.append(self.filter(id=WEST).get())
             setups.append(self.filter(id=NORTH).get())
             setups.append(self.filter(id=EAST).get())
-            event.course_setups = setups
+            event.course_setups.set(setups)

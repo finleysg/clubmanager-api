@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, DO_NOTHING, CASCADE
 from simple_history.models import HistoricalRecords
 
 from courses.manager import CourseSetupManager
@@ -12,11 +12,11 @@ class Course(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.name + ": " + self.description
+        return "{}: {}".format(self.name, self.description)
 
 
 class Hole(models.Model):
-    course = models.ForeignKey(Course, related_name='holes')
+    course = models.ForeignKey(Course, related_name='holes', on_delete=CASCADE)
     default_hole_number = models.IntegerField(default=0)
     tee_name = models.CharField(max_length=12)
     par = models.IntegerField(default=0)
@@ -48,8 +48,8 @@ class CourseSetup(models.Model):
 
 
 class CourseSetupHole(models.Model):
-    course_setup = models.ForeignKey(CourseSetup, related_name='holes')
-    hole = models.ForeignKey(Hole)
+    course_setup = models.ForeignKey(CourseSetup, related_name='holes', on_delete=CASCADE)
+    hole = models.ForeignKey(Hole, on_delete=DO_NOTHING)
     hole_number = models.IntegerField(default=0)
     handicap = models.IntegerField()
 

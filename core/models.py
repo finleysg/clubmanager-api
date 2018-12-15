@@ -1,9 +1,10 @@
 from django.db import models
-from imagekit.models import ImageSpecField
+from django.db.models import CASCADE, DO_NOTHING
+# from imagekit.models import ImageSpecField
 from simple_history.models import HistoricalRecords
 from django.contrib.auth.models import User
-from imagekit import ImageSpec, register
-from imagekit.processors import ResizeToFit
+# from imagekit import ImageSpec, register
+# from imagekit.processors import ResizeToFit
 from datetime import datetime
 from django.conf import settings
 
@@ -11,16 +12,16 @@ from core.manager import SettingsManager
 from events.models import Event
 
 
-class ThumbnailSpec(ImageSpec):
-    format = "JPEG"
-    options = {"quality": 75}
-    processors = [ResizeToFit(64, 64)]
-
-
-class ProfileSpec(ImageSpec):
-    format = "JPEG"
-    options = {"quality": 85}
-    processors = [ResizeToFit(400, 400)]
+# class ThumbnailSpec(ImageSpec):
+#     format = "JPEG"
+#     options = {"quality": 75}
+#     processors = [ResizeToFit(64, 64)]
+#
+#
+# class ProfileSpec(ImageSpec):
+#     format = "JPEG"
+#     options = {"quality": 85}
+#     processors = [ResizeToFit(400, 400)]
 
 
 class Club(models.Model):
@@ -42,8 +43,8 @@ class Club(models.Model):
 
 class SeasonSettings(models.Model):
     year = models.IntegerField(verbose_name="Current golf season")
-    reg_event = models.ForeignKey(verbose_name="Registration event", to=Event, related_name="registration")
-    match_play_event = models.ForeignKey(verbose_name="Match play event", to=Event, related_name="match_play", blank=True, null=True)
+    reg_event = models.ForeignKey(verbose_name="Registration event", to=Event, related_name="registration", on_delete=DO_NOTHING)
+    match_play_event = models.ForeignKey(verbose_name="Match play event", to=Event, related_name="match_play", blank=True, null=True, on_delete=DO_NOTHING)
     accept_new_members = models.BooleanField(verbose_name="Accepting new member registration?", default=False)
     website_version = models.CharField(verbose_name="Website version", max_length=10, blank=True)
 
@@ -70,12 +71,12 @@ class SeasonSettings(models.Model):
     objects = SettingsManager()
 
 
-register.generator('member:image:thumbnail_image', ThumbnailSpec)
-register.generator('member:image:profile_image', ProfileSpec)
+# register.generator('member:image:thumbnail_image', ThumbnailSpec)
+# register.generator('member:image:profile_image', ProfileSpec)
 
 
 class Member(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=CASCADE)
     address1 = models.CharField(verbose_name="Address", max_length=100, blank=True, null=True)
     address2 = models.CharField(verbose_name="Address line 2", max_length=100, blank=True, null=True)
     city = models.CharField(verbose_name="City", max_length=40, blank=True, null=True)
@@ -91,8 +92,8 @@ class Member(models.Model):
     save_last_card = models.BooleanField(verbose_name="Save Last Card Used", default=False)
     stripe_customer_id = models.CharField(verbose_name="Stripe ID", max_length=255, blank=True, null=True)
     raw_image = models.ImageField(verbose_name="Profile picture", upload_to="member_images", blank=True, null=True)
-    thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
-    profile_image = ImageSpecField(source="raw_image", id="member:image:profile_image")
+    # thumbnail_image = ImageSpecField(source="raw_image", id="member:image:thumbnail_image")
+    # profile_image = ImageSpecField(source="raw_image", id="member:image:profile_image")
     favorites = models.ManyToManyField("self", blank=True)
     forward_tees = models.BooleanField(verbose_name="Forward tee player", default=False)
 
