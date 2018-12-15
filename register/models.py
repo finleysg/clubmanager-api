@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import DO_NOTHING, SET_NULL, CASCADE
 from simple_history.models import HistoricalRecords
 
 from events.models import Event
@@ -15,9 +16,9 @@ STATUS_CHOICES = (
 
 
 class RegistrationGroup(models.Model):
-    event = models.ForeignKey(verbose_name="Event", to=Event)
-    course_setup = models.ForeignKey(verbose_name="Course", to=CourseSetup, null=True)
-    signed_up_by = models.ForeignKey(verbose_name="Signed up by", to=Member)
+    event = models.ForeignKey(verbose_name="Event", to=Event, on_delete=CASCADE)
+    course_setup = models.ForeignKey(verbose_name="Course", to=CourseSetup, null=True, on_delete=DO_NOTHING)
+    signed_up_by = models.ForeignKey(verbose_name="Signed up by", to=Member, on_delete=DO_NOTHING)
     expires = models.DateTimeField(verbose_name="Expiration", null=True, blank=True)
     starting_hole = models.IntegerField(verbose_name="Starting hole", blank=True, default=1)
     starting_order = models.IntegerField(verbose_name="Starting order", default=0)
@@ -43,10 +44,11 @@ class RegistrationGroup(models.Model):
 
 
 class RegistrationSlot(models.Model):
-    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="registrations")
-    course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True)
-    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, blank=True, null=True, on_delete=models.SET_NULL, related_name="slots")
-    member = models.ForeignKey(verbose_name="Member", to=Member, blank=True, null=True)
+    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="registrations", on_delete=CASCADE)
+    course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True, on_delete=DO_NOTHING)
+    registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, blank=True, null=True,
+                                           on_delete=SET_NULL, related_name="slots")
+    member = models.ForeignKey(verbose_name="Member", to=Member, blank=True, null=True, on_delete=DO_NOTHING)
     starting_order = models.IntegerField(verbose_name="Starting order", default=0)
     slot = models.IntegerField(verbose_name="Slot number", default=0)
     status = models.CharField(verbose_name="Status", choices=STATUS_CHOICES, max_length=1, default="A")
@@ -64,8 +66,8 @@ class RegistrationSlot(models.Model):
 
 
 class RegistrationSlotPayment(models.Model):
-    registration_slot = models.ForeignKey(verbose_name="Registration", to=RegistrationSlot, related_name="payments")
-    recorded_by = models.ForeignKey(verbose_name="Member", to=Member)
+    registration_slot = models.ForeignKey(verbose_name="Registration", to=RegistrationSlot, related_name="payments", on_delete=DO_NOTHING)
+    recorded_by = models.ForeignKey(verbose_name="Member", to=Member, on_delete=DO_NOTHING)
     card_verification_token = models.CharField(verbose_name="Card verification token", max_length=30, blank=True)
     payment_code = models.CharField(verbose_name="Payment code", max_length=30, blank=True)
     payment_timestamp = models.DateTimeField(verbose_name="Payment timestamp", auto_now=True)
@@ -78,7 +80,7 @@ class RegistrationSlotPayment(models.Model):
 class RegistrationRefund(models.Model):
     related_record_id = models.IntegerField(verbose_name="Related record id")
     related_record_name = models.CharField(verbose_name="Related record name", max_length=30)
-    recorded_by = models.ForeignKey(verbose_name="Recorded by", to=Member)
+    recorded_by = models.ForeignKey(verbose_name="Recorded by", to=Member, on_delete=DO_NOTHING)
     refund_code = models.CharField(verbose_name="Refund code", max_length=30)
     refund_timestamp = models.DateTimeField(verbose_name="Refund timestamp", auto_now=True)
     refund_amount = models.DecimalField(verbose_name="Refund amount", max_digits=5, decimal_places=2)
