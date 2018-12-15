@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import DO_NOTHING
 from simple_history.models import HistoricalRecords
 from django.utils import timezone
 from datetime import datetime
@@ -61,7 +62,7 @@ class EventTemplate(models.Model):
 
 class Event(models.Model):
     # From the template
-    template = models.ForeignKey(to=EventTemplate)
+    template = models.ForeignKey(to=EventTemplate, on_delete=DO_NOTHING)
     event_type = models.CharField(verbose_name="Event type", choices=EVENT_TYPE_CHOICES, max_length=1, default="L")
     name = models.CharField(verbose_name="Event title", max_length=100)
     description = models.TextField(verbose_name="Format and rules")

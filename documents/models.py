@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import DO_NOTHING
 from simple_history.models import HistoricalRecords
 from events.models import Event
 
@@ -47,7 +48,7 @@ class Document(models.Model):
     title = models.CharField(verbose_name="Title", max_length=120)
     file = models.FileField(verbose_name="File", upload_to=document_directory_path)
     last_update = models.DateTimeField(auto_now=True)
-    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="documents", blank=True, null=True)
+    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="documents", blank=True, null=True, on_delete=DO_NOTHING)
 
     history = HistoricalRecords()
 
@@ -61,7 +62,7 @@ class Photo(models.Model):
     title = models.CharField(verbose_name="Title", max_length=120)
     file = models.ImageField(verbose_name="Image", upload_to=photo_directory_path)
     last_update = models.DateTimeField(auto_now=True)
-    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="pictures", blank=True, null=True)
+    event = models.ForeignKey(verbose_name="Event", to=Event, related_name="pictures", blank=True, null=True, on_delete=DO_NOTHING)
 
     history = HistoricalRecords()
 

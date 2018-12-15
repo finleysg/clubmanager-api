@@ -7,10 +7,10 @@ from .models import RegistrationGroup, RegistrationSlot, RegistrationSlotPayment
 
 class RegistrationSlotSerializer(serializers.ModelSerializer):
     member = SimpleMemberSerializer()
-    course = serializers.CharField(source="course_setup_hole.course_setup.name")
-    course_setup_id = serializers.CharField(source="course_setup_hole.course_setup.id")
-    hole_number = serializers.IntegerField(source="course_setup_hole.hole_number")
-    hole_id = serializers.IntegerField(source="course_setup_hole.id")
+    course = serializers.CharField(source="course_setup_hole.course_setup.name", required=False, default="")
+    course_setup_id = serializers.CharField(source="course_setup_hole.course_setup.id", required=False, default="")
+    hole_number = serializers.IntegerField(source="course_setup_hole.hole_number", required=False, default=0)
+    hole_id = serializers.IntegerField(source="course_setup_hole.id", required=False, default=0)
 
     class Meta:
         model = RegistrationSlot
