@@ -18,10 +18,10 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
-# from wiki.urls import get_pattern as get_wiki_patterns
-# from django_nyt.urls import get_pattern as get_nyt_patterns
-#
-# from core import urls as api_urls
+from wiki.urls import get_pattern as get_wiki_patterns
+from django_nyt.urls import get_pattern as get_nyt_patterns
+
+from core import urls as api_urls
 
 admin.site.site_header = "Bunker Hills Men's Club Administration"
 
@@ -34,8 +34,8 @@ urlpatterns = [
     url(r'^member/reset-password-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         TemplateView.as_view(template_name="password_reset_confirm.html"),
         name='password_reset_confirm'),
-    # url(r'^notifications/', get_nyt_patterns()),
-    url(r'^wiki/', include('wiki.urls')),
+    url(r'^notifications/', get_nyt_patterns()),
+    url(r'^wiki/', get_wiki_patterns()),
     url(r'^login/$', admin.site.login, name='login'),
 ]
 
