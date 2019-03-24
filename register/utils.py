@@ -46,6 +46,19 @@ def can_update_registration(event, user):
     return padded_now <= skins_end
 
 
+def calculate_refund(reg):
+    amount = reg.event.event_fee * 100
+    if reg.is_greens_fee_paid:
+        amount += reg.event.green_fee * 100
+    if reg.is_cart_fee_paid:
+        amount += reg.event.cart_fee * 100
+    if reg.is_gross_skins_paid:
+        amount += reg.event.skins_fee * 100
+    if reg.is_net_skins_paid:
+        amount += reg.event.skins_fee * 100
+    return amount
+
+
 def register_new(user, event, group_tmp, group, amount_due, payment_code, verification_token):
     if is_cash_or_check(payment_code):
         group.payment_confirmation_code = payment_code

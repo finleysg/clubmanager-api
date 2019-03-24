@@ -35,3 +35,4 @@ db-backup.sh
 update_passwords.py
 
 list/
+venv/

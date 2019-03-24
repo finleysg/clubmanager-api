@@ -124,14 +124,17 @@ def get_stripe_charge(charge_id):
     return stripe.Charge.retrieve(charge_id)
 
 
-def refund_stripe_charge(charge):
+def refund_stripe_charge(charge, amount):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    return stripe.Charge.refund(charge)
+    if not amount or amount == 0:
+        return stripe.Charge.refund(charge)  # full refund
+    else:
+        return stripe.Charge.refund(charge, amount)
 
 
-def refund_payment(record_id, record_type, payment_code, member, reason):
+def refund_payment(record_id, record_type, payment_code, amount, member, reason):
     charge = get_stripe_charge(payment_code)
-    refund = refund_stripe_charge(charge)
+    refund = refund_stripe_charge(charge, amount)
     refund_record = RegistrationRefund(related_record_id=record_id, related_record_name=record_type,
                                        recorded_by=member, refund_code=refund.stripe_id, refund_amount=refund.amount / 100,
                                        comment=reason)
