@@ -13,10 +13,10 @@ from rest_framework.serializers import ValidationError
 from courses.models import CourseSetupHole
 from core.models import Member
 from events.models import Event
-from .payments import get_stripe_charges, get_stripe_charge
+from .payments import get_stripe_charges, get_stripe_charge, refund_payment
 from .models import RegistrationGroup, RegistrationSlotPayment, RegistrationSlot
 from .serializers import RegistrationSlotSerializer, RegistrationGroupSerializer, RegistrationSlotPaymentSerializer
-from .utils import create_event, register_new, register_update
+from .utils import create_event, register_new, register_update, calculate_refund
 
 logger = logging.getLogger('register')
 
@@ -180,6 +180,75 @@ def register(request):
 
     serializer = RegistrationGroupSerializer(group, context={'request': request})
     return Response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
+def drop(request):
+
+    slot_id = request.data.get("slot_id", None)
+    refund = request.data.get("refund", False)
+    if slot_id is None:
+        raise ValidationError("A registration slot id is required")
+
+    slot = RegistrationSlot.objects.get(pk=slot_id)
+
+    if refund:
+        group = slot.registration_group
+        admin = request.user.member
+        amount = calculate_refund(slot)
+        logger.info("refund for {} to {} by {}".format(amount, group.signed_up_by, admin))
+        refund_payment(group.id, "group-payment", group.payment_confirmation_code, amount, admin,
+                       "admin approved refund")
+
+    slot.registration_group = None
+    slot.member = None
+    slot.status = "A"
+    slot.is_event_fee_paid = False
+    slot.is_greens_fee_paid = False
+    slot.is_cart_fee_paid = False
+    slot.is_gross_skins_paid = False
+    slot.is_net_skins_paid = False
+    slot.save()
+
+    return Response(status=204)
+
+
+@api_view(['POST', ])
+@permission_classes((permissions.IsAuthenticated,))
+@transaction.atomic()
+def move(request):
+
+    from_slot_id = request.data.get("from", None)
+    to_slot_id = request.data.get("to", None)
+    if from_slot_id is None or to_slot_id is None:
+        raise ValidationError("Both from and to slots are required")
+
+    origin = RegistrationSlot.objects.get(pk=from_slot_id)
+    destination = RegistrationSlot.objects.get(pk=to_slot_id)
+
+    destination.registration_group = origin.registration_group
+    destination.member = origin.member
+    destination.status = "R"
+    destination.is_event_fee_paid = origin.is_event_fee_paid
+    destination.is_greens_fee_paid = origin.is_greens_fee_paid
+    destination.is_cart_fee_paid = origin.is_cart_fee_paid
+    destination.is_gross_skins_paid = origin.is_gross_skins_paid
+    destination.is_net_skins_paid = origin.is_net_skins_paid
+    destination.save()
+
+    origin.registration_group = None
+    origin.member = None
+    origin.status = "A"
+    origin.is_event_fee_paid = False
+    origin.is_greens_fee_paid = False
+    origin.is_cart_fee_paid = False
+    origin.is_gross_skins_paid = False
+    origin.is_net_skins_paid = False
+    origin.save()
+
+    return Response(status=204)
 
 
 @api_view(['POST', ])

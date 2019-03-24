@@ -48,3 +48,10 @@ class EventTemplateSerializer(serializers.HyperlinkedModelSerializer):
                   "minimum_signup_group_size", "maximum_signup_group_size", "group_size", "start_type",
                   "can_signup_group", "can_choose_hole", "external_url", "alt_event_fee", "green_fee", "cart_fee",
                   "notes", "event_type", "skins_type", "season_points", "requires_registration", )
+
+
+class SimpleEventSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ("id", "name", "description", "event_type", "start_date", "start_time", )

@@ -189,7 +189,8 @@ class OnlinePaymentAdmin(admin.ModelAdmin):
         for payment in payments:
             if payment[2].startswith("ch_"):
                 try:
-                    refund_payment(payment[0], payment[1], payment[2], request.user.member, "bulk refund")
+                    # 0 or None amount == full refund
+                    refund_payment(payment[0], payment[1], payment[2], 0, request.user.member, "bulk refund")
                     success += 1
                 except Exception as e:
                     logger.exception(e)
