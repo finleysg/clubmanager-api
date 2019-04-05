@@ -10,7 +10,7 @@ class DocumentDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ("id", "year", "title", "document_type", "file", "event", "last_update", )
+        fields = ("id", "year", "title", "document_type", "file", "event", "last_update", "display_flag", )
 
     def create(self, validated_data):
         event = validated_data.get('event', None)
@@ -18,8 +18,9 @@ class DocumentDetailSerializer(serializers.ModelSerializer):
         title = validated_data.pop('title')
         document_type = validated_data.pop('document_type')
         file = validated_data.pop('file')
+        display_flag = validated_data.get('display_flag', False)
 
-        doc = Document(year=year, title=title, document_type=document_type, file=file, event=event)
+        doc = Document(year=year, title=title, document_type=document_type, file=file, event=event, display_flag=display_flag)
         doc.save()
         return doc
 
@@ -29,6 +30,7 @@ class DocumentDetailSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.year = validated_data.get('year', instance.year)
         instance.event = validated_data.get('event', instance.event)
+        instance.display_flag = validated_data.get('display_flag', instance.display_flag)
         instance.save()
 
         return instance
@@ -40,7 +42,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ("year", "id", "title", "document_type", "file", "last_update", "event")
+        fields = ("year", "id", "title", "document_type", "file", "last_update", "event", "display_flag", )
 
 
 class PhotoDetailSerializer(serializers.ModelSerializer):
