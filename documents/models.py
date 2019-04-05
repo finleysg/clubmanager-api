@@ -49,6 +49,7 @@ class Document(models.Model):
     file = models.FileField(verbose_name="File", upload_to=document_directory_path)
     last_update = models.DateTimeField(auto_now=True)
     event = models.ForeignKey(verbose_name="Event", to=Event, related_name="documents", blank=True, null=True, on_delete=DO_NOTHING)
+    display_flag = models.BooleanField(verbose_name="Show on the Website", default=False)
 
     history = HistoricalRecords()
 
