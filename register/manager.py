@@ -1,4 +1,5 @@
-from datetime import datetime
+from django.utils import timezone
+# from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Max
@@ -8,7 +9,7 @@ from courses.models import CourseSetupHole
 class RegistrationGroupManager(models.Manager):
 
     def clean_up_expired(self):
-        groups = self.filter(expires__lt=datetime.now()).filter(payment_confirmation_code="")
+        groups = self.filter(expires__lt=timezone.now()).filter(payment_confirmation_code="")
         count = len(groups)
 
         for group in groups:
@@ -29,7 +30,7 @@ class RegistrationSlotManager(models.Manager):
 
     def is_registered(self, event_id, member_id):
         try:
-            self.filter(event__id=event_id).filter(member__id=member_id).get()
+            self.filter(event__id=event_id).filter(member__id=member_id).filter(status='R').get()
             return True
         except ObjectDoesNotExist:
             return False
