@@ -78,13 +78,14 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
             'fields': (('event', 'signed_up_by', ), )
         }),
         ('Payment Information', {
-            'fields': ('payment_amount', 'payment_confirmation_code', 'payment_confirmation_timestamp', )
+            'fields': ('payment_amount', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'expires', )
         }),
         ('Notes', {
             'fields': ('notes', )
         })
     )
     inlines = [RegistrationSlotInline, ]
+    readonly_fields = ["expires", ]
 
     list_display = ['id', 'signed_up_by', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
@@ -176,10 +177,10 @@ class OnlinePaymentAdmin(admin.ModelAdmin):
         extra_context['title'] = 'View Payment'
         return super(OnlinePaymentAdmin, self).changeform_view(request, object_id, extra_context=extra_context)
 
-    def get_actions(self, request):
-        actions = super(OnlinePaymentAdmin, self).get_actions(request)
-        del actions['delete_selected']
-        return actions
+    # def get_actions(self, request):
+    #     actions = super(OnlinePaymentAdmin, self).get_actions(request)
+    #     del actions['delete_selected']
+    #     return actions
 
     @action_form(PostRefundForm)
     def process_refunds(self, request, queryset, form):

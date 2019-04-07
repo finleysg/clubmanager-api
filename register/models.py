@@ -45,7 +45,7 @@ class RegistrationGroup(models.Model):
 
 class RegistrationSlot(models.Model):
     event = models.ForeignKey(verbose_name="Event", to=Event, related_name="registrations", on_delete=CASCADE)
-    course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True, on_delete=DO_NOTHING)
+    course_setup_hole = models.ForeignKey(verbose_name="Hole", to=CourseSetupHole, null=True, blank=True, on_delete=DO_NOTHING)
     registration_group = models.ForeignKey(verbose_name="Group", to=RegistrationGroup, blank=True, null=True,
                                            on_delete=SET_NULL, related_name="slots")
     member = models.ForeignKey(verbose_name="Member", to=Member, blank=True, null=True, on_delete=DO_NOTHING)
@@ -66,7 +66,8 @@ class RegistrationSlot(models.Model):
 
 
 class RegistrationSlotPayment(models.Model):
-    registration_slot = models.ForeignKey(verbose_name="Registration", to=RegistrationSlot, related_name="payments", on_delete=DO_NOTHING)
+    registration_slot = models.ForeignKey(verbose_name="Registration", to=RegistrationSlot, related_name="payments",
+                                          null=True, blank=True, on_delete=SET_NULL)
     recorded_by = models.ForeignKey(verbose_name="Member", to=Member, on_delete=DO_NOTHING)
     card_verification_token = models.CharField(verbose_name="Card verification token", max_length=30, blank=True)
     payment_code = models.CharField(verbose_name="Payment code", max_length=30, blank=True)
