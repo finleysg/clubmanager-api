@@ -12,7 +12,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'raven.contrib.django.raven_compat',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
