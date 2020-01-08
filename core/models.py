@@ -83,7 +83,7 @@ class Member(models.Model):
     state = models.CharField(verbose_name="State", max_length=20, blank=True, null=True)
     zip = models.CharField(verbose_name="Zip Code", max_length=10, blank=True, null=True)
     phone_number = models.CharField(verbose_name="Phone number", max_length=20, blank=True, null=True)
-    ghin = models.CharField(verbose_name="GHIN", max_length=7, blank=True, null=True)
+    ghin = models.CharField(verbose_name="GHIN", max_length=8, blank=True, null=True)
     handicap = models.DecimalField(verbose_name="Handicap index", max_digits=3, decimal_places=1, blank=True, null=True)
     handicap_revision_date = models.DateField(verbose_name="Handicap revision date", blank=True, null=True)
     birth_date = models.DateField(verbose_name="Birth date", blank=True, null=True)
