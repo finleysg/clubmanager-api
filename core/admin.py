@@ -11,12 +11,14 @@ class MemberInline(admin.StackedInline):
     model = Member
     can_delete = False
     verbose_name_plural = 'member'
-    fields = ["ghin", "birth_date", "forward_tees", 'address1', 'city', 'state', 'zip', 'phone_number']
+    fields = ["ghin", "birth_date", "forward_tees", 'address1', 'city', 'state', 'zip', 'phone_number', 'stripe_customer_id']
 
 
 # Define a new User admin
 class BhmcUserAdmin(UserAdmin):
     inlines = (MemberInline, )
+    list_display = ["email", "first_name", "last_name", "is_active", ]
+    list_editable = ["is_active", ]
     save_on_top = True
 
 

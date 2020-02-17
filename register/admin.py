@@ -66,6 +66,10 @@ class RegistrationSlotInline(admin.TabularInline):
     verbose_name_plural = 'Signed up'
     fields = ["member", "is_event_fee_paid", "is_gross_skins_paid", "is_net_skins_paid", "is_greens_fee_paid",
               "is_cart_fee_paid", ]
+    # raw_id_fields = ("member", )
+    # autocomplete_lookup_fields = {
+    #     "fk": ["member", ]
+    # }
 
 
 class RegistrationGroupAdmin(admin.ModelAdmin):
@@ -90,9 +94,14 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'signed_up_by', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
     list_display_links = ('id', )
     list_select_related = ('signed_up_by', 'event', )
+    date_hierarchy = "event__start_date"
     ordering = ['signed_up_by']
     # search_fields = ['user__email']
     list_filter = (NoLeagueFilter, )
+    # raw_id_fields = ("event", )
+    # autocomplete_lookup_fields = {
+    #     "fk": ["event", ]
+    # }
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == "event":
@@ -136,6 +145,7 @@ class RegistrationSlotAdmin(admin.ModelAdmin):
     list_display_links = ("id", )
     list_filter = (LeagueFilter, )
     list_select_related = ('member', 'course_setup_hole', )
+    date_hierarchy = "event__start_date"
     search_fields = ("member__user__first_name", "member__user__last_name")
 
     def get_form(self, request, obj=None, **kwargs):

@@ -6,9 +6,11 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = (
+    "django.contrib.contenttypes",
+    "grappelli.dashboard",
+    "grappelli",
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -114,6 +116,10 @@ MARKDOWNIFY_WHITELIST_TAGS = [
 
 WIKI_ACCOUNT_HANDLING = False
 WIKI_ACCOUNT_SIGNUP_ALLOWED = False
+
+GRAPPELLI_ADMIN_TITLE = "Bunker Hills Men's Club Administration"
+GRAPPELLI_ADMIN_URL = "/admin/"
+GRAPPELLI_INDEX_DASHBOARD = "dashboard.CustomIndexDashboard"
 
 LANGUAGE_CODE = 'en-us'
 

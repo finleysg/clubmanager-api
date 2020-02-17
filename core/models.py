@@ -135,3 +135,7 @@ class Member(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ["user__last_name__icontains", "user__first_name__icontains", ]

@@ -59,6 +59,10 @@ class EventTemplate(models.Model):
     def __str__(self):
         return "({}) {}".format(self.event_type, self.name)
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", )
+
 
 class Event(models.Model):
     # From the template
@@ -126,4 +130,8 @@ class Event(models.Model):
                 raise ValueError('The signup start must be earlier than signup end')
 
     def __str__(self):
-        return self.name
+        return "{} {}".format(self.start_date, self.name)
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains", )

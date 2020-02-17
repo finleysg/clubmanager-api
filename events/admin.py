@@ -83,10 +83,12 @@ class EventAdmin(admin.ModelAdmin):
         return obj.get_event_type_display()
 
     event_type_display.short_description = "Event Type"
-    list_display = ['name', 'start_date', 'event_type_display']
+    date_hierarchy = "start_date"
+    list_display = ['name', 'start_date', 'event_type_display', ]
     list_display_links = ('name',)
-    list_filter = ("start_date", "event_type")
-    ordering = ['start_date']
+    list_filter = ("event_type",)
+    ordering = ['start_date', ]
+    search_fields = ["name", ]
     save_on_top = True
 
 

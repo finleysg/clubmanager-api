@@ -29,6 +29,7 @@ urlpatterns = [
     url(r"^", include("web.urls")),
     url(r"^admin/", admin.site.urls),
     url(r"^api/", include("core.urls")),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     # this url is used to generate a password reset email
     url(r'^member/reset-password-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
