@@ -7,8 +7,7 @@ class SettingsManager(models.Manager):
         return self.latest('year')
 
 
-# class MemberManager(models.Manager):
-#
-#     def current_members(self):
-#         ss = SeasonSettings.objects.current_settings()
-#         self.select_related()
+class MemberManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('user')

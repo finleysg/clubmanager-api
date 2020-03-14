@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.conf import settings
 
-from core.manager import SettingsManager
+from core.manager import SettingsManager, MemberManager
 from events.models import Event
 
 
@@ -97,10 +97,12 @@ class Member(models.Model):
     favorites = models.ManyToManyField("self", blank=True)
     forward_tees = models.BooleanField(verbose_name="Forward tee player", default=False)
 
+    objects = MemberManager()
     history = HistoricalRecords()
 
     class Meta:
         ordering = ('user__last_name', 'user__first_name')
+        base_manager_name = 'objects'
 
     def member_name(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)

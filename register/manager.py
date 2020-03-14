@@ -28,6 +28,9 @@ class RegistrationGroupManager(models.Manager):
 
 class RegistrationSlotManager(models.Manager):
 
+    def get_queryset(self):
+        return super().get_queryset().select_related('member', 'member__user')
+
     def is_registered(self, event_id, member_id):
         try:
             self.filter(event__id=event_id).filter(member__id=member_id).filter(status='R').get()

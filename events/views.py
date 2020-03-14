@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import ValidationError
@@ -36,8 +37,8 @@ class QuickEventList(generics.ListAPIView):
         today = datetime.today()
         start_date = today + timedelta(days=-7)
         end_date = today + timedelta(days=14)
-        return Event.objects.all()\
-            .filter(start_date__lte=end_date, start_date__gt=start_date) \
+        queryset = Event.objects.all()
+        return queryset.filter(start_date__lte=end_date, start_date__gt=start_date) \
             .exclude(event_type="B") \
             .exclude(event_type="R") \
             .exclude(event_type="S") \
@@ -56,15 +57,17 @@ class UpcomingEventList(generics.ListAPIView):
 
 
 class EventDetail(generics.RetrieveDestroyAPIView):
-    """ API endpoint to edit Clubs
-    """
-    queryset = Event.objects.all()
+
     serializer_class = EventDetailSerializer
+
+    def get_queryset(self):
+        # Set up eager loading to avoid N+1 selects
+        queryset = Event.objects.all()
+        queryset.prefetch_related('registrations', 'documents')
+        return queryset
 
 
 class EventTemplateList(generics.ListCreateAPIView):
-    """ API endpoint to view Events
-    """
     queryset = EventTemplate.objects.all()
     serializer_class = EventTemplateSerializer
 
