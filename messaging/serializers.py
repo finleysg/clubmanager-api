@@ -8,16 +8,12 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 
     event = SimpleEventSerializer(required=False)
     document = DocumentSerializer(required=False)
-    # event_id = serializers.CharField(source="event.id")
-    # event_name = serializers.CharField(source="event.name")
-    # document_name = serializers.CharField(source="document.title")
-    # document_url = serializers.CharField(source="document.file.url")
 
     class Meta:
         model = Announcement
         fields = ("url", "id", "text", "starts", "expires",
                   "event", "document", "external_url", "external_name",
-                  "title", 'members_only', )
+                  "title", 'visibility', )
 
 
 class ContactSerializer(serializers.ModelSerializer):

@@ -5,7 +5,7 @@ from .models import Announcement, ContactMessage, Contact
 class AnnouncementAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            "fields": ("title", "text", "starts", "expires", "members_only", )
+            "fields": ("title", "text", "starts", "expires", "visibility", )
         }),
         ("Link to an event or document (optional)", {
             "fields": ("event", "document", )
@@ -17,6 +17,7 @@ class AnnouncementAdmin(admin.ModelAdmin):
     list_display = ["starts", "expires", "title", ]
     list_filter = ("starts", )
     save_on_top = True
+
 
 admin.site.register(Announcement, AnnouncementAdmin)
 
@@ -33,6 +34,7 @@ class ContactAdmin(admin.ModelAdmin):
     )
     save_on_top = True
 
+
 admin.site.register(Contact, ContactAdmin)
 
 
@@ -48,5 +50,6 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ["full_name", "message_date", ]
     list_filter = ("message_date", )
     save_on_top = True
+
 
 admin.site.register(ContactMessage, ContactMessageAdmin)
