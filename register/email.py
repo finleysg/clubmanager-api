@@ -152,12 +152,12 @@ def get_starting_hole(event, group):
                 return '{} 3:18 pm'.format(course_name)
             else:
                 return '{} 3:27 pm'.format(course_name)
-        elif group.starting_hole == 2:
+        elif group.starting_hole == 3:
             if group.starting_order == 0:
                 return '{} 3:36 pm'.format(course_name)
             else:
                 return '{} 3:45 pm'.format(course_name)
-        elif group.starting_hole == 3:
+        elif group.starting_hole == 4:
             if group.starting_order == 0:
                 return '{} 3:54 pm'.format(course_name)
             else:
