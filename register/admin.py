@@ -91,7 +91,7 @@ class RegistrationGroupAdmin(admin.ModelAdmin):
     inlines = [RegistrationSlotInline, ]
     readonly_fields = ["expires", ]
 
-    list_display = ['id', 'signed_up_by', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', ]
+    list_display = ['id', 'signed_up_by', 'members', 'payment_confirmation_code', 'payment_confirmation_timestamp', 'event', 'notes', ]
     list_display_links = ('id', )
     list_select_related = ('signed_up_by', 'event', )
     date_hierarchy = "event__start_date"
