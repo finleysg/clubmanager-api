@@ -144,6 +144,58 @@ def get_starting_hole(event, group):
         course_name = group.course_setup.name.replace(' League', '')
         if group.starting_hole == 1:
             if group.starting_order == 0:
+                return '{} 4:30 pm'.format(course_name)
+            else:
+                return '{} 4:39 pm'.format(course_name)
+        elif group.starting_hole == 2:
+            if group.starting_order == 0:
+                return '{} 4:48 pm'.format(course_name)
+            else:
+                return '{} 4:57 pm'.format(course_name)
+        elif group.starting_hole == 3:
+            if group.starting_order == 0:
+                return '{} 5:06 pm'.format(course_name)
+            else:
+                return '{} 5:15 pm'.format(course_name)
+        elif group.starting_hole == 4:
+            if group.starting_order == 0:
+                return '{} 5:24 pm'.format(course_name)
+            else:
+                return '{} 5:33 pm'.format(course_name)
+        elif group.starting_hole == 5:
+            if group.starting_order == 0:
+                return '{} 5:42 pm'.format(course_name)
+            else:
+                return '{} 5:51 pm'.format(course_name)
+        elif group.starting_hole == 6:
+            if group.starting_order == 0:
+                return '{} 6:00 pm'.format(course_name)
+            else:
+                return '{} 6:09 pm'.format(course_name)
+        elif group.starting_hole == 7:
+            if group.starting_order == 0:
+                return '{} 6:18 pm'.format(course_name)
+            else:
+                return '{} 6:27 pm'.format(course_name)
+        elif group.starting_hole == 8:
+            if group.starting_order == 0:
+                return '{} 6:36 pm'.format(course_name)
+            else:
+                return '{} 6:45 pm'.format(course_name)
+        elif group.starting_hole == 9:
+            if group.starting_order == 0:
+                return '{} 6:54 pm'.format(course_name)
+            else:
+                return '{} 7:03 pm'.format(course_name)
+
+    return 'Tee times'
+
+
+def zzget_starting_hole(event, group):
+    if event.event_type == 'L':
+        course_name = group.course_setup.name.replace(' League', '')
+        if group.starting_hole == 1:
+            if group.starting_order == 0:
                 return '{} 3:00 pm'.format(course_name)
             else:
                 return '{} 3:09 pm'.format(course_name)
